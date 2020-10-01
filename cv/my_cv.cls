@@ -26,7 +26,12 @@
   \centerline{%
     \makebox[0pt][c]{%
       #1 {\large\textperiodcentered} 
-      #2 {\large\textperiodcentered} 
+      #2  
+    }%
+  }%
+  \vspace{5px}
+  \centerline{%
+    \makebox[0pt][c]{%
       #3 {\large\textperiodcentered} 
       #4 {\large\textperiodcentered}
       #5%
