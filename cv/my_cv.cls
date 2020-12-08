@@ -8,18 +8,18 @@
 \titleformat{\section}         % Customise the \section command 
 % Make the \section headers large (\Large),
 % small capitals (\scshape) and left aligned (\raggedright)
-  {\Large\scshape\raggedright\bfseries} 
+  {\large\scshape\raggedright\bfseries} 
   {}{0em}                      % Can be used to give a prefix to all sections, like 'Section ...'
   {}                           % Can be used to insert code before the heading
   [\titlerule]                 % Inserts a horizontal line after the heading
 
 \titleformat{\subsection}
-  {\large\scshape\raggedright}
+  {\med\scshape\raggedright}
   {}{0em}
   {}
 %==============================================================================
 \newcommand{\name}[1]{%
-  \centerline{\LARGE{#1}}
+  \centerline{\Large{#1}}
 }
 %==============================================================================
 \newcommand\contact[5]{%
