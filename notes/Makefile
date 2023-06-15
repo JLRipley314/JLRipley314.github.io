@@ -7,3 +7,10 @@ np:
 	bibtex   $(npf)
 	latex    $(npf).tex
 	pdflatex $(npf).tex
+
+sph=spherical_perturbations
+sp:
+	latex    $(sph).tex
+	bibtex   $(sph)
+	latex    $(sph).tex
+	pdflatex $(sph).tex

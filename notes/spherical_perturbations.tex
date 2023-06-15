@@ -1,0 +1,3175 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GHP derivatives in math mode 
+\newcommand{\spindersphere}{{}_s\slashed{\Delta}}
+\newcommand{\edth}{\textnormal{\dh}}
+\newcommand{\Thorn}{\textnormal{\th}}
+\newcommand{\Edth}{\textnormal{\DH}}
+\newcommand{\mathTH}{\textnormal{\TH}}
+\newcommand{\firstorder}[1]{\dot{#1}}
+\newcommand{\secondorder}[1]{\ddot{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% to make overbar (for complex conjugate) easier to read from a distance
+\newcommand*\oline[1]{%
+   \vbox{%
+     \hrule height 1pt%                  % Line above with certain width
+     \kern0.25ex%                          % Distance between line and content
+     \hbox{%
+       \ifmmode#1\else\ensuremath{#1}\fi%  % The content, typeset in dependence of mode
+     }
+   }
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{empheq}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand{\justin}[1]{{\textbf{#1}} }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{mathalfa,amssymb}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{slashed}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{braket}
+\usepackage[hidelinks]{hyperref}
+
+\allowdisplaybreaks
+
+\begin{document}
+
+\title{
+{Notes on perturbations of spherically symmetric spacetimes}\\
+}
+\author{Justin L. Ripley 
+   \\ \small{lloydripley[at]gmail[dot]com}
+   }
+\date{\today}
+
+\maketitle
+
+\abstract{We start by reviewing the Einstein equations in spherical
+   symmetry. We then write down the perturbed Einstein equations about a
+   spherically symmetric background.
+   This is mostly a review of a covariant framework for the spherical
+   decomposition of tensors \cite{Martel:2003ab,Martel:2005ir,Gundlach:1999bt,Martin-Garcia:2000cgm}.
+   These notes are essentially an outgrowth of notes for the paper
+   \cite{Ripley:2017kqg}.
+   Please let me know if you find any typos/errors!
+}
+%==============================================================================
+%\allowdisplaybreaks
+%\tableofcontents
+%==============================================================================
+\chapter{General equations of motion}
+
+Our notation generally follows \cite{Wald:1984rg}. For a textbook discussion
+of relativistic fluids, see \cite{Rezzolla-Book}.
+We consider the Einstein equations coupled to fluid matter 
+\begin{align}
+    E^{(g)}_{\alpha\beta}
+    \equiv
+    R_{\alpha\beta}
+    -
+    \frac{1}{2}g_{\alpha\beta}R
+    &=
+    \kappa T_{\alpha\beta}
+    ,\\
+    \nabla_{\alpha}T^{\alpha\beta}
+    &=
+    0
+    ,\\
+    E^{(g)}
+    \equiv
+    \nabla_{\alpha}J^{\alpha}
+    &=
+    0
+    .
+\end{align}
+Here $T_{\alpha\beta}$ is the stress-energy tensor, and $J^{\alpha}$ is the fluid current. 
+
+We decompose the stress-energy tensor in terms of
+the fluid velocity vector $u^{\alpha}$, 
+which is a unit timelike vector ($u^{\alpha}u_{\alpha}=-1$):
+\begin{align}
+    T^{\alpha\beta}
+    &=
+    \mathcal{E}u^{\alpha}u^{\beta}
+    +
+    \mathcal{P}\Delta^{\alpha\beta}
+    +
+    \left(\mathcal{Q}^{\alpha}u^{\beta} + \mathcal{Q}^{\beta}u^{\alpha}\right)
+    +
+    \mathcal{T}^{\alpha\beta}
+    ,\\
+    J^{\alpha}
+    &=
+    \mathcal{N}u^{\alpha}
+    +
+    \mathcal{J}^{\alpha}
+    ,
+\end{align}
+where $\mathcal{E}$, $\mathcal{P}$, and $\mathcal{N}$ are scalars,
+$\mathcal{Q}^{\alpha}$, $\mathcal{J}^{\alpha}$ are vectors transverse to $u^{\alpha}$
+(for example $u_{\alpha}\mathcal{Q}^{\alpha}=0$),
+and $\mathcal{T}^{\alpha\beta}$ is a symmetric transverse-traceless tensor
+with respect to $u^{\alpha}$ (that is $u_{\alpha}\mathcal{T}^{\alpha\beta}=\mathcal{T}^{\alpha}{}_{\alpha}=0$,
+and
+\begin{align}
+   \Delta^{\alpha\beta}
+   \equiv
+   g^{\alpha\beta}
+   +
+   u^{\alpha}u^{\beta}
+   ,
+\end{align}
+projects onto the space transverse to $u^{\alpha}$.
+More specifically, for a $d$ dimensional spacetime
+(we work in $d=4$ spacetime dimensions) we have
+\begin{subequations}
+\begin{align}
+   \mathcal{E}
+   &\equiv
+    u_{\alpha}u_{\beta}T^{\alpha\beta}
+   ,\\
+   \mathcal{P}
+   &\equiv 
+   \frac{1}{d-1}\Delta_{\alpha\beta}T^{\alpha\beta}
+   ,\\
+   \mathcal{Q}_{\alpha}
+   &\equiv
+   -
+    \Delta_{\alpha\beta}u_{\gamma}T^{\beta\gamma}
+   ,\\
+   \mathcal{N}
+   &\equiv
+   -
+    u_{\gamma}J^{\gamma}
+   ,\\
+   \mathcal{J}_{\alpha}
+   &\equiv
+   \Delta_{\alpha\beta}J^{\beta}
+   ,\\
+   \mathcal{T}^{\alpha\beta}
+   &\equiv
+   T^{\left<\alpha\beta\right>}
+   ,
+\end{align}
+\end{subequations}
+where the angle brackets of a tensor is defined to be
+the symmetric transverse-traceless part of the tensor
+\begin{align}
+   X^{\left<\alpha\beta\right>}
+   &\equiv
+   \frac{1}{2}\left(
+      \Delta^{\alpha\gamma}\Delta^{\beta\delta}
+      \left(X_{\gamma\delta} + X_{\delta\gamma}\right)
+      -
+      \frac{2}{d-1}\Delta^{\alpha\beta}
+      \Delta^{\gamma\delta}X_{\gamma\delta}
+   \right)
+   .
+\end{align}
+So far we have only given a general decomposition of the stress-energy
+tensor with respect to a timelike unit vector $u^{\alpha}$.
+Specifying a specific fluid theory requires specifying 
+\emph{constitutive relations} for the quantities 
+$\mathcal{E}$, ..., $\mathcal{T}^{\alpha\beta}$. 
+It's worth noting that the trace of the stress-energy tensor is
+\begin{align}
+    T
+    =
+    -
+    \mathcal{E}
+    +
+    3\mathcal{P}
+    ,
+\end{align}
+that is, the heat flux and shear do not contribute to the trace.
+The conservation equation $\nabla_{\alpha}T^{\alpha\beta}=0$ can be split into 
+a part parallel to $u^{\beta}$ and perpendicular to $u^{\beta}$ 
+(the relativistic generalizations of the continuity and
+Euler-Navier-Stokes equations):
+\begin{align}
+    u^{\alpha}\nabla_{\alpha}\mathcal{E}
+    +
+    \left(\mathcal{E} + \mathcal{P}\right)\nabla_{\alpha}u^{\alpha}
+    +
+    \nabla_{\alpha}\mathcal{Q}^{\alpha}
+    -
+    u_{\gamma}u^{\alpha}\nabla_{\alpha}\mathcal{Q}^{\gamma}
+    -
+    u_{\gamma}\nabla_{\alpha}\mathcal{T}^{\alpha\gamma}
+    &=
+    0
+    ,\\
+    \left(\mathcal{E} + \mathcal{P}\right)u^{\alpha}\nabla_{\alpha}u^{\beta}
+    +
+    \mathcal{Q}^{\alpha}\nabla_{\alpha}u^{\beta}
+    +
+    \mathcal{Q}^{\beta}\nabla_{\alpha}u^{\alpha}
+    +
+    \Delta^{\alpha\beta}\nabla_{\alpha}\mathcal{P}
+    \qquad
+    &\nonumber\\
+    +
+    \Delta^{\beta}{}_{\gamma}u^{\alpha}\nabla_{\alpha}\mathcal{Q}^{\gamma}
+    +
+    \Delta^{\beta}{}_{\gamma}\nabla_{\alpha}\mathcal{T}^{\alpha\gamma}
+    &=
+    0
+    .
+\end{align}
+The conservation of the current, $\nabla_{\alpha}J^{\alpha}=0$, can be written as
+\begin{align}
+   u^{\alpha}\nabla_{\alpha}\mathcal{N}
+   +
+   \mathcal{N}\nabla_{\alpha}u^{\alpha}
+   +
+   \nabla_{\alpha}\mathcal{J}^{\alpha}
+   =
+   0
+   .
+\end{align}
+
+We consider perturbations of non-rotating neutron star solutions, that
+is perturbations of the Einstein-fluid system:
+\begin{align}
+   \delta \left(
+        R_{\alpha\beta} 
+        - 
+        \kappa 
+        \left(
+            T_{\alpha\beta}
+            -
+            \frac{1}{2}g_{\alpha\beta}T
+        \right)
+    \right) 
+   &= 
+   0 
+   ,\\
+   \delta \left(\nabla_{\alpha}T^{\alpha\beta}\right)
+   &=
+   0
+   ,\\
+   \delta\left(\nabla_{\alpha}J^{\alpha}\right)
+   &=
+   0
+   .
+\end{align}
+
+As we are perturbing about a spherically symmetric background,
+we can decompose linear perturbations according to how they transform
+under rotations (irreducible components of the rotation group).
+We consider perturbations of the metric $\delta g_{\alpha\beta}$, 
+and Eulerian perturbations $\delta u^{\alpha}$ of the fluid velocity.
+
+%===========================================================================
+\section{Perturbation of the Ricci tensor\label{eq:pert_ricci_tensor}}
+We start with the well-known identities \cite{Wald:1984rg} 
+\begin{align}
+    \label{eq:general_pert_riemann_tensor}
+    \delta R^{\alpha}{}_{\gamma\beta\delta}
+    &=
+    \nabla_{\beta}\delta\Gamma^{\alpha}_{\delta\gamma}
+    -
+    \nabla_{\delta}\delta\Gamma^{\alpha}_{\beta\gamma}
+    ,\\
+    \label{eq:general_pert_christoffel_symbol}
+    \delta \Gamma^{\gamma}_{\alpha\beta}
+    &=
+    \frac{1}{2}g^{\gamma\delta}
+    \left(
+        \nabla_{\alpha}\delta g_{\delta\beta}
+        +
+        \nabla_{\beta}\delta g_{\delta\alpha}
+        -
+        \nabla_{\delta}\delta g_{\alpha\beta}
+    \right)
+    .
+\end{align}
+We then have
+\begin{align}
+    \delta R_{\alpha\beta}
+    =&
+    \nabla_{\gamma}\delta\Gamma^{\gamma}_{\alpha\beta}
+    -
+    \nabla_{\beta}\delta\Gamma^{\gamma}_{\alpha\gamma}
+    \nonumber\\
+    =&
+    -
+    \frac{1}{2}g^{\gamma\delta}
+    \nabla_{\gamma}\nabla_{\delta}\delta g_{\alpha\beta}
+    +
+    \frac{1}{2}g^{\gamma\delta}
+    \left(
+        \nabla_{\alpha}\nabla_{\gamma}\delta g_{\delta\beta}
+        +
+        \nabla_{\beta}\nabla_{\delta}\delta g_{\alpha\gamma}
+        -
+        \nabla_{\beta}\nabla_{\alpha}\delta g_{\delta\gamma}
+    \right)
+    \nonumber\\
+    &
+    +
+    \frac{1}{2}g^{\gamma\delta}
+    \left[\nabla_{\gamma},\nabla_{\beta}\right]\delta g_{\delta\alpha}
+    +
+    \frac{1}{2}g^{\gamma\delta}
+    \left[\nabla_{\gamma},\nabla_{\alpha}\right]\delta g_{\delta\beta}
+    \nonumber\\
+    =&
+    -
+    \frac{1}{2}g^{\gamma\delta}
+    \nabla_{\gamma}\nabla_{\delta}\delta g_{\alpha\beta}
+    +
+    \nabla_{(\alpha}v_{\beta)}
+    -
+    R_{\alpha}{}^{\gamma}{}_{\beta}{}^{\delta}\delta g_{\gamma\delta}
+    +
+    R^{\gamma}{}_{(\alpha}\delta g_{\beta)\gamma}
+    ,
+\end{align}
+where we have defined
+\begin{align}
+    \label{eq:linear_v_vector}
+    \boxed{
+        v_{\mu}
+        \equiv
+        g^{\gamma\delta}
+        \left(
+            \nabla_{\gamma}\delta g_{\delta \mu}
+            -
+            \frac{1}{2}\nabla_{\mu}\delta g_{\gamma\delta}
+        \right)
+        =
+        g^{\gamma\delta} \delta \Gamma_{\mu\gamma\delta}
+        .
+    }
+\end{align}
+Putting everything together, we have
+\begin{align}
+    \label{eq:general_pert_Ricci_tensor}
+    \boxed{
+        \delta R_{\alpha\beta}
+        =
+        -
+        \frac{1}{2}g^{\gamma\delta}
+        \nabla_{\gamma}\nabla_{\delta}\delta g_{\alpha\beta}
+        -
+        R_{\alpha}{}^{\gamma}{}_{\beta}{}^{\delta}\delta g_{\gamma\delta}
+        +
+        R^{\gamma}{}_{(\alpha}\delta g_{\beta)\gamma}
+        +
+        \nabla_{(\alpha}v_{\beta)}
+    }
+\end{align}
+Some authors define the Lichnerowicz wave operator
+\begin{align}
+    \label{eq:Lich_wav_op}
+    \Box_L \delta g_{\alpha\beta}
+    \equiv
+    -
+    \frac{1}{2}g^{\gamma\delta}
+    \nabla_{\gamma}\nabla_{\delta}\delta g_{\alpha\beta}
+    -
+    R_{\alpha}{}^{\gamma}{}_{\beta}{}^{\delta}\delta g_{\gamma\delta}
+    +
+    R^{\gamma}{}_{(\alpha}\delta g_{\beta)\gamma}
+    .
+\end{align}
+The term $\nabla_{(\alpha}v_{\beta)}$ can be thought as 
+describing pure gauge fluctuations in the linearized Einstein equations.
+We see the linearized Einstein equations essentially take the
+form of a system of linear wave equations for the components
+of $\delta g_{\alpha\beta}$.
+%===========================================================================
+\chapter{Spherically symmetric spacetime decomposition}
+
+\section{Spherically symmetric spacetime}
+The metric for a spherically symmetric spacetime can generally be split
+into the form (for a review see \cite{Abreu:2010ru})
+\begin{align}
+    \label{eq:general_spherical_sym_metric}
+    \boxed{
+        ds^2
+        =
+        \alpha_{ab}dx^adx^b
+        +
+        r^2\Omega_{AB}d\theta^Ad\theta^B
+        ,
+    }
+\end{align}
+where $r$ (the areal radius) depends on the coordinates $x^a$
+(e.g. $x^a=(t,r)$ in Schwarzschild-like coordinates).
+Here $\Omega_{AB}$ is the metric for the unit two-sphere.
+We define the metric compatible derivative for $\alpha_{ab}$ with $D_a$,
+and the metric compatible derivative for $\Omega_{AB}$ with $D_A$.
+The Ricci scalar for $\alpha_{ab}$ is $\mathcal{R}$, and the
+Ricci scalar for $\Omega_{AB}$ is $2$.
+We raise/lower lower case Latin indices with $\alpha_{ab}/\alpha^{ab}$, 
+and raise/lower upper case Latin indices with $\Omega_{AB}/\Omega^{AB}$.
+We define $r_a\equiv D_ar$, $r_{ab}\equiv D_aD_br$, and so on.
+We denote the Lie derivative with respect to a vector $\xi^{\mu}$ with
+$\mathcal{L}_{\xi}$.
+
+The nonzero Christoffel symbol components are
+\begin{subequations}
+\label{eq:chr_sym_spherical_sym}
+\begin{align}
+    \Gamma^c_{ab}
+    &=
+    {}^{(2)}\Gamma^c_{ab}
+    ,\\
+    \Gamma^c_{AB}
+    &=
+    -
+    \Omega_{AB} r r^c
+    ,\\
+    \Gamma^C_{aB}
+    &=
+    \delta^C_B\frac{1}{r}r_a
+    ,\\
+    \Gamma^C_{AB}
+    &=
+    {}^{(2)}\Gamma^C_{AB}
+    .
+\end{align}
+\end{subequations}
+
+The nonzero components of the Riemann and Ricci tensors, along
+with the Ricci scalar, are 
+\begin{subequations}
+\label{eq:riemann_ricci_spherical_sym}
+\begin{align}
+    R_{abcd}
+    &=
+    \frac{1}{2}
+    \mathcal{R}
+    \left(
+        \alpha_{ac}\alpha_{bd}
+        -
+        \alpha_{ad}\alpha_{bc}
+    \right)
+    ,\\
+    R_{aAbB}
+    &=
+    -
+    r
+    r_{ab}
+    \Omega_{AB}
+    ,\\
+    R_{ABCD}
+    &=
+    \left(
+        1
+        -
+        r_ar^a
+    \right)
+    r^2
+    \left(
+        \Omega_{AC}\Omega_{BD}
+        -
+        \Omega_{AD}\Omega_{BC}
+    \right)
+    ,\\
+    R_{ab}
+    &=
+    \frac{1}{2}\mathcal{R}\alpha_{ab}
+    -
+    \frac{2}{r}r_{ab}
+    ,\\
+    R_{AB}
+    &=
+    \left(
+        1
+        -
+        r_ar^a 
+        -
+        r r_a^a
+    \right)
+    \Omega_{AB}
+    ,\\
+    R
+    &=
+    \mathcal{R}
+    -
+    \frac{4}{r}r_c^c
+    +
+    \frac{2}{r^2}\left(1-r_ar^a\right)
+    .
+\end{align}
+\end{subequations}
+
+The covariant Misner-Sharp mass $m$ is defined by
+\begin{align}
+\label{eq:covariant_ms}
+    \boxed{
+        1
+        -
+        \frac{2m}{r}
+        \equiv
+        D_arD^ar
+        .
+    }
+\end{align}
+
+The spherically symmetric stress-energy tensor can be written as
+\begin{align}
+    T_{\alpha\beta}dx^{\alpha}dx^{\beta}
+    =
+    T_{ab}dx^adx^b
+    +
+    T_2 r^2\Omega_{AB}d\theta^Ad\theta^B
+    .
+\end{align}
+Making use of the fluid-decomposition of the stress-energy tensor,
+we can also write this as
+\begin{empheq}[box=\widefbox]{align}
+    T_{\alpha\beta}dx^{\alpha}dx^{\beta}
+    =&
+    \left(
+        \mathcal{E}u_au_b
+        +
+        \left(
+            \mathcal{P}
+            +
+            \mathcal{T}
+        \right)
+        \Delta_{ab}
+        +
+        \mathcal{Q}_au_b
+        +
+        \mathcal{Q}_bu_a
+    \right)
+    dx^adx^b
+    \nonumber\\
+    &
+    +
+    \left(
+        \mathcal{P}
+        -
+        \frac{1}{2}\mathcal{T}
+    \right)
+    r^2\Omega_{AB}d\theta^Ad\theta^B
+    ,
+\end{empheq}
+where $\Delta_{ab}\equiv u_au_b+\alpha_{ab}$.
+Generally we can include a shear term in
+spherical symmetry, although it is not present in perfect fluids.
+With this, the spherical decomposition of the 
+spherically symmetric Einstein equations are
+\begin{align}
+    \frac{2}{r}\left(
+        \alpha_{ab}r_c^c
+        -
+        r_{ab} 
+    \right)
+    -
+    \frac{1}{r^2}\left(1 - r_cr^c\right)\alpha_{ab}
+    &=
+    \kappa\left(
+        \left(
+            \mathcal{E} 
+            + 
+            \mathcal{P}
+            +
+            \mathcal{T}
+        \right)
+        u_au_b
+        +
+        \mathcal{P}\alpha_{ab}
+        +
+        \mathcal{Q}_au_b
+        +
+        \mathcal{Q}_au_b
+    \right)
+    \\
+    \frac{1}{r}r_c^c
+    -
+    \frac{1}{2}\mathcal{R}
+    &=
+    \kappa 
+    \left(
+        \mathcal{P}
+        -
+        \frac{1}{2}\mathcal{T}
+    \right)
+    .
+\end{align}
+
+The spherical decomposition of the fluid equations are
+\begin{align}
+    u^aD_a\mathcal{E}
+    +
+    \left(\mathcal{E} 
+    + 
+    \mathcal{P}\right)\frac{1}{r^2}D_a\left(r^2u^a\right)
+    +
+    \frac{1}{r^2}D_a\left(r^2\mathcal{Q}^a\right)
+    +
+    u_bu^aD_a\mathcal{Q}^b
+    &=
+    0
+    ,\\
+    u^aD_au^b
+    +
+    Q^aD_au^b
+    +
+    Q^b\frac{1}{r^2}D_a\left(r^2u^a\right)
+    +
+    \Delta^{ab}D_a\mathcal{P}
+    +
+    \Delta^b_cu^aD_a\mathcal{Q}^c
+    &=
+    0
+    .
+\end{align}
+
+The spherical decomposition of the conservation of the current is
+\begin{align}
+    u^aD_a\mathcal{N}
+    +
+    \mathcal{N}\frac{1}{r^2}D_a\left(r^2 u^a\right)
+    +
+    \frac{1}{r^2}D_a\left(r^2\mathcal{J}^a\right)
+    =
+    0
+    .
+\end{align}
+
+%===========================================================================
+\section{Perturbation of a spherically symmetric spacetime
+\label{sec:pert_spherically_symmetric_spacetime}}
+
+Following \cite{Martel:2005ir}, we consider linear perturbations of
+a spherically symmetric metric
+\begin{align}
+    ds^2 
+    =
+    \left(\alpha_{ab} + p_{ab}\right)dx^adx^b
+    +
+    2 p_{aA}dx^ad\theta^A
+    +
+    \left(
+        r^2
+        \Omega_{AB}
+        +
+        p_{AB}
+    \right)
+    d\theta^Ad\theta^B
+    .
+\end{align}
+The inverse metric to linear order is
+\begin{subequations}
+\begin{align}
+    g^{ab}
+    =&
+    \alpha^{ab}
+    -
+    p^{ab}
+    ,\\
+    g^{aB}
+    =&
+    -
+    \frac{1}{r^2}p^{aB}
+    ,\\
+    g^{AB}
+    =&
+    \frac{1}{r^2}\Omega^{AB}
+    -
+    \frac{1}{r^4}p^{AB}
+    .
+\end{align}
+\end{subequations}
+The perturbations decomposed with respect to irreducible representations
+of the rotation group are
+\begin{subequations}
+\begin{align}
+    p_{ab}
+    =&
+    \sum_{\ell,m} \left[h^m_{\ell}\right]_{ab} Y^m_{\ell}
+    ,\\
+    p_{aA}
+    =&
+    \sum_{\ell,m} \left(
+        \left[j^m_{\ell}\right]_a \left[E^m_{\ell}\right]_A 
+        +
+        \left[h^m_{\ell}\right]_a \left[S^m_{\ell}\right]_A
+    \right)
+    ,\\
+    p_{AB}
+    =&
+    \sum_{\ell,m} \left(
+        r^2\left[k^m_{\ell}\right]\Omega_{AB} Y^m_{\ell}
+        +
+        r^2\left[g^m_{\ell}\right]\left[Z^m_{\ell}\right]_{AB}
+        +
+        \left[h^m_{\ell}\right]_2 \left[S^m_{\ell}\right]_{AB}
+    \right)
+    .
+\end{align}
+\end{subequations}
+
+We next review how to construct gauge-invariant linear perturbations
+in the spherical harmonic decomposition \cite{Martel:2005ir}.
+Consider linear gauge transformations
+\begin{align}
+    g^{\prime}_{\alpha\beta}
+    &= 
+    g_{\alpha\beta}
+    -
+    \mathcal{L}_{\Xi}g_{\alpha\beta}
+    \nonumber\\
+    &= 
+    g_{\alpha\beta}
+    -
+    \nabla_{\alpha}\Xi_{\beta}
+    -
+    \nabla_{\beta}\Xi_{\alpha}
+    .
+\end{align}
+We decompose the gauge transformation vector as
+\begin{subequations}
+\begin{align}
+    \Xi_a
+    &=
+    \sum_{\ell,m} \left[\xi^m_{\ell}\right]_a Y^m_{\ell}
+    \\
+    \Xi_A
+    &=
+    \sum_{\ell,m}\left(
+        \left[\xi^m_{\ell}\right]_+ \left[E^m_{\ell}\right]_A
+        +
+        \left[\xi^m_{\ell}\right]_- \left[S^m_{\ell}\right]_A
+    \right)
+    .
+\end{align}
+\end{subequations}
+
+The components of the linearized metric transform as 
+\begin{subequations}
+\begin{align}
+    \left[h^m_{\ell}\right]^{\prime}_{ab}
+    =&
+    \left[h^m_{\ell}\right]_{ab}
+    -
+    D_a\left[\xi^m_{\ell}\right]_b
+    -
+    D_b\left[\xi^m_{\ell}\right]_a
+    \\
+    \left[j^m_{\ell}\right]^{\prime}_a
+    =&
+    \left[j^m_{\ell}\right]_a
+    -
+    \left[\xi^m_{\ell}\right]_a
+    -
+    D_a\left[\xi^m_{\ell}\right]_+
+    +
+    \frac{2}{r}r_a\left[\xi^m_{\ell}\right]_+
+    ,\\
+    \left[k^m_{\ell}\right]^{\prime}
+    =&
+    \left[k^m_{\ell}\right]
+    +
+    \frac{\ell\left(\ell+1\right)}{r^2}\left[\xi^m_{\ell}\right]_+
+    -
+    \frac{2}{r}r^a\left[\xi^m_{\ell}\right]_a
+    ,\\
+    \left[g^m_{\ell}\right]^{\prime}
+    =&
+    \left[g^m_{\ell}\right]
+    -
+    \frac{2}{r^2}\left[\xi^m_{\ell}\right]_+
+    ,\\
+    \left[h^m_{\ell}\right]_a^{\prime}
+    =&
+    \left[h^m_{\ell}\right]_a
+    -
+    D_a\left[\xi^m_{\ell}\right]_-
+    +
+    \frac{2}{r}r_a\left[\xi^m_{\ell}\right]_-
+    ,\\
+    \left[h^m_{\ell}\right]^{\prime}_2
+    =&
+    \left[h^m_{\ell}\right]_2
+    -
+    2\left[\xi^m_{\ell}\right]_-
+    .
+\end{align}
+\end{subequations}
+Gauge-invariant combinations of these variables are
+\begin{align}
+    \left[\tilde{h}^m_{\ell}\right]_{ab}
+    \equiv&
+    \left[h^m_{\ell}\right]_{ab}
+    -
+    D_a\left[\varepsilon^m_{\ell}\right]_b
+    -
+    D_b\left[\varepsilon^m_{\ell}\right]_a
+    ,\\
+    \left[\tilde{k}^m_{\ell}\right]
+    \equiv&
+    \left[k^m_{\ell}\right]
+    +
+    \frac{1}{2}\ell\left(\ell+1\right)\left[g^m_{\ell}\right]
+    -
+    \frac{2}{r}r^a\left[\varepsilon^m_{\ell}\right]_a
+    ,\\
+    \left[\tilde{h}^m_{\ell}\right]_a
+    \equiv&
+    \left[h^m_{\ell}\right]_a
+    -
+    \frac{1}{2}D_a\left[h^m_{\ell}\right]_2
+    +
+    \frac{1}{r}r_a\left[h^m_{\ell}\right]_2
+    .
+\end{align}
+where
+\begin{align}
+    \left[\varepsilon^m_{\ell}\right]_a
+    \equiv
+    \left[j^m_{\ell}\right]_a
+    -
+    \frac{1}{2}r^2\left[g^m_{\ell}\right]
+    .
+\end{align}
+In the Regge-Wheeler gauge \cite{Regge:1957td,1967ApJ...149..591T}
+\begin{align}
+\label{eq:regge_wheeler_gauge}
+    \boxed{
+        \left[j^m_{\ell}\right]_a
+        =
+        \left[g^m_{\ell}\right]
+        =
+        \left[h^m_{\ell}\right]_2
+        =
+        0
+        .
+    }
+\end{align}
+In this gauge we see that 
+\begin{align}
+\label{eq_regge_wheeler_gauge_invar}
+    \boxed{
+        \left[\tilde{h}^m_{\ell}\right]_{ab}
+        = 
+        \left[h^m_{\ell}\right]_{ab}
+        ,\qquad
+        \left[\tilde{k}^m_{\ell}\right]
+        =
+        \left[k^m_{\ell}\right]
+        ,\qquad
+        \left[\tilde{h}^m_{\ell}\right]_a
+        =
+        \left[h^m_{\ell}\right]_a
+        .
+    }
+\end{align}
+We can then derive the polar and axial equations of motion in Regge-Wheeler
+gauge, and then make those equations gauge invariant
+by promoting 
+$\left[h^m_{\ell}\right]_{ab}\to\left[\tilde{h}^m_{\ell}\right]_{ab}$,
+$\left[k^m_{\ell}\right]\to\left[\tilde{k}^m_{\ell}\right]$,
+and
+$\left[h^m_{\ell}\right]_a\to\left[\tilde{h}^m_{\ell}\right]_a$ 
+\cite{Martel:2005ir}.
+
+Similarly to how we decompose the perturbations of the spacetime metric, 
+we can decompose the perturbations of the stress-energy tensor
+\begin{align}
+    T^{\alpha}_{\beta}dx^{\beta}\partial_{\alpha}
+    =
+    \left(
+        T^{a}_{b} + P^{a}_{b}
+    \right)
+    dx^b\partial_a
+    +
+    P^{a}_{B}d\theta^B\partial_a
+    +
+    P^{A}_{b}d\theta^b\partial_A
+    +
+    \left(
+        \delta^A_B\mathcal{P}
+        +
+        P^{A}_{B}
+    \right)
+    d\theta^B\partial_A
+    ,
+\end{align}
+and set
+\begin{subequations}
+\begin{align}
+    P^a_b
+    =&
+    \sum_{\ell,m} \left[H^m_{\ell}\right]^a_{b} Y^m_{\ell}
+    ,\\
+    P^a_B
+    =&
+    \sum_{\ell,m} \left(
+        \left[J^m_{\ell}\right]^a \left[E^m_{\ell}\right]_B 
+        +
+        \left[H^m_{\ell}\right]^a \left[S^m_{\ell}\right]_B
+    \right)
+    ,\\
+    P^A_b
+    =&
+    \frac{1}{r^2}\Omega^{AC}\alpha_{bc}P^{c}_{C}
+    ,\\
+    P^A_{B}
+    =&
+    \sum_{\ell,m} \left(
+        \left[K^m_{\ell}\right]\delta^A_B Y^m_{\ell}
+        +
+        \left[G^m_{\ell}\right]\left[Z^m_{\ell}\right]^A_{B}
+        +
+        \frac{1}{r^2}\left[H^m_{\ell}\right]_2 \left[S^m_{\ell}\right]^A_{B}
+    \right)
+    .
+\end{align}
+\end{subequations}
+
+Under linear gauge transformations, we have
+\begin{align}
+    \left(T^{\prime}\right)^{\alpha}_{\beta}
+    =&
+    T^{\alpha}_{\beta}
+    -
+    \mathcal{L}_{\Xi}T^{\alpha}_{\beta}
+    \nonumber\\
+    =&
+    T^{\alpha}_{\beta}
+    -
+    \Xi^{\gamma}\nabla_{\gamma}T^{\alpha}_{\beta}
+    +
+    T^{\gamma}_{\beta}\nabla_{\gamma}\Xi^{\alpha}
+    -
+    T^{\alpha}_{\gamma}\nabla_{\beta}\Xi^{\gamma}
+    .
+\end{align}
+If $T_{\alpha\beta}=0$ on the background, then the linearized
+stress-energy tensor perturbations are gauge invariant. 
+That is not generally the case for us, though.
+In general we have
+\begin{subequations}
+\begin{align}
+    \left(\left[H^m_{\ell}\right]^{\prime}\right)^a_{b}
+    =&
+    \left[H^m_{\ell}\right]^a_{b}
+    -
+    \left[\xi^m_{\ell}\right]^cD_cT^a_{b}
+    +
+    T^{c}_{b}D_c\left[\xi^m_{\ell}\right]^a
+    -
+    T^{a}_{c}D_b\left[\xi^m_{\ell}\right]^c
+    \\
+    \left(\left[J^m_{\ell}\right]^{\prime}\right)^a
+    =&
+    \left[J^m_{\ell}\right]^a
+    +
+    \mathcal{P}\left[\xi^m_{\ell}\right]^a 
+    -
+    T^a_c\left[\xi^m_{\ell}\right]^c 
+    ,\\
+    \left[K^m_{\ell}\right]^{\prime}
+    =&
+    \left[K^m_{\ell}\right]
+    -
+    \left[\xi^m_{\ell}\right]^cD_c\mathcal{P}
+    ,\\
+    \left[G^m_{\ell}\right]^{\prime}
+    =&
+    \left[G^m_{\ell}\right]
+    ,\\
+    \left(\left[H^m_{\ell}\right]^{\prime}\right)^a
+    =&
+    \left[H^m_{\ell}\right]^a
+    ,\\
+    \left[H^m_{\ell}\right]^{\prime}_2
+    =&
+    \left[H^m_{\ell}\right]_2
+    .
+\end{align}
+\end{subequations}
+%-----------------------------------------------------------------------------
+\subsection{Perturbation of the Christoffel symbols}
+To compute the linearized equations of motion, we need
+the perturbed Christoffel symbol components.
+Using standard formulas \cite{Wald:1984rg}, we have
+\begin{align}
+    \delta \Gamma^{\gamma}_{\alpha\beta}
+    =&
+    \frac{1}{2}g^{\gamma\delta}\left(
+        \nabla_{\alpha}\delta g_{\delta\beta}
+        +
+        \nabla_{\beta}\delta g_{\delta\alpha}
+        -
+        \nabla_{\delta}\delta g_{\alpha\beta}
+    \right)
+    \nonumber\\
+    =&
+    \frac{1}{2}g^{\gamma\delta}\left(
+        \partial_{\alpha}\delta g_{\delta\beta}
+        +
+        \partial_{\beta}\delta g_{\delta\alpha}
+        -
+        \partial_{\delta}\delta g_{\alpha\beta}
+    \right)
+    -
+    g^{\gamma\delta}\Gamma^{\rho}_{\alpha\beta}
+    \delta g_{\delta\rho}
+    .
+\end{align}
+We then have
+\begin{align}
+    \delta\Gamma^c_{ab}
+    =&
+    \frac{1}{2}\alpha^{cd}
+    \left(
+        \partial_ap_{db}
+        +
+        \partial_bp_{da}
+        -
+        \partial_dp_{ab}
+    \right)
+    -
+    \alpha^{cd}\Gamma^{\rho}_{ab}p_{d\rho}
+    \nonumber\\
+    =&
+    C^c_{ab}
+    ,\\
+    \delta\Gamma^C_{ab}
+    =&
+    \frac{1}{2}\frac{1}{r^2}\Omega^{CD}
+    \left(
+        \partial_ap_{Db}
+        +
+        \partial_bp_{Da}
+        -
+        \partial_Dp_{ab}
+    \right)
+    -
+    \frac{1}{r^2}\Omega^{CD}\Gamma^{\rho}_{ab}p_{D\rho}
+    \nonumber\\
+    =&
+    \frac{1}{2}\frac{1}{r^2}
+    \left(
+        D_ap^C_b
+        +
+        D_bp^C_a
+        -
+        D^Cp_{ab}
+    \right)
+    ,\\
+    \delta\Gamma^c_{Ab}
+    =&
+    \frac{1}{2}\alpha^{cd}
+    \left(
+        \partial_Ap_{db}
+        +
+        \partial_bp_{dA}
+        -
+        \partial_dp_{Ab}
+    \right)
+    -
+    \alpha^{cd}\Gamma^{\rho}_{Ab}p_{d\rho}
+    \nonumber \\
+    =&
+    \frac{1}{2}
+    \left(
+        D_Ap^c_b
+        +
+        D_bp^c_A
+        -
+        D^cp_{bA}
+    \right)
+    -
+    \left(\frac{1}{r}D_br\right) p^c_A
+    ,\\
+    \delta\Gamma^c_{AB}
+    =&
+    \frac{1}{2}\alpha^{cd}
+    \left(
+        \partial_Ap_{dB}
+        +
+        \partial_Bp_{dA}
+        -
+        \partial_dp_{AB}
+    \right)
+    -
+    \alpha^{cd}\Gamma^{\rho}_{AB}p_{d\rho}
+    \nonumber\\
+    =&
+    \frac{1}{2}
+    \left(
+        D_Ap^c_B
+        +
+        D_Bp^c_A
+        -
+        D^cp_{AB}
+    \right)
+    +
+    \Omega_{AB}\left(rD_dr\right)p^{cd}
+    ,\\
+    \delta\Gamma^C_{Ab}
+    =&
+    \frac{1}{2}\frac{1}{r^2}\Omega^{CD}
+    \left(
+        \partial_Ap_{Db}
+        +
+        \partial_bp_{DA}
+        -
+        \partial_Dp_{Ab}
+    \right)
+    -
+    \frac{1}{r^2}\Omega^{CD}\Gamma^{\rho}_{Ab}p_{D\rho}
+    \nonumber\\
+    =&
+    \frac{1}{2}\frac{1}{r^2}
+    \left(
+        D_Ap^C_b
+        +
+        D_bp^C_A
+        -
+        D^Cp_{Ab}
+    \right)
+    -
+    \left(\frac{1}{r^3}D_br\right)p^C_A
+    ,\\
+    \delta\Gamma^C_{AB}
+    =&
+    \frac{1}{r^2}\Omega^{CD}
+    \left(
+        \partial_Ap_{DB}
+        +
+        \partial_Bp_{DA}
+        -
+        \partial_Dp_{AB}
+    \right)
+    -
+    \frac{1}{r^2}\Omega^{CD}\Gamma^{\rho}_{AB}p_{D\rho}
+    \nonumber\\
+    =&
+    \frac{1}{r^2}C^C_{AB}
+    +
+    \left(\frac{1}{r}D_pr\right)\Omega_{AB}p^{Cp}
+    ,
+h\end{align}
+where we have defined
+\begin{align}
+    C^c_{ab}
+    \equiv&
+    \frac{1}{2}\alpha^{cd}
+    \left(
+        D_ap_{db}
+        +
+        D_bp_{da}
+        -
+        D_dp_{ab}
+    \right)
+    \nonumber\\
+    C^C_{AB}
+    \equiv&
+    \frac{1}{2}\Omega^{CD}
+    \left(
+        D_Ap_{DB}
+        +
+        D_Bp_{DA}
+        -
+        D_Dp_{AB}
+    \right)
+    .
+\end{align}
+Notice that we raise/lowered the capital Latin indices with
+the metric $\Omega^{AB}$/$\Omega_{AB}$, without any factors of $r$.
+
+%===========================================================================
+\section{Perturbation of the stress-energy tensor and conserved vector 
+about spherical symmetry\label{sec:pert_stress_energy_tensor_ss}}
+
+We consider linear perturbations about a spherically symmetric metric
+of the fluid stress-energy tensor.
+The general equation is
+\begin{align}
+    \delta \left(\nabla_{\gamma}T^{\gamma}_{\alpha}\right)
+    =&
+    \delta \left(
+        \partial_{\gamma}T^{\gamma}_{\alpha}
+        +
+        \Gamma^{\gamma}_{\gamma\beta}T^{\beta}_{\alpha}
+        -
+        \Gamma^{\beta}_{\gamma\alpha}T^{\gamma}_{\beta}
+    \right)
+    \nonumber\\
+    =&
+    \partial_{\gamma}\delta T^{\gamma}_{\alpha}
+    +
+    \delta \Gamma^{\gamma}_{\gamma\beta}T^{\beta}_{\alpha}
+    +
+    \Gamma^{\gamma}_{\gamma\beta}\delta T^{\beta}_{\alpha}
+    -
+    \delta \Gamma^{\beta}_{\gamma\alpha}T^{\gamma}_{\beta}
+    -
+    \Gamma^{\beta}_{\gamma\alpha}\delta T^{\gamma}_{\beta}
+    .
+\end{align}
+The different components are
+\begin{subequations}
+\begin{align}
+    \label{eq:linear_pert_se_eom_a_comp}
+    \delta\left(\nabla_{\gamma}T^{\gamma}_{a}\right)
+    =&
+    \partial_{c}P^{c}_{a}
+    +
+    \partial_{C}P^{C}_{a}
+    +
+    \left(
+        \Gamma^{c}_{cb}
+        +
+        \Gamma^{C}_{Cb}
+    \right)
+    P^{b}_{a}
+    +
+    \Gamma^{C}_{CB}P^{B}_{a}
+    -
+    \Gamma^b_{ca}P^c_b
+    -
+    \Gamma^B_{Ca}P^C_B
+    \nonumber\\
+    &
+    +
+    \left(
+        \delta\Gamma^c_{cb}
+        +
+        \delta\Gamma^C_{Cb}
+    \right)
+    T^b_a
+    -
+    \delta\Gamma^b_{ca}T^c_b
+    -
+    \delta\Gamma^B_{Ca}T^C_B
+    \nonumber\\
+    =&
+    D_cP^{c}_{a}
+    +
+    D_CP^{C}_{a}
+    +
+    \frac{2}{r}r_cP^{c}_{a}
+    -
+    \frac{1}{r}r_aP^C_C
+    \nonumber\\
+    &
+    -
+    C^b_{ca}T^c_b
+    +
+    \left(
+        C^c_{cb}
+        +
+        \frac{1}{2r^2}D_bp^C_C
+        -
+        \frac{1}{r^3}r_bp^C_C
+    \right)
+    T^b_a
+    -
+    \left(
+        \frac{1}{2r^2}D_ap^C_C
+        -
+        \frac{1}{r^3}r_ap^C_C
+    \right)
+    \mathcal{P}
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \label{eq:linear_pert_se_eom_A_comp}
+    \delta\left(\nabla_{\gamma}T^{\gamma}_{A}\right)
+    =&
+    \partial_cP^{c}_{A}
+    +
+    \partial_CP^{C}_{A}
+    +
+    \left(
+        \Gamma^{c}_{cb}
+        +
+        \Gamma^C_{Cb}
+    \right)
+    P^{b}_{A}
+    +
+    \Gamma^{C}_{CB}P^{B}_{A}
+    -
+    \Gamma^B_{CA}P^C_B
+    \nonumber\\
+    &
+    +
+    \left(  
+        \delta\Gamma^c_{cB}
+        +
+        \delta\Gamma^C_{CB}
+    \right)
+    T^B_A
+    -
+    \delta\Gamma^b_{cA}T^c_b
+    -
+    \delta\Gamma^B_{CA}T^C_B
+    \nonumber\\
+    =&
+    D_cP^{c}_{A}
+    +
+    D_CP^{C}_{A}
+    +
+    \frac{2}{r}r_cP^{c}_{A}
+    \nonumber\\
+    &
+    +
+    \left(
+        \frac{1}{2}D_Ap^c_c
+        -
+        \frac{1}{r}r_cp^c_A
+    \right)
+    \mathcal{P}
+    -
+    \left(
+        \frac{1}{2}
+        D_Ap^b_c
+        -
+        \frac{1}{r}r_cp^b_A
+    \right)
+    T^c_b
+    .
+\end{align}
+\end{subequations}
+%============ ===============================================================
+\section{Perturbation of the Ricci tensor in spherical symmetry}
+
+We will use the formula 
+\begin{align}
+    \delta R_{\alpha\beta}
+    =
+    -
+    \frac{1}{2}g^{\gamma\delta}
+    \nabla_{\gamma}\nabla_{\delta}\delta g_{\alpha\beta}
+    -
+    R_{\alpha}{}^{\gamma}{}_{\beta}{}^{\delta}\delta g_{\gamma\delta}
+    +
+    R^{\gamma}{}_{(\alpha}\delta g_{\beta)\gamma}
+    +
+    \nabla_{(\alpha}v_{\beta)} 
+\end{align}
+where,
+\begin{align}
+    v_{\alpha} \equiv g^{\gamma \delta} \nabla_{\gamma} g_{\alpha \delta} - \frac{1}{2} \nabla_{\alpha} \left( g^{\rho \sigma}\delta g_{\rho \sigma}\right)\,.
+\end{align}
+We first compute the spherical decomposition of the covariant derivatives 
+of the  perturbation of the metric tensor \cite{Martel:2003ab}. 
+The first covariant derivatives follow from
+\begin{align}
+    \nabla_{\gamma}p_{\alpha\beta}
+    =
+    \partial_{\gamma}p_{\alpha\beta}
+    -
+    \Gamma^{\delta}_{\gamma\alpha}p_{\delta\beta}
+    -
+    \Gamma^{\delta}_{\gamma\beta}p_{\delta\alpha}
+    .
+\end{align}
+Using Eq.~\eqref{eq:chr_sym_spherical_sym}, we then have
+\begin{subequations}
+\label{eq:first_der_metric_pert}
+\begin{align}
+    \nabla_{c}p_{ab}
+    =&
+    \partial_{c}p_{b}
+    -
+    \Gamma^{d}_{ca}p_{db}
+    -
+    \Gamma^{d}_{cb}p_{da}
+    \nonumber\\
+    =&
+    D_cp_{ab}
+    ,\\
+    \nabla_Cp_{ab}
+    =&
+    \partial_{C}p_{ab}
+    -
+    \Gamma^{D}_{Ca}p_{Db}
+    -
+    \Gamma^{D}_{Cb}p_{Da}
+    \nonumber\\
+    =&
+    D_Cp_{ab}
+    -
+    \frac{2}{r}r_{(a}p_{b)C}
+    ,\\
+    \nabla_cp_{aB}
+    =&
+    \partial_{c}p_{aB}
+    -
+    \Gamma^{d}_{ca}p_{dB}
+    -
+    \Gamma^{D}_{cB}p_{Da}
+    \nonumber\\
+    =&
+    D_cp_{aB}
+    -
+    \frac{1}{r}r_cp_{aB}
+    ,\\
+    \nabla_Cp_{aB}
+    =&
+    \partial_{C}p_{aB}
+    -
+    \Gamma^{D}_{Ca}p_{DB}
+    -
+    \Gamma^{D}_{CB}p_{Da}
+    -
+    \Gamma^{d}_{CB}p_{da}
+    \nonumber\\
+    =&
+    D_Cp_{aB}
+    -
+    \frac{1}{r}r_ap_{BC}
+    +
+    r r^d \Omega_{BC} p_{da}
+    ,\\
+    \nabla_cp_{AB}
+    =&
+    \partial_{c}p_{AB}
+    -
+    \Gamma^{D}_{cA}p_{DB}
+    -
+    \Gamma^{D}_{cB}p_{DA}
+    \nonumber\\
+    =&
+    D_cp_{AB}
+    -
+    \frac{2}{r}r_cp_{AB}
+    ,\\
+    \nabla_Cp_{AB}
+    =&
+    \partial_{C}p_{AB}
+    -
+    \Gamma^{D}_{CA}p_{DB}
+    -
+    \Gamma^{d}_{CA}p_{dB}
+    -
+    \Gamma^{D}_{CB}p_{DA}
+    -
+    \Gamma^{d}_{CB}p_{dA}
+    \nonumber\\
+    =&
+    D_{C}p_{AB}
+    +
+    2rr^d\Omega_{C(A}p_{B)d}
+    .
+\end{align}
+\end{subequations}
+
+It then follows that
+\begin{subequations}
+\begin{align}
+    v_a
+    =&
+    g^{\gamma\delta}\nabla_{\gamma}p_{\delta a}
+    -
+    \frac{1}{2}\nabla_a\left(g^{\gamma\delta}p_{\gamma\delta}\right)
+    \nonumber\\
+    =&
+    \alpha^{cd}\nabla_{c}p_{da}
+    +
+    \frac{1}{r^2}\Omega^{CD}\nabla_{C}p_{Da}
+    -
+    \frac{1}{2}\nabla_ap
+    \nonumber\\
+    =&
+    \alpha^{cd}D_{c}p_{da}
+    +
+    \frac{1}{r^2}\Omega^{CD}
+    \left(
+        D_Cp_{Da}
+        -
+        \frac{1}{r}r_ap_{CD}
+        +
+        rr^d\Omega_{CD}p_{ad}
+    \right)
+    -
+    \frac{1}{2}D_ap
+    \nonumber\\
+    =&
+    D_{c}p_{a}{}^c
+    +
+    \frac{1}{r^2}D_Cp_{a}{}^C
+    -
+    \frac{1}{r^3}r_ap_{C}{}^C
+    +
+    \frac{2}{r}r^dp_{ad}
+    -
+    \frac{1}{2}D_ap
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    v_A
+    =&
+    g^{\gamma\delta}\nabla_{\gamma}p_{\delta A}
+    -
+    \frac{1}{2}\nabla_A\left(g^{\gamma\delta}p_{\gamma\delta}\right)
+    \nonumber\\
+    =&
+    \alpha^{cd}\nabla_{c}p_{d A}
+    +
+    \frac{1}{r^2}\Omega^{CD}\nabla_{C}p_{D A}
+    -
+    \frac{1}{2}\nabla_Ap
+    \nonumber\\
+    =&
+    \alpha^{cd}D_{c}p_{d A}
+    -
+    \frac{1}{r}r^dp_{d A}
+    +
+    \frac{1}{r^2}\Omega^{CD}D_{C}p_{D A}
+    +
+    \frac{2}{r}r^d\Omega^{CD}\Omega_{C(D}p_{A)d}
+    -
+    \frac{1}{2}D_Ap
+    \nonumber\\
+    =&
+    D_{c}p_{A}{}^c
+    +
+    \frac{1}{r^2}D_{C}p_{A}{}^C
+    +
+    \frac{2}{r}r^dp_{Ad}
+    -
+    \frac{1}{2}D_Ap
+\end{align}
+\end{subequations}
+We also have
+\begin{subequations}
+\begin{align}
+    \nabla_av_b
+    =&
+    \partial_av_b
+    -
+    \Gamma^c_{ab}v_c
+    \nonumber\\
+    =&
+    D_av_b
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \nabla_av_B
+    =&
+    \partial_av_B
+    -
+    \Gamma^C_{aB}v_C
+    \nonumber\\
+    =&
+    D_av_B
+    -
+    \frac{1}{r}r_av_B
+    ,\\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \nabla_Av_b
+    =&
+    \partial_Av_b
+    -
+    \Gamma^C_{Ab}v_C
+    \nonumber\\
+    =&
+    D_Av_b
+    -
+    \frac{1}{r}r_bv_A
+    ,\\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \nabla_Av_B
+    =&
+    \partial_Av_B
+    -
+    \Gamma^C_{AB}v_C
+    -
+    \Gamma^c_{AB}v_c
+    \nonumber\\
+    =&
+    D_Av_B
+    +
+    \Omega_{AB} r r^cv_c
+    .
+\end{align}
+\end{subequations}
+
+We compute the second derivative of the perturbed metric tensor using
+\begin{align}
+    \nabla_{\delta}\nabla_{\gamma}p_{\alpha\beta}
+    =&
+    \partial_{\delta}\left(\nabla_{\gamma}p_{\alpha\beta}\right)
+    -
+    \Gamma^{\rho}_{\delta\gamma}\left(\nabla_{\rho}p_{\alpha\beta}\right)
+    -
+    \Gamma^{\rho}_{\delta\alpha}\left(\nabla_{\gamma}p_{\rho\beta}\right)
+    -
+    \Gamma^{\rho}_{\delta\beta}\left(\nabla_{\gamma}p_{\alpha\rho}\right)
+    .
+\end{align}
+To compute the perturbation of the Ricci tensor in spherical symmetry,
+all we have to compute are
+\begin{align}
+    \nabla_c\nabla_d p_{\alpha\beta}
+    ,\qquad
+    \nabla_C\nabla_D p_{\alpha\beta}
+    .
+\end{align}
+For $\alpha=a,\beta=b$, we have
+\begin{subequations}
+\label{eq:scd_der_metric_pert_ab}
+\begin{align}
+    \nabla_d\nabla_cp_{ab}
+    =&
+    \partial_{d}\left(\nabla_{c}p_{ab}\right)
+    -
+    \Gamma^{p}_{dc}\left(\nabla_{p}p_{ab}\right)
+    -
+    \Gamma^{p}_{da}\left(\nabla_{c}p_{pb}\right)
+    -
+    \Gamma^{p}_{db}\left(\nabla_{c}p_{ap}\right)
+    \nonumber\\
+    =&
+    D_dD_cp_{ab}
+    ,\\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \nabla_D\nabla_Cp_{ab}
+    =&
+    \partial_{D}\left(\nabla_{C}p_{ab}\right)
+    -
+    \Gamma^{P}_{DC}\left(\nabla_{P}p_{ab}\right)
+    -
+    \Gamma^{p}_{DC}\left(\nabla_{p}p_{ab}\right)
+    -
+    \Gamma^{P}_{Da}\left(\nabla_{C}p_{Pb}\right)
+    -
+    \Gamma^{P}_{Db}\left(\nabla_{C}p_{aP}\right)
+    \nonumber\\
+    =&
+    D_D\left(\nabla_Cp_{ab}\right)
+    +
+    r r^p\Omega_{CD} \nabla_pp_{ab}
+    -
+    \frac{2}{r}r_{(a}\nabla_{|C|}p_{b)D}
+    \nonumber\\
+    =&
+    D_D\left(
+        D_Cp_{ab}
+        -
+        \frac{2}{r}r_{(a}p_{b)C}
+    \right)
+    +
+    r r^p\Omega_{CD} D_pp_{ab}
+    \nonumber\\
+    &
+    -
+    \frac{2}{r}r_{(a}\left(
+        D_{|C|}p_{b)D}
+        -
+        \frac{1}{r}r_{b)}p_{CD}
+        +
+        p_{b)p}rr^p\Omega_{CD}
+    \right)
+    \nonumber\\
+    =&
+    D_DD_Cp_{ab}
+    -
+    \frac{2}{r}r_{(a}D_{|D|}p_{b)C}
+    -
+    \frac{2}{r}r_{(a}D_{|C|}p_{b)D}
+    \nonumber\\
+    &
+    +
+    \frac{2}{r^2}r_{a}r_{b}p_{CD}
+    +
+    rr^p\Omega_{CD}
+    \left(
+        D_pp_{ab}
+        -
+        \frac{2}{r}r_{(a}p_{b)p}
+    \right)
+\end{align}
+\end{subequations}
+
+For $\alpha=a,\beta=B$, we have
+\begin{subequations}
+\label{eq:scd_der_metric_pert_aB}
+\begin{align}
+    \nabla_d\nabla_cp_{aB}
+    =&
+    \partial_d\left(\nabla_cp_{aB}\right)
+    -
+    \Gamma^p_{dc}\left(\nabla_pp_{aB}\right)
+    -
+    \Gamma^p_{da}\left(\nabla_cp_{aB}\right)
+    -
+    \Gamma^P_{dB}\left(\nabla_cp_{aP}\right)
+    \nonumber\\
+    =&
+    D_d\left(\nabla_cp_{aB}\right)
+    -
+    \frac{1}{r}r_d\nabla_cp_{aB}
+    \nonumber\\
+    =&
+    D_d\left(D_cp_{aB} - \frac{1}{r}r_cp_{aB}\right)
+    -
+    \frac{1}{r}r_d\left(D_cp_{aB} - \frac{1}{r}r_cp_{aB}\right)
+    \nonumber\\
+    =&
+    D_dD_cp_{aB} 
+    + 
+    \frac{1}{r^2}r_{c}r_{d}p_{aB}
+    - 
+    \frac{1}{r}r_{cd}p_{aB}
+    - 
+    \frac{1}{r}r_{c}D_dp_{aB}
+    -
+    \frac{1}{r}r_dD_cp_{aB} 
+    +
+    \frac{1}{r^2}r_cr_dp_{aB}
+    \nonumber\\
+    =&
+    D_dD_cp_{aB} 
+    - 
+    \frac{2}{r}r_{(c}D_{d)}p_{aB}
+    + 
+    \left(
+        \frac{2}{r^2}r_{c}r_{d}
+        - 
+        \frac{1}{r}r_{cd}
+    \right)
+    p_{aB}
+    ,\\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \nabla_D\nabla_Cp_{aB}
+    =&
+    \partial_D\left(\nabla_Cp_{aB}\right)
+    -
+    \Gamma^P_{DC}\left(\nabla_Pp_{aB}\right)
+    -
+    \Gamma^p_{DC}\left(\nabla_pp_{aB}\right)
+    -
+    \Gamma^P_{Da}\left(\nabla_Cp_{PB}\right)
+    \nonumber\\
+    &
+    -
+    \Gamma^P_{DB}\left(\nabla_Cp_{aP}\right)
+    -
+    \Gamma^p_{DB}\left(\nabla_Cp_{ap}\right)
+    \nonumber\\
+    =&
+    D_D\left(\nabla_Cp_{aB}\right)
+    -
+    \frac{1}{r}r_a\nabla_Cp_{DB}
+    +
+    rr^p \Omega_{CD} \nabla_pp_{aB}
+    +
+    rr^p\Omega_{BD}\nabla_Cp_{ap}
+    \nonumber\\
+    =&
+    D_D\left(D_Cp_{aB} - \frac{1}{r}r_ap_{BC} + r r^d\Omega_{BC}p_{ad}\right)
+    -
+    \frac{1}{r}r_a\left(
+        D_Cp_{BD}
+        +
+        2rr^d\Omega_{C(B}p_{D)d}
+    \right)
+    \nonumber\\
+    &
+    +
+    rr^p \Omega_{CD}\left(
+        D_pp_{aB}
+        -
+        \frac{1}{r}r_pp_{aB}
+    \right)
+    +
+    rr^p\Omega_{BD}\left(
+        D_Cp_{ap}
+        -
+        \frac{2}{r}r_{(a}p_{p)C}
+    \right)
+    \nonumber\\
+    =&
+    D_DD_Cp_{aB}
+    -
+    \frac{2}{r}r_aD_{(C}p_{D)B}
+    +
+    r r^p\left(
+        \Omega_{CD}D_pp_{aB}
+        -
+        \frac{1}{r}r_a\Omega_{BC}p_{pD}
+    \right)
+    \nonumber\\
+    &
+    +
+    2rr^p\left(
+        \Omega_{B(C}D_{D)}p_{ap}
+        -
+        \frac{1}{r}r_p\Omega_{D(B}p_{C)a}
+        -
+        \frac{1}{r}r_a\Omega_{D(B}p_{C)p}
+    \right)
+    .
+\end{align}
+\end{subequations}
+
+For $\alpha=A,\beta=B$, we have
+\begin{subequations}
+\label{eq:scd_der_metric_pert_AB}
+\begin{align}
+    \nabla_d\nabla_cp_{AB}
+    =&
+    \partial_d\left(\nabla_cp_{AB}\right)
+    -
+    \Gamma^p_{dc}\left(\nabla_pp_{AB}\right)
+    -
+    \Gamma^P_{dA}\left(\nabla_cp_{PB}\right)
+    -
+    \Gamma^P_{dB}\left(\nabla_cp_{PA}\right)
+    \nonumber\\
+    =&
+    D_d\left(\nabla_cp_{AB}\right)
+    -
+    \frac{2}{r}r_d\left(\nabla_cp_{AB}\right)
+    \nonumber\\
+    =&
+    D_dD_cp_{AB} 
+    -
+    \frac{2}{r}r_{cd}p_{AB}
+    +
+    \frac{6}{r^2}r_cr_dp_{AB}
+    -
+    \frac{4}{r}r_{(c}D_{d)}p_{AB}
+    ,\\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \nabla_D\nabla_Cp_{AB}
+    =&
+    \partial_D\left(\nabla_Cp_{AB}\right)
+    -
+    \Gamma_{DC}^P\left(\nabla_Pp_{AB}\right)
+    -
+    \Gamma_{DC}^p\left(\nabla_pp_{AB}\right)
+    \nonumber\\
+    &
+    -
+    \Gamma_{DA}^P\left(\nabla_Cp_{PB}\right)
+    -
+    \Gamma_{DA}^p\left(\nabla_Cp_{pB}\right)
+    -
+    \Gamma_{DB}^P\left(\nabla_Cp_{PA}\right)
+    -
+    \Gamma_{DB}^p\left(\nabla_Cp_{pA}\right)
+    \nonumber\\
+    =&
+    D_D\left(\nabla_Cp_{AB}\right)
+    +
+    \Omega_{CD}rr^p\left(\nabla_pp_{AB}\right)
+    +
+    2\Omega_{D(A}rr^p\left(\nabla_{|C|}p_{B)p}\right)
+    \nonumber\\
+    =&
+    D_D\left(D_Cp_{AB} + 2rr^d\Omega_{C(A}p_{B)d}\right)
+    \nonumber\\
+    &
+    +
+    rr^p\Omega_{CD}\left(
+        D_pp_{AB}
+        -
+        \frac{1}{r}r_pp_{AB}
+    \right)
+    \nonumber\\
+    &
+    +
+    2rr^p\Omega_{D(A}\left(
+        D_{|C|}p_{B)p}
+        -
+        \frac{1}{r}r_{|p|}p_{B)C}
+        +
+        rr^q\Omega_{B)C}p_{pq}
+    \right)
+    \nonumber\\
+    =&
+    D_DD_Cp_{AB}
+    +
+    2rr^p\left(
+        \Omega_{C(A}D_{|D|}p_{B)p}
+        +
+        \Omega_{D(A}D_{|C|}p_{B)p}
+    \right)
+    \nonumber\\
+    &
+    -
+    2r^pr_p\left(
+        \Omega_{CD}p_{AB}
+        +
+        \Omega_{D(A}p_{B)C}
+    \right)
+    +
+    2r^2r^pr^q\Omega_{D(A}\Omega_{B)C}p_{pq}
+    +
+    rr^p\Omega_{CD}D_pp_{AB}
+\end{align}
+\end{subequations}
+These expressions match those in Martel's PhD thesis \cite{Martel:2003ab}.
+
+We can now compute the covariant wave operator acting on the perturbed metric
+\begin{align}
+    g^{\gamma\delta}\nabla_{\gamma}\nabla_{\delta}p_{ab}
+    =&
+    \left(
+        \alpha^{cd}\nabla_c \nabla_d
+        +
+        \frac{1}{r^2}\Omega^{CD}\nabla_C \nabla_D
+    \right)
+    p_{ab}
+    \nonumber\\
+    =&
+    \left(
+        D_cD^c
+        +
+        \frac{1}{r^2}D_CD^C
+    \right)
+    p_{ab}
+    -
+    \frac{4}{r^3}r_{(a}D_{|C|}p_{b)}{}^C
+    \nonumber\\
+    &
+    +
+    \frac{2}{r}r^c\left(
+        D_cp_{ab}
+        -
+        \frac{2}{r}r_{(a}p_{b)c}
+    \right)
+    +
+    \frac{2}{r^4}r_{(a}r_{b)}\Omega^{CD}p_{CD}
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    g^{\gamma\delta}\nabla_{\gamma}\nabla_{\delta}p_{aB}
+    =&
+    \left(
+        \alpha^{cd}\nabla_c \nabla_d
+        +
+        \frac{1}{r^2}\Omega^{CD}\nabla_C \nabla_D
+    \right)
+    p_{aB}
+    \nonumber\\
+    =& 
+    \left(
+        D_cD^c
+        +
+        \frac{1}{r^2}D_CD^C
+    \right)
+    p_{aB}
+    -
+    \frac{1}{r}
+    \left(
+        \frac{1}{r}r_cr^c
+        +
+        r_c{}^c
+    \right)
+    p_{aB}
+    -
+    \frac{4}{r^2}r_ar^cp_{Bc}
+    \nonumber\\
+    &
+    -
+    \frac{2}{r^3}r_aD_Cp_{B}{}^C
+    +
+    \frac{2}{r}r^cD_Bp_{ac}
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    g^{\gamma\delta}\nabla_{\gamma}\nabla_{\delta}p_{AB}
+    =&
+    \left(
+        \alpha^{cd}\nabla_c \nabla_d
+        +
+        \frac{1}{r^2}\Omega^{CD}\nabla_C \nabla_D
+    \right)
+    p_{AB}
+    \nonumber\\
+    =& 
+    \left(
+        D_cD^c
+        +
+        \frac{1}{r^2}D_CD^C
+    \right)
+    p_{AB}
+    -
+    \frac{2}{r}\left(
+        r_c{}^c
+        +
+        r^cD_c
+    \right)
+    p_{AB}
+    \nonumber\\
+    &
+    +
+    \frac{4}{r}r^cD_{(A}p_{B)c}
+    +
+    2\Omega_{AB}r^cr^dp_{cd}
+    .
+\end{align}
+
+We next consider the covariant components of the Riemann tensor contracted
+with the perturbed metric.
+\begin{subequations}
+\begin{align}
+    R_{a}{}^{\gamma}{}_b{}^{\delta}p_{\gamma\delta}
+    =&
+    R_{a}{}^{c}{}_b{}^{d}p_{cd}
+    +
+    R_{a}{}^{C}{}_b{}^{D}p_{CD}
+    \nonumber\\
+    =&
+    \frac{1}{2}\mathcal{R}
+    \left(\alpha_{ab}\alpha^{cd} - \delta^d_a\delta^c_b\right)
+    p_{cd}
+    -
+    \frac{1}{r^3}\left(r_{ab}\right)\Omega^{CD}p_{CD}
+    \\
+    %%%%%%%%%%%%%%%%%%%%
+    R_a{}^{\gamma}{}_B{}^{\delta}p_{\gamma\delta}
+    =&
+    R_a{}^C{}_B{}^dp_{Cd}
+    \nonumber\\
+    =&
+    \left(\frac{1}{r}r_a^d\right)p_{Bd}
+    \\
+    %%%%%%%%%%%%%%%%%%%%
+    R_A{}^{\gamma}{}_B{}^{\delta}p_{\gamma\delta}
+    =&
+    R_A{}^{c}{}_B{}^{d}p_{cd}
+    +
+    R_A{}^{C}{}_B{}^{D}p_{CD}
+    \nonumber\\
+    =&
+    -
+    \Omega_{AB}\left(r r^{cd}\right)p_{cd}
+    +
+    \frac{1}{r^2}\left(
+        1
+        -
+        r_ar^a
+    \right)
+    \left(\Omega_{AB}\Omega^{CD} - \delta^D_A\delta^C_B\right)
+    p_{CD}
+    .
+\end{align}
+\end{subequations}
+Finally, we consider the covariant components of the Ricci tensor
+contracted with the perturbed metric
+\begin{subequations}
+\begin{align}
+    R^{\gamma}{}_{(a}p_{b)\gamma}
+    =&
+    R^c{}_{(a}p_{b)c}
+    \nonumber\\
+    =&
+    \frac{1}{2}\mathcal{R} p_{ab}
+    -
+    \frac{2}{r}r^c_{(a}p_{b)c}
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    R^{\gamma}{}_{(a}p_{B)\gamma}
+    =&
+    \frac{1}{2}\left(
+        R^c{}_{a}p_{Bc}
+        +
+        R^C{}_{B}p_{aC}
+    \right)
+    \nonumber\\
+    =&
+    -
+    \frac{1}{r}r_a^cp_{Bc}
+    +
+    \left(
+        \frac{1}{4}\mathcal{R}
+        +
+        \frac{1}{2r^2}
+        \left(
+            1
+            -
+            r_cr^c
+            -
+            rr_c^c
+        \right)
+    \right)
+    p_{aB}
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    R^{\gamma}{}_{(A}p_{B)\gamma}
+    =&
+    R^{C}{}_{(A}p_{B)C}
+    \nonumber\\
+    =&
+    \frac{1}{r^2}
+    \left(
+        1
+        -
+        r_cr^c
+        -
+        rr_c^c
+    \right)
+    p_{AB}
+    .
+\end{align}
+\end{subequations}
+Alternatively, we could make use of the Einstein equations are write this as
+\begin{subequations}
+\begin{align}
+    R^{\gamma}{}_{(a}p_{b)\gamma}
+    =&
+    \kappa \hat{T}^c{}_{(a}p_{b)c}
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    R^{\gamma}{}_{(a}p_{B)\gamma}
+    =&
+    \frac{\kappa}{2}\left(
+        \hat{T}^c{}_{a}p_{Bc}
+        +
+        \hat{T}^C{}_{B}p_{aC}
+    \right)
+    \nonumber\\
+    =&
+    \frac{\kappa}{2}\left(
+        \hat{T}^c{}_{a}p_{Bc}
+        -
+        \left(\mathcal{E} - \mathcal{P}\right)
+        p_{aB}
+    \right)
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    R^{\gamma}{}_{(A}p_{B)\gamma}
+    =&
+    \frac{\kappa}{2}\left(\mathcal{E} - \mathcal{P}\right)
+    p_{AB}
+    .
+\end{align}
+\end{subequations}
+%---------------------------------------------------------------------------
+\chapter{Axial and polar spherical harmonic decomposition of the Einstein equations
+\label{sec:axial_decomposition_tensor_eom}}
+
+\section{Axial perturbations}
+
+We only need to consider the components $\delta R_{aB}$ and $\delta R_{AB}$.
+As we reviewed in Sec.~\ref{sec:pert_spherically_symmetric_spacetime}, 
+as first shown in \cite{Martel:2005ir}, 
+we can work in the Regge-Wheeler gauge, and then promote the variables to
+gauge-invariant ones at the end.
+We also drop the $\ell,m$ labels to make the equations less cluttered.
+We use $\dot{=}$ to indicate that we are dropping all terms that are
+zero for an axial perturbation in Regge-Wheeler gauge.
+The only nonzero component of the metric perturbation then is
+\begin{align}
+    p_{aB}
+    \dot{=}
+    h_a S_B
+    .
+\end{align}
+
+%---------------------------------------------------------------------------
+\subsection{Computing the $aB$ component of the Ricci tensor}
+We first look at
+\begin{align}
+    g^{\gamma\delta}\nabla_{\gamma}\nabla_{\delta}p_{aB}
+    \dot{=}&
+    \left(
+        D_cD^c + \frac{1}{r^2}D_CD^C
+    \right)
+    S_B
+    h_a
+    -
+    \frac{1}{r}
+    \left(
+        \frac{1}{r}r_cr^c
+        +
+        r_c^c 
+    \right)
+    S_Bh_a
+    -
+    \frac{4}{r^2}r_ar^ch_cS_B
+    \nonumber\\
+    =&
+    \left(
+        \left(
+            D_cD^c
+            +
+            \frac{1}{r^2}\left(1-\ell\left(\ell+1\right)\right)
+            -
+            \frac{1}{r^2}r_cr^c
+            -
+            \frac{1}{r}r_c{}^c
+        \right)
+        h_{a}
+        -
+        \frac{4}{r^2}r_ar_c
+        h^{c}
+    \right)
+    S_B
+    .
+\end{align}
+We next look at
+\begin{align}
+    \nabla_av_B
+    +
+    \nabla_Bv_a
+    \dot{=}&
+    \left(
+        D_a
+        -
+        \frac{2}{r}r_a
+    \right)
+    v_B
+    \nonumber\\
+    \dot{=}&
+    \left(D_a-\frac{2}{r}r_a\right)
+    \left(
+        D_ch^c
+        +
+        \frac{2}{r}r_ch^c
+    \right)
+    S_B
+    \nonumber\\
+    =&
+    \left(
+        D_aD_ch^c
+        +
+        \frac{2}{r}r_cD_ah^c
+        -
+        \frac{2}{r}r_aD_ch^c
+        +
+        \frac{2}{r}r_{ac}h^c
+        -
+        \frac{6}{r^2}r_ar_ch^c
+    \right)
+    S_B
+    .
+\end{align}
+For the Riemann and Ricci tensor components, we have
+\begin{align}
+    R_a{}^{\gamma}{}_B{}^{\delta}p_{\gamma\delta}
+    =&
+    \left(\frac{1}{r}r_{ac}\right)h^c S_B
+    \\
+    %%%%%%%%%%%%%%%%%%%%%%
+    R^{\gamma}{}_{(a}p_{B)\gamma}
+    =&
+    \frac{1}{2}\left(
+        \kappa\hat{T}_{ac}h^c
+        +
+        \frac{1}{r^2}\left(1-r_cr^c-rr_c^c\right)h_a
+    \right)
+    S_B
+    .
+\end{align}
+We have substituted the trace-reverse of the stress-energy
+tensor $\hat{T}_{ab}$ for $R_{ab}$, while directly writing out
+the expression for $R_{AB}$, so our formulas will match those in
+\cite{Martel:2005ir}\footnote{Their Eq. 5.8, although note that
+those authors assume the background is vacuum so $R_{\mu\nu}=0$.}. 
+Using Eq.~\eqref{eq:general_pert_Ricci_tensor}, 
+and promoting everything to gauge-invariant quantities, 
+we are left with
+\begin{align}
+    \label{eq:axial_pert_aB_comp_ricci_tensor}
+    \boxed{
+        \delta R_{aB}
+        =
+        \frac{1}{2}
+        \left(
+            -
+            \left(
+                D_cD^c
+                -
+                \frac{1}{r^2}\ell\left(\ell+1\right)
+            \right)
+            \tilde{h}_a
+            +
+            D_aD_c\tilde{h}^c
+            +
+            \frac{4}{r}r_{[c}D_{a]}\tilde{h}^c
+            -
+            \frac{2}{r^2}r_ar_c
+            \tilde{h}^c
+            +
+            \kappa \hat{T}_{ac}\tilde{h}^c
+        \right)
+        S_B
+        .
+    }
+\end{align}
+We can now write down the tensor equations of motion,
+\begin{align}
+    \delta R_{aB}
+    \dot{=}
+    \kappa
+    \left(
+        \delta T_{aB}
+        -
+        \frac{1}{2}\delta g_{aB} T
+    \right)
+    .
+\end{align}
+%---------------------------------------------------------------------------
+\subsection{Computing the $AB$ component of the Ricci tensor}
+We first look at
+\begin{align}
+    g^{\gamma\delta}\nabla_{\gamma}\nabla_{\delta}p_{AB}
+    \dot{=}&
+    \frac{4}{r}r_c
+    \Omega^{CD}\Omega_{C(A}D_{|D|}S_{B)}
+    h^c 
+    \nonumber\\
+    =&
+    \frac{4}{r}r_ch^c S_{AB}
+    .
+\end{align}
+We next look at
+\begin{align}
+    \nabla_Av_B
+    +
+    \nabla_Bv_A
+    \dot{=}&
+    D_Av_B + D_Bv_A
+    \nonumber\\
+    \dot{=}&
+    \left(D_AS_B + D_BS_A\right)
+    \left(D_ch^c + \frac{2}{r}r_ch^c\right)
+    \nonumber\\
+    =&
+    2
+    \left(D_ch^c + \frac{2}{r}r_ch^c\right)
+    S_{AB}
+\end{align}
+where, $S_{AB} \equiv D_{(A} S_{B)}$.
+The other terms $R_{A}{}^{\gamma}{}_{B}{}^{\gamma}p_{\gamma\delta}$
+and $R^{\gamma}{}_{(A}p_{B)\gamma}$ are zero for axial perturbations
+in the Regge-Wheeler gauge.
+Using Eq.~\eqref{eq:general_pert_Ricci_tensor}, 
+and promoting everything to gauge-invariant quantities, we have
+\begin{align}
+    \label{eq:axial_pert_AB_comp_ricci_tensor}
+    \boxed{
+        \delta R_{AB}
+        =
+        D_c\tilde{h}^c S_{AB}
+        .
+    }
+\end{align}
+Note that the axial perturbation of the $AB$ component of the
+Einstein and Ricci tensors are the same in the Regge-Wheeler gauge
+\begin{align}
+    \delta G_{AB}
+    \dot{=}
+    \delta R_{AB}
+    .
+\end{align}
+This is why our expression Eq.~\eqref{eq:axial_pert_AB_comp_ricci_tensor}
+matches Eq (5.9) of \cite{Martel:2005ir}.
+
+%---------------------------------------------------------------------------
+\subsection{Computing the $a$ component of the Bianchi identity}
+    There are no axial perturbations of this component.
+%---------------------------------------------------------------------------
+\subsection{Computing the $A$ component of the Bianchi identity}
+
+We next consider the divergence of the stress-energy tensor
+(see Sec.~\eqref{sec:pert_stress_energy_tensor_ss}). We first look at
+\begin{align}
+    D_cP^{c}_{A}
+    +
+    \frac{2}{r}r_cP^{c}_{A}
+    +
+    D_CP^{C}_{A}
+    \dot{=}&
+    S^A
+    \left(
+        D_cH^c
+        +
+        \frac{2}{r}r_cH^c
+    \right)
+    +
+    \frac{1}{r^2}D_CS^{C}_{A} H_2
+    \nonumber\\
+    =&
+    S^A\left(
+        \frac{1}{r^2}D_c\left(r^2H^c\right)
+        +
+        \frac{1}{r^2}
+        \left(
+            1
+            -
+            \frac{1}{2}\ell\left(\ell+1\right)
+        \right)
+        H_2
+    \right)
+    .
+\end{align}
+Next, looking at the metric perturbations, we have
+\begin{align}
+    \left(
+        \frac{1}{2}D_Ap^c_c
+        -
+        \frac{1}{r}r_cp^c_A
+    \right)
+    \mathcal{P}
+    -
+    \left(
+        \frac{1}{2}D_Ap^c_b
+        -
+        \frac{1}{r}r_bp^c_A
+    \right)
+    T^b_c 
+    \dot{=}&
+    S^A
+    \left(
+        -
+        \frac{1}{r}r_ch^c
+        \mathcal{P}
+        +
+        \frac{1}{r}r_bh^cT^b_c
+    \right)
+    .
+\end{align}
+Promoting $h_a$ to its gauge invariant counterpart $\tilde{h}_a$,
+we conclude that the axial matter equations of motion are 
+\begin{align}
+    \label{eq:axial_comp_A_se_eom}
+    \boxed{
+        \frac{1}{r^2}D_c\left(r^2H^c\right)
+        -
+        \frac{\left(\ell-1\right)\left(\ell+2\right)}{2r^2}
+        H_2
+        +
+        \frac{1}{r}r_c\tilde{h}^bT^c_b
+        -
+        \frac{1}{r}r_c\tilde{h}^c\mathcal{P}
+        =
+        0
+        .
+    }
+\end{align}
+
+%==============================================================================
+\section{Polar spherical harmonic decomposition of the Einstein equations
+\label{sec:polar_decomposition_tensor_eom}}
+    We need to consider the components $\delta R_{ab}$, $\delta R_{aB}$,
+and $\delta R_{AB}$. 
+As we review in Sec.~\ref{sec:pert_spherically_symmetric_spacetime}, 
+we can work in the Regge-Wheeler
+gauge, and promote all variables to their gauge-invariant
+counterparts at the end of the calculation.
+We now use $\dot{=}$ to indicate that we only keep terms that are nonzero
+in a polar decomposition in Regge-Wheeler gauge.
+We work in a spherical harmonic basis and drop the $\ell,m$ labels
+to make the expressions less cluttered.
+The only nonzero components of the metric perturbation are
+\begin{subequations}
+\begin{align}
+    p_{ab}
+    \dot{=}&
+    h_{ab} Y 
+    ,\\
+    p_{AB}
+    \dot{=}&
+    r^2 k \Omega_{AB} Y
+    .
+\end{align}
+\end{subequations}
+%---------------------------------------------------------------------------
+\subsection{Computing the $ab$ components of the Ricci tensor}
+    We first look at
+\begin{align}
+    g^{\gamma\delta}\nabla_{\gamma}\nabla_{\delta}p_{ab}
+    \dot{=}&
+    \left( 
+        D_cD^c
+        +
+        \frac{1}{r^2}D_CD^C
+    \right)
+    h_{ab}Y
+    +
+    \frac{2}{r}r^c
+    \left(
+        D_ch_{ab}
+        -
+        \frac{2}{r}r_{(a}h_{b)c}
+    \right)
+    Y
+    +
+    \frac{4}{r^2}r_{(a}r_{b)}k Y
+    \nonumber\\
+    =&
+    \left(
+        \left( 
+            D_cD^c
+            -
+            \frac{\ell\left(\ell+1\right)}{r^2}
+        \right)
+        h_{ab}
+        +
+        \frac{2}{r}r^c
+        \left(
+            D_ch_{ab}
+            -
+            \frac{2}{r}r_{(a}h_{b)c}
+        \right)
+        +
+        \frac{4}{r^2}r_{(a}r_{b)}k
+    \right)
+    Y
+    .
+\end{align}
+We next look at (we can symmetrize later)
+\begin{align}
+    \nabla_av_b
+    \dot{=}&
+    D_a\left(
+        D_ch_b{}^c
+        -
+        \frac{2}{r}r_bk
+        +
+        \frac{2}{r}r^ch_{bc}
+        -
+        \frac{1}{2}D_b\left(h + 2k\right)
+    \right)
+    Y
+    \nonumber\\
+    =&
+    \Bigg(
+        D_aD_ch_b{}^c
+        +
+        \frac{2}{r^2}r_ar_bk
+        +
+        \frac{1}{r}r^c\left(
+            2D_{(a}h_{b)c}
+            -
+            D_ch_{ab}
+        \right)
+        \nonumber\\
+        &
+        -
+        \frac{2}{r^2}r_ar^ch_{bc}
+        +
+        \frac{2}{r}\left(r_a^ch_{bc} + r^cD_ah_{bc}\right)
+        -
+        D_aD_b\left(\frac{1}{2}h + k\right)
+    \Bigg)
+    Y
+    .
+\end{align}
+For the Riemann and Ricci tensor components, we have
+\begin{align}
+    R_{a}{}^{\gamma}{}_b{}^{\delta}p_{\gamma\delta}
+    \dot{=}&
+    \left(
+        \frac{1}{2}\mathcal{R}
+        \left(\alpha_{ab}\alpha^{cd} - \delta^c_a\delta^d_b\right)h_{cd}
+        -
+        \frac{2}{r}r_{ab}k
+    \right)
+    Y
+    ,\\
+    R^{\gamma}{}_{(a}p_{b)\gamma}
+    \dot{=}&
+    \left(
+        \frac{1}{2}\mathcal{R}h_{ab}
+        -
+        \frac{2}{r}r^c_{(a}h_{b)c}
+    \right)
+    Y
+    .
+\end{align}
+Using Eq.~\eqref{eq:general_pert_Ricci_tensor}, 
+and promoting everything to gauge-invariant quantities,
+we end up with
+\begin{empheq}[box=\widefbox]{align}
+    \label{eq:polar_pert_ab_comp_ricci_tensor}
+    \delta R_{ab}
+    \dot{=}&
+    \Bigg(
+        -
+        \frac{1}{2}\left(
+            D_cD^c 
+            -
+            \frac{\ell\left(\ell+1\right)}{r^2}
+        \right)
+        \tilde{h}_{ab}
+        +
+        D_{(a}D^c\tilde{h}_{b)c}
+        -
+        D_aD_b\left(\frac{1}{2}\tilde{h} + \tilde{k}\right)
+        \nonumber\\
+        &\;\;\;
+        +
+        \frac{2}{r}r^c\left(D_c\tilde{h}_{ab} + D_{(a}\tilde{h}_{b)c}\right)
+        -
+        \frac{2}{r}r_{(a}D_{b)}\tilde{k}
+        +
+        \frac{1}{2}\mathcal{R}\left(
+            3\tilde{h}_{ab}
+            -
+            \alpha_{ab}\tilde{h}
+        \right)
+    \Bigg)
+    Y
+    .
+\end{empheq}
+
+%---------------------------------------------------------------------------
+\subsection{Computing the $aB$ component of the Ricci tensor}
+    We first look at
+\begin{align}
+    g^{\gamma\delta}\nabla_{\gamma}\nabla_{\delta}p_{aB}
+    \dot{=}&
+    \left(
+        -
+        \frac{2}{r}r_ak
+        +
+        \frac{2}{r}r^ch_{ac}
+    \right)
+    E_B
+    .
+\end{align}
+We next look at 
+\begin{align}
+    \nabla_av_B
+    +
+    \nabla_Bv_a
+    =&
+    D_av_B
+    +
+    D_Bv_a
+    -
+    \frac{2}{r}r_av_B
+    \nonumber\\
+    \dot{=}&
+    \left(
+        D_ch_a{}^c
+        -
+        D_ak
+        -
+        D_ah
+        +
+        \frac{2}{r}r_ch_a{}^c
+        +
+        \frac{1}{r}r_ah
+        -
+        \frac{2}{r}r_ak
+    \right)
+    E_B
+    .
+\end{align}
+The Riemann tensor components are zero
+\begin{align}
+    R_{a}{}^{\gamma}{}_B{}^{\delta}p_{\gamma\delta}
+    \dot{=}&
+    0
+    .
+\end{align}
+The Ricci tensor components are also zero
+\begin{align}
+    R^{\gamma}{}_{(a}p_{B)\gamma}
+    \dot{=}&
+    0
+    .
+\end{align}
+Using Eq.~\eqref{eq:general_pert_Ricci_tensor}, 
+and promoting to gauge-invariant quantities, we have
+\begin{align}
+    \label{eq:polar_pert_aB_comp_ricci_tensor}
+    \boxed{
+        \delta R_{aB}
+        \dot{=}
+        \frac{1}{2}
+        \left(
+            D_c\tilde{h}_a{}^c
+            -
+            D_a\tilde{h}
+            -
+            D_a\tilde{k}
+            +
+            \frac{1}{r}r_a\tilde{h}
+        \right)
+        E_B
+        .
+    }
+\end{align}
+
+%---------------------------------------------------------------------------
+\subsection{Computing the $AB$ components of the Ricci tensor}
+    We first look at
+\begin{align}
+    g^{\gamma\delta}\nabla_{\gamma}\nabla_{\delta}p_{AB}
+    \dot{=}&
+    \left(
+        D_cD^c
+        +
+        \frac{1}{r^2}D_CD^C
+    \right)
+    \Omega_{AB}r^2kY
+    -
+    \frac{2}{r}\left(r_c^c + r^cD_c\right)\Omega_{AB}r^2kY
+    +
+    2\Omega_{AB}r^cr^dh_{cd}Y
+    \nonumber\\
+    =&
+    \left(
+        \left(
+            D_cD^c
+            -
+            \frac{\ell\left(\ell+1\right)}{r^2}
+        \right)
+        k
+        +
+        \frac{2}{r}r^cD_ck
+        -
+        \frac{2}{r^2}r_cr^ck
+        +
+        \frac{2}{r^2}r^cr^dh_{cd}
+    \right)
+    r^2\Omega_{AB}Y
+    .
+\end{align}
+We next look at (we can symmetrize later) 
+\begin{align}
+    \nabla_Av_B
+    =&
+    D_Av_B
+    +
+    \Omega_{AB}rr^cv_c
+    \nonumber\\
+    =&
+    -
+    \frac{1}{2}h Z_{AB}
+    \nonumber\\
+    &
+    +
+    \left(
+        \frac{1}{r}r^cD_dh_c{}^d
+        -
+        \frac{1}{r}r^cD_ch
+        -
+        \frac{2}{r}r^cD_ck
+        +
+        \frac{2}{r^2}r^cr^dh_{cd}
+        -
+        \frac{2}{r^2}r_cr^ck
+        -
+        \frac{\ell\left(\ell+1\right)}{2r^2}h
+    \right)
+    r^2\Omega_{AB}Y
+    .
+\end{align}
+The Riemann tensor components are
+\begin{align}
+    R_{A}{}^{\gamma}{}_B{}^{\delta}p_{\gamma\delta}
+    \dot{=}&
+    \left(
+        -
+        \frac{1}{r}r^{cd}h_{cd}
+        +
+        \frac{1-r_ar^c}{r^2}k
+    \right)
+    r^2\Omega_{AB}
+    Y
+    .
+\end{align}
+The Ricci tensor components are also zero
+\begin{align}
+    R^{\gamma}{}_{(A}p_{B)\gamma}
+    \dot{=}&
+    \left(
+        \frac{1-r_ar^a-rr^a_a}{r^2}k
+    \right)
+    r^2\Omega_{AB}Y
+    .
+\end{align}
+Using Eq.~\eqref{eq:general_pert_Ricci_tensor}, 
+and promoting to gauge-invariant quantities, we have
+\begin{empheq}[box=\widefbox]{align}
+    \label{eq:polar_pert_AB_comp_ricci_tensor}
+    \delta R_{AB}
+    =&
+    -
+    \frac{1}{2}\tilde{h}Z_{AB}
+    \nonumber\\
+    &
+    +
+    \Bigg(
+        -
+        \frac{1}{2}\left(D_cD^c - \frac{\ell\left(\ell+1\right)}{r^2}\right)
+        \tilde{k}
+        -
+        \frac{3}{r}r^cD_c\tilde{k}
+        -
+        \left(\frac{1}{r^2}r^cr^c - \frac{1}{r}r^c_c\right)\tilde{k}
+        \nonumber\\
+        &
+        \qquad
+        +
+        \frac{1}{r}r^cD_d\tilde{h}_c{}^d
+        -
+        \frac{1}{r}r^cD_c\tilde{h}
+        +
+        \frac{2}{r^2}r^cr^d\tilde{h}_{cd}
+        -
+        \frac{\ell\left(\ell+1\right)}{2r^2}\tilde{h}
+    \Bigg)
+    r^2\Omega_{AB}Y
+    .
+\end{empheq}
+%---------------------------------------------------------------------------
+\subsection{Computing the $a$ component of the Bianchi identity}
+    We consider the divergence of the stress-energy tensor.
+We first look at
+\begin{align}
+    D_cP^c_a 
+    +
+    D_CP^C_a
+    + 
+    \frac{2}{r}r_cP^c_a 
+    -
+    \frac{1}{r}r_aP^C_C
+    =
+    \left(
+        D_cH^c_a
+        +
+        \frac{2}{r}r_cH^c_a
+        -
+        \frac{\ell\left(\ell+1\right)}{r^2}J_a
+        -
+        \frac{2}{r}r_aK
+    \right)
+    Y
+    .
+\end{align}
+We next look at the metric terms 
+\begin{align}
+    -
+    C^b_{ca}T^b_b
+    +
+    \left(
+        C^c_{cb}
+        -
+        \frac{1}{r^4}r_bp^C_C
+    \right)
+    T^b_a
+    +
+    \frac{1}{r^3}r_ap^C_C\mathcal{P}
+    =
+    \left(
+        -
+        C^b_{ca}T^b_b
+        +
+        \left(
+            C^c_{cb}
+            -
+            \frac{2}{r^2}r_bk
+        \right)
+        T^b_a
+        +
+        \frac{2}{r}r_ak\mathcal{P}
+    \right)
+    Y
+    .
+\end{align}
+    Putting everything together, we have
+\begin{align}
+    \label{eq:polar_comp_a_se_eom}
+    \boxed{
+        \frac{1}{r^2}D_c\left(r^2H^c_a\right)
+        -
+        \frac{\ell\left(\ell+1\right)}{r^2}J_a
+        -
+        \frac{2}{r}r_aK
+        -
+        C^b_{ca}T^b_b
+        +
+        \left(
+            C^c_{cb}
+            -
+            \frac{2}{r^2}r_bk
+        \right)
+        T^b_a
+        +
+        \frac{2}{r}r_ak\mathcal{P}
+        =
+        0
+        .
+    }
+\end{align}
+%---------------------------------------------------------------------------
+\subsection{Computing the $A$ component of the Bianchi identity}
+    We consider the divergence of the stress-energy tensor.
+We first look at
+\begin{align}
+    D_cP^c_A
+    +
+    D_CP^C_A
+    +
+    \frac{2}{r}r_cP^c_A
+    =
+    \left(
+        D_cJ^c
+        +
+        K
+        -
+        \frac{\left(\ell+2\right)\left(\ell-1\right)}{2}G
+        +
+        \frac{2}{r}r_cJ^c
+    \right)
+    E_A
+    .
+\end{align}
+We next look at the metric terms
+\begin{align}
+    \frac{1}{2}D_Ap^c_c\mathcal{P}
+    -
+    \frac{1}{2}D_Ap^b_c T^c_b
+    =
+    \frac{1}{2}
+    \left(
+        h\mathcal{P}
+        -
+        T^b_ch^c_b
+    \right)
+    E_A
+    .
+\end{align}
+Putting everything together, we have
+\begin{align}
+    \label{eq:polar_comp_A_se_eom}
+    \boxed{
+        \frac{1}{r^2}D_c\left(r^2J^c\right)
+        +
+        K
+        -
+        \frac{\left(\ell+2\right)\left(\ell-1\right)}{2}G
+        +
+        h\mathcal{P}
+        -
+        T^b_ch^c_b
+        =
+        0
+        .
+    }
+\end{align}
+
+\appendix
+%===========================================================================
+\chapter{Scalar, vector, and tensor spherical harmonics
+\label{sec:scalar_vector_tensor_spherical_harmonics}}
+We work on the unit two-sphere $\mathbb{S}^2$, with metric $\Omega_{AB}$,
+Levi-Cevita tensor $\varepsilon_{AB}$, 
+and metric compatible derivative $D_A$. 
+The Ricci tensor is $R=+2$.
+Our notation for the spherical harmonics follows that of
+\cite{Nagar:2005ea}.
+
+%---------------------------------------------------------------------------
+\section{Scalar spherical harmonics}
+The scalar spherical harmonics satisfy
+\begin{align}
+    \left(
+        \Omega^{AB}D_AD_B
+        +
+        \ell\left(\ell+1\right)
+    \right)
+    Y^m_{\ell}
+    =
+    0
+    ,
+\end{align}
+along with the following orthogonality relation
+\begin{align}
+    \int d\Omega Y^m_{\ell}Y^{m^{\prime}}_{\ell^{\prime}}
+    =
+    \delta_{\ell\ell^{\prime}}\delta_{mm^{\prime}}
+    .
+\end{align}
+%---------------------------------------------------------------------------
+\section{Vector spherical harmonics}
+The polar and axial
+vector spherical harmonics respectively are
+\begin{align}
+    \left[E^m_{\ell}\right]_A
+    \equiv
+    D_AY^m_{\ell}
+    ,\qquad
+    \left[S^m_{\ell}\right]_A
+    \equiv
+    \varepsilon_{BA}D^BY^m_{\ell}
+    .
+\end{align}
+The vector spherical harmonics satisfy
+\begin{align}
+    \left(
+        \Omega^{AB}D_AD_B
+        +
+        \left(-1+\ell\left(\ell+1\right)\right)
+    \right)
+    \left[V^m_{\ell}\right]_C
+    =
+    0
+    ,
+\end{align}
+along with the following orthogonality relation
+\begin{align}
+    \int d\Omega 
+        \left[V^m_{\ell}\right]_A
+        \left[V^{m^{\prime}}_{\ell^{\prime}}\right]^A
+    =
+    \ell\left(\ell+1\right)
+    \delta_{\ell\ell^{\prime}}\delta_{mm^{\prime}}
+    .
+\end{align}
+The divergence of the polar and axial vector spherical harmonics
+respectively are
+\begin{align}
+    D_A\left[E^m_{\ell}\right]^A
+    =&
+    D_AD^AY^m_{\ell}
+    \nonumber\\
+    =&
+    -
+    \ell\left(\ell+1\right)Y^m_{\ell}
+    .\\
+    D_A\left[S^m_{\ell}\right]^A
+    =&
+    \varepsilon_{BA}D^BD^AY^m_{\ell}
+    \nonumber\\
+    =&
+    0
+    .
+\end{align}
+%---------------------------------------------------------------------------
+\section{Tensor spherical harmonics}
+The polar and axial tensor spherical harmonics respectively are
+\begin{align}
+    \left[Z^m_{\ell}\right]_{AB}
+    \equiv
+    D_AD_BY^m_{\ell}
+    +
+    \frac{1}{2}\ell\left(\ell+1\right)
+    \Omega_{AB}Y^m_{\ell}
+    ,\qquad
+    \left[S^m_{\ell}\right]_{AB}
+    \equiv
+    D_{(A}\left[S^m_{\ell}\right]_{B)}
+    .
+\end{align}
+The tensor spherical harmonics satisfy
+\begin{align}
+    \left(
+        \Omega^{AB}D_AD_B
+        +
+        \left(-2+\ell\left(\ell+1\right)\right)
+    \right)
+    \left[T^m_{\ell}\right]_{CD}
+    =
+    0
+    ,
+\end{align}
+along with the following orthogonality relation
+\begin{align}
+    \int d\Omega 
+        \left[T^m_{\ell}\right]_{AB}
+        \left[T^{m^{\prime}}_{\ell^{\prime}}\right]^{AB}
+    =
+    \frac{1}{2}
+    \left(\ell-1\right)\ell\left(\ell+1\right)\left(\ell+2\right)
+    \delta_{\ell\ell^{\prime}}\delta_{mm^{\prime}}
+    .
+\end{align}
+The polar and axial tensor spherical harmonics are both traceless
+\begin{align}
+    \Omega^{AB}\left[Z^m_{\ell}\right]_{AB}
+    =&
+    D_AD^AY^m_{\ell}
+    +
+    \ell\left(\ell+1\right)Y^m_{\ell}
+    \nonumber\\
+    =&
+    0
+    ,\\
+    \Omega^{AB}\left[S^m_{\ell}\right]_{AB}
+    =&
+    D_A\left[S^m_{\ell}\right]^A
+    \nonumber\\
+    =&
+    0
+    .
+\end{align}
+The trace is captured by the scalar spherical harmonic $Y^m_{\ell}$,
+which is sometimes denoted by \cite{Martel:2003ab}
+\begin{align}
+    \left[U^m_{\ell}\right]_{AB}
+    \equiv
+    \Omega_{AB} Y^m_{\ell}
+    .
+\end{align}
+The divergence of the polar and axial tensor spherical harmonics
+respectively are
+\begin{align}
+    D_A\left[Z^m_{\ell}\right]^{AB}
+    =&
+    D_AD^AD^BY^m_{\ell}
+    +
+    \frac{1}{2}\ell\left(\ell+1\right)D^BY^m_{\ell}
+    \nonumber\\
+    =&
+    D^BD_AD^AY^m_{\ell}
+    +
+    R^B_CD^CY^m_{\ell}
+    +
+    \frac{1}{2}\ell\left(\ell+1\right)D^BY^m_{\ell}
+    \nonumber\\
+    =&
+    D^BY^m_{\ell}
+    -
+    \frac{1}{2}\ell\left(\ell+1\right)D^BY^m_{\ell}
+    \nonumber\\
+    =&
+    \left(
+        1
+        -
+        \frac{1}{2}\ell\left(\ell+1\right)
+    \right)
+    \left[E^m_{\ell}\right]^B
+    ,\\
+    D_A\left[S^m_{\ell}\right]^{AB}
+    =&
+    \frac{1}{2}D_A\left(
+        D^A\left[S^m_{\ell}\right]^B
+        +
+        D^B\left[S^m_{\ell}\right]^A
+    \right)
+    \nonumber\\
+    =&
+    \frac{1}{2}\left(
+        \left(1-\ell\left(\ell+1\right)\right)\left[S^m_{\ell}\right]^B
+        +
+        D_BD_A\left[S^m_{\ell}\right[^A
+        +
+        R^B_C\left[S^m_{\ell}\right]^C
+    \right)
+    \nonumber\\
+    =&
+    \left(
+        1
+        -
+        \frac{1}{2}\ell\left(\ell+1\right)
+    \right)
+    \left[S^m_{\ell}\right]^B
+    .
+\end{align}
+We have used that $R=2$ and $R_{AB} = (R/2)\Omega_{AB}=\Omega_{AB}$.
+
+%==============================================================================
+\bibliography{thebib}
+\bibliographystyle{alpha}
+%==============================================================================
+\end{document}
