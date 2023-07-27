@@ -81,9 +81,8 @@ Einstein equations}
 \label{sec:notation}
 	We mostly follow the conventions (and order of presentation) of
 \cite{Chandrasekhar_bh_book}, except when otherwise noted.
-Spacetime indices will be denoted with
-lower case latin letters. The comma will denote
-partial differntiation and the semicolon will denote covariant differentiation,
+Spacetime indices will be denoted with lower case latin letters. The comma will denote
+partial differentiation and the semicolon will denote covariant differentiation,
 although I'll also use $\partial_i$ and $\nabla_i$ as well. I will bold font
 tensors when I do not give indices.
 
@@ -292,7 +291,7 @@ The notation for scalars will be
 	.
 \end{align}
 	With symmetric (e.g. Christoffel)
-connections, we may replace the the partial derivatives with
+connections, we may replace the partial derivatives with
 covariant derivatives, and we then invert the above relationship
 to write the Ricci rotation coefficients in terms
 of the $\lambda_{(a)(b)(c)}$:
@@ -669,7 +668,7 @@ First we list the Weyl scalars
 \end{aligned}
 \end{align} 
 	Chandrasekhar \cite{Chandrasekhar_bh_book}
-describes a combinatorical procedure
+describes a combinatorial procedure
 (which I implement in my Mathematica note) that allows one to
 write all the nonzero tetrad contractions of the Weyl
 tensor in terms of the above five complex Weyl scalars.
@@ -684,9 +683,8 @@ look the same as in NP's original paper, we define the below
 terms with a global change of sign from what you
 will find in the original NP paper.
 Note also that there appears to be a global
-sign flip typo in Chandrasekhars formulas that include the Ricci terms:
-he should define them as wel do below to get the NP equations he later
-derives
+sign flip typo in Chandrasekhar's formulas that include the Ricci terms:
+he should define them as we do below to get the NP equations he later derives
 \begin{align}
 \begin{aligned} 
 	&
@@ -816,7 +814,7 @@ See also \cite{Chandrasekhar_bh_book}, Chptr 1, Eq.(310), and
 \cite{Newman_Penrose_paper} (note though that
 NP use opposite signs for Ricci rotation
 coefficients than Chandrasekhar). These essentially give us transport
-equations for the Ricci roation coefficients $\alpha$, etc. 
+equations for the Ricci rotation coefficients $\alpha$, etc. 
 
 By taking linear combinations of these
 equations (and complex conjugates of them) we can eliminate
@@ -922,7 +920,7 @@ equations listed here should exactly match those)
 \end{align}
 \end{subequations} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Derived: Weyl scalars in terms of the Rici rotation coefficients}
+\subsection{Derived: Weyl scalars in terms of the Ricci rotation coefficients}
 \label{sec:Weyl_scalars_Ricci_rotation_coefficients}
 	We can think of the results in
 Sec.~\ref{sec:components_Riemann tensor} as providing definitions for
@@ -961,7 +959,7 @@ computation of the Ricci identities.
 	Using Eq.~\eqref{eq:tetrad_components_Bianchi_identities} and
 the definitions for the NP scalars for the Ricci rotation coefficients,
 we can derive long expressions for the Bianchi identities.
-We can obtain shorter expressions by writing the 
+We can obtain shorter expressions by writing 
 the Riemann tensor in terms of the Weyl and Ricci scalars using 
 Eq.~\eqref{eq:def_Weyl_tensor}.
 The Bianchi identities then become first order differential equations for those
@@ -1400,7 +1398,7 @@ and \eqref{eq:null_frame_transformations_class_three_Weyl_scalars}, we see
 that at any given tangent space it may be possible to set some of the
 Weyl scalars to zero through a choice of null frame transformation. From
 the perspective of the NP formalism, 
-we can think of the  Petrov classification of spacetimes as enuermating 
+we can think of the  Petrov classification of spacetimes as enumerating 
 how many Weyl scalars can be sent to zero through a null
 frame transformation.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1449,16 +1447,16 @@ and reserve use of $\pi$ for the Newman-Penrose scalar.
 \begin{subequations}
 \label{eq:Kinnersley_tetrad_BL}
 \begin{align}
-	l_{Kin}^{\mu}
+	l_{Kin}^{i}
 	= &
 	\left(\frac{r^2+a^2}{\Delta_{BL}},1,0,\frac{a}{\Delta_{BL}}\right)
 	, \\
-	n_{Kin}^{\mu}
+	n_{Kin}^{i}
 	= &
 	\frac{1}{2\Sigma_{BL}}\left(r^2+a^2,-\Delta_{BL},0,a\right)
 	, \\
-	m_{Kin}^{\mu}
-	= &
+	m_{Kin}^{i}
+	= i&
 	\frac{1}{2^{1/2}\left(r+ia\mathrm{cos}\vartheta\right)}
 	\left(
 		ia\mathrm{sin}\vartheta,0,1,\frac{i}{\mathrm{sin}\vartheta}
@@ -1536,7 +1534,7 @@ define the outer and inner horizons
 \begin{subequations}
 \label{eq:Kinnersley_tetrad_IEF}
 \begin{align}
-	l_{Kin}^{\mu}
+	l_{Kin}^{i}
 	= &
 	\left(
 		1+\frac{4Mr}{\Delta_{BL}},
@@ -1545,7 +1543,7 @@ define the outer and inner horizons
 		\frac{2a}{\Delta_{BL}}
 	\right)
 	, \\
-	n_{Kin}^{\mu}
+	n_{Kin}^{i}
 	= &
 	\frac{1}{2\Sigma_{BL}}\left(
 		\Delta_{BL},
@@ -1554,7 +1552,7 @@ define the outer and inner horizons
 		0
 	\right)
 	, \\
-	m_{Kin}^{\mu}
+	m_{Kin}^{i}
 	= &
 	\frac{1}{2^{1/2}\left(r+ia\mathrm{cos}\vartheta\right)}
 	\left(
