@@ -1,0 +1,1792 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GHP derivatives in math mode 
+\newcommand{\spindersphere}{{}_s\slashed{\Delta}}
+\newcommand{\edth}{\textnormal{\dh}}
+\newcommand{\Thorn}{\textnormal{\th}}
+\newcommand{\Edth}{\textnormal{\DH}}
+\newcommand{\mathTH}{\textnormal{\TH}}
+\newcommand{\firstorder}[1]{\dot{#1}}
+\newcommand{\secondorder}[1]{\ddot{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% to make overbar (for complex conjugate) easier to read from a distance
+\newcommand*\oline[1]{%
+   \vbox{%
+     \hrule height 1pt%                  % Line above with certain width
+     \kern0.25ex%                          % Distance between line and content
+     \hbox{%
+       \ifmmode#1\else\ensuremath{#1}\fi%  % The content, typeset in dependence of mode
+     }
+   }
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{empheq}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand{\justin}[1]{{\textbf{#1}} }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{mathalfa,amssymb}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{slashed}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{braket}
+\usepackage[hidelinks]{hyperref}
+
+\allowdisplaybreaks
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title{
+{Notes on the Newman-Penrose formalism}\\
+}
+\author{Justin L. Ripley 
+   \\ \small{lloydripley[at]gmail[dot]com}
+   }
+\date{\today}
+
+\maketitle
+
+\abstract{
+   These are notes on the Newman-Penrose formalism, which I wrote
+   up while working on \cite{Ripley:2020xby}.
+   I refer to a Mathematica note several times, which can be accessed at: 
+
+   \url{https://github.com/JLRipley314/2nd-order-teuk-derivations}.
+
+   Nothing in here is new
+   (these notes mostly follow Chapter 1 of Chandrasekhar's book
+   on black hole perturbation theory \cite{Chandrasekhar_bh_book},
+   except for the section on the GHP formalism).
+   Please let me know if you find any typos/errors!
+}
+
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Setup of basic formalism: Einstein equations and null frames}
+\label{chptr:NP_formalism}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Notation and summary of (sub)Riemannian geometry and the
+Einstein equations}
+\label{sec:notation}
+	We mostly follow the conventions (and order of presentation) of
+\cite{Chandrasekhar_bh_book}, except when otherwise noted.
+Spacetime indices will be denoted with lower case latin letters. The comma will denote
+partial differentiation and the semicolon will denote covariant differentiation,
+although I'll also use $\partial_i$ and $\nabla_i$ as well. I will bold font
+tensors when I do not give indices.
+
+	The metric signature is $+---$.
+
+	The Ricci identity is
+\begin{align}
+	\left[\nabla_k,\nabla_l\right]V^j
+	=	
+	R^j{}_{ikl}V^i
++
+	T^n{}_{kl}\nabla_nV^j
+	,
+\end{align}
+	where $T^n{}_{kl}$ is the torsion. We set the torsion to be zero.
+	From the Ricci identity, the Riemann tensor is
+\begin{align}
+	R^j{}_{lnm}
+	=
+	\Gamma^j_{lm,n}
+-	\Gamma^j_{ln,m}
++	\Gamma^j_{kn}\Gamma^k_{lm}
+-	\Gamma^j_{km}\Gamma^k_{ln}
+	,
+\end{align}
+	where the $\Gamma^k_{ij}$ are the metric compatible (Christoffel)
+connection coefficients. In a coordinate basis we may write 
+\begin{align}
+	\Gamma^i_{jk}
+	=
+	\frac{1}{2}g^{il}\left(
+		g_{jl,k}
+	+	g_{kl,j}
+	-	g_{jk,l}
+	\right)
+	,
+\end{align}
+
+The Ricci tensor and Ricci scalar are
+\begin{align}
+	R_{ij} \equiv R^k{}_{ikj} 
+	,
+	\qquad
+	R \equiv g^{ij}R_{ij}
+	.
+\end{align}
+	The Jacobi identity for the commutator of two derivatives
+along with the Ricci identity
+gives us the following cyclic identity for the Riemann tensor 
+\begin{align}
+\label{eq:Riemann_cyclic_identity}
+	R^j{}_{lkm}
++	R^j{}_{klm}
++	R^j{}_{mkl}
+	=
+	0
+	.
+\end{align} 
+	In a coordinate basis, we can write the Bianchi identities as
+\begin{align}
+\label{eq:Riemann_Bianchi_identity}
+	\nabla_rR^j{}_{lpq}
++	\nabla_pR^j{}_{lqr}
++	\nabla_qR^j{}_{lrp}
+	=
+	0
+	.
+\end{align}
+	The Weyl tensor is
+\begin{align}
+\label{eq:def_Weyl_tensor}
+	C_{ijkl}
+	\equiv
+	R_{ijkl}
+-	\frac{1}{n-2}\left(
+		g_{ik}R_{jl}
+	-	g_{jk}R_{il}
+	-	g_{il}R_{jk}
+	+	g_{jl}R_{ik}
+	\right)
++	\frac{1}{(n-1)(n-2)}\left(
+		g_{ik}g_{jl}
+	-	g_{il}g_{jk}
+	\right)R
+	,
+\end{align}
+	where $n$ is the dimension of the manifold; we will always work
+with $n=4$.
+It obeys the same algebraic symmetries as the Riemann tensor, and it is
+tracefree on all indices.
+
+	The Einstein equations are
+\begin{align}
+	G_{ij}\equiv R_{ij}-\frac{1}{2}g_{ij}R
+	=
+	T_{ij}
+	,
+\end{align}
+	where $G_{ij}$ is the Einstein tensor, and $T_{ij}$ is
+the stress-energy tensor. From the Bianchi identities, the Einstein
+tensor is divergence free; $\nabla^iG_{ij}=0$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tetrad formalism}
+\label{sec:tetrad_formalism}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Basic setup}
+	 At every spacetime point we set up a basis of four vectors
+\begin{align}
+	e^i_{(a)}
+	,
+\end{align}
+	where $a$ is the basis index, and $i$ is the coordinate index.
+When we refer to a particular component, e.g. $i=1$, we write 
+$e^1_{(a)}$, and if $a=1$ we write $e^i_{(1)}$.
+We raise/lower the spacetime indices with the metric/inverse
+metric
+$g_{ij}$/$g^{ij}$, respectively. 
+We raise/lower the basis index with a constant, symmetric
+matrix and its inverse $\eta_{(a)(b)}$/$\eta^{(a)(b)}$, respectively.
+We call $\eta_{(a)(b)}$ the internal metric. We define $e^{(a)}_i$, etc.
+so that 
+\begin{align}
+	e^i_{(a)} e^{(a)}_j = \delta^i_j
+	,
+	\qquad
+	e^i_{(a)} e^{(b)}_j = \delta^{(b)}_{(a)}
+	,
+	\qquad
+	e^i_{(a)} e_{(b)i} = \eta_{(a)(b)}
+	,
+	\qquad
+	e^{(a)}_ie_{(a)j} = g_{ij}
+	,
+\end{align}
+	where $\delta$ is the Kronecker delta. For any given tensor
+we have the notation, e.g. $V^{(a)}=e^{(a)}_iV^i$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Intrinsic derivative and Ricci rotation coefficients}
+	We define the directional derivatives
+\begin{align}
+	{\bf e}_{(a)}
+	\equiv
+	e_{(a)}^i\nabla_i
+	.
+\end{align}
+	Recall for a coordinate basis we have $e^i_{(a)}``="\delta^i_{(a)}$.
+The notation for scalars will be 
+\begin{align}
+	\phi_{,(a)}
+	\equiv
+	\partial_{(a)}\phi
+	\equiv
+	e_{(a)}^i\partial_i\phi
+	.
+\end{align}
+	The notation for tensors is
+\begin{align}
+	\partial_{(b)}V^{(a)}
+	\equiv &
+	e^j_{(b)}\nabla_j\left(e^{(a)}_iV^i\right)
+	\nonumber \\
+	= &
+	e^j_{(b)} V^i\nabla_je^{(a)}_{i}
++	e^j_{(b)}e^{(a)}_i\nabla_jV^i
+	.
+\end{align}
+	We define the intrinsic derivative
+\begin{align}
+\label{eq:def_intrinsic_der}
+	V^{(a)}{}_{|(b)}
+	\equiv
+	\nabla_{(b)}V^{(a)}
+	\equiv
+	e^j_{(b)}e^{(a)}_i\nabla_jV^i
+	,	
+\end{align}
+	and the Ricci rotation coefficients
+\begin{align}
+\label{eq:def_Ricci_rotation}
+	\gamma_{{(c)}{(a)}{(b)}}
+	\equiv &
+	e_{(c)}^k \left(\nabla_ie_{{(a)}k}\right) e_{(b)}^i
+	, \\
+\implies \nabla_me_{n(a)}
+	= &
+	\gamma_{(c)(a)(b)}e^{(c)}_ne^{(b)}_m
+	. 
+\end{align}
+	As $\partial_i\eta_{{(a)}{(b)}}=0$, we have
+\begin{align}
+	\gamma_{{(c)}{(a)}{(b)}}
+	=
+-	\gamma_{{(a)}{(c)}{(b)}}
+	.
+\end{align}
+	We next define	
+\begin{align}
+\label{eq:def_lambda_coef}
+	\lambda_{{(a)}{(b)}{(c)}}
+	\equiv
+	\left(
+		\partial_je_{{(b)}i}
+	-	\partial_ie_{{(b)}j}
+	\right)
+	e^i_{(a)}e^j_{(c)}
+	.
+\end{align}
+	With symmetric (e.g. Christoffel)
+connections, we may replace the partial derivatives with
+covariant derivatives, and we then invert the above relationship
+to write the Ricci rotation coefficients in terms
+of the $\lambda_{(a)(b)(c)}$:
+\begin{align}
+	\gamma_{(a)(b)(c)}
+	=
+	\frac{1}{2}\left(
+		\lambda_{(a)(b)(c)}
+	+	\lambda_{(c)(a)(b)}
+	-	\lambda_{(b)(c)(a)}
+	\right)
+	.
+\end{align} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Structure constants in terms of Ricci rotation coefficients}
+	We mention the structure constants, which are defined to be
+\begin{align}
+	\left[e^i_{(a)}\nabla_i,e^j_{(b)}\nabla_j\right]
+	\equiv
+	C^{(c)}{}_{(a)(b)}e^k_{(c)}\nabla_k
+	.
+\end{align}
+	Acting this on a scalar function, we see that
+\begin{align}
+	C^{(c)}{}_{(a)(b)}
+	=
+	\gamma^{(c)}{}_{(b)(a)}
+-	\gamma^{(c)}{}_{(a)(b)}
+	.
+\end{align}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Riemann tensor in terms of Ricci rotation coefficients}
+	We have
+\begin{align}
+\label{eq:tetrad_components_Riemann}
+	R_{(a)(b)(c)(d)}
+	= &
+	R_{pqrs}e^p_{(a)} e^q_{(b)} e^r_{(c)} e^s_{(d)}
+	\nonumber \\
+	= &
+	\left(	
+		\nabla_s\left(\nabla_re_{q(a)}\right)
+	-	\nabla_r\left(\nabla_se_{q(a)}\right)
+	\right)
+	e^q_{(b)} e^r_{(c)} e^s_{(d)}	
+	\nonumber \\
+	= &
+	\gamma_{(a)(b)(d)|(c)}
+-	\gamma_{(a)(b)(c)|(d)}
+	\nonumber \\
+	&
+	+ 	\gamma_{(b)(a)(i)}\gamma_{(c)}{}^{(i)}{}_{(d)}
+	- 	\gamma_{(b)(a)(i)}\gamma_{(d)}{}^{(i)}{}_{(c)}
+	+	\gamma_{(i)(a)(c)}\gamma_{(b)}{}^{(i)}{}_{(d)}
+	-	\gamma_{(i)(a)(d)}\gamma_{(b)}{}^{(i)}{}_{(c)}
+	.
+\end{align}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bianchi identity in terms of Ricci Rotation coefficients}
+	We write
+\begin{align}
+\label{eq:tetrad_components_Bianchi_identities}
+	R_{(a)(b)[(c)(d)|(f)]}
+	= &
+	R_{ij[kl;p]}e^i_{(a)} e^j_{(b)} e^k_{(c)} e^l_{(d)} e^p_{(f)}
+	\nonumber \\
+	= &
+	\frac{1}{6}\sum_{[(c)(d)(f)]}\left(
+		e^i_{(a)} e^j_{(b)} e^k_{(c)} e^l_{(d)} e^p_{(f)}
+		\nabla_rR_{ijkl}
+	\right)
+	\nonumber \\
+	= &
+	\frac{1}{6}\sum_{[(c)(d)(f)]}\Big(
+		R_{(a)(b)(c)(d),(f)}
+	-	\gamma^{(i)}{}_{(a)(f)}R_{(i)(b)(c)(d)}
+	-	\gamma^{(i)}{}_{(b)(f)}R_{(a)(i)(c)(d)}
+	\nonumber \\
+	&\qquad\qquad
+	-	\gamma^{(i)}{}_{(c)(f)}R_{(a)(b)(i)(d)}
+	-	\gamma^{(i)}{}_{(d)(f)}R_{(a)(b)(c)(i)}
+	\Big)
+	.
+\end{align}
+	The symbol $\sum_{[(c)(d)(f)]}$ means
+``sum over antisymmetric configurations of $(c)(d)(f)$''. Another way of
+writing this is
+\begin{align}
+	\sum_{[(c)(d)(f)]}=\sum_{(c)(d)(f)}\epsilon_{(c)(d)(f)}
+	,
+\end{align}
+	but do \emph{not} contract indices like in the Einstein summation
+convention.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Geodesic equation}
+	The geodesic equation is
+\begin{align}
+	u^i\nabla_iu_j=0
+	.
+\end{align}
+	From the definitions of the Ricci rotation coefficients we can write
+this as
+\begin{align}
+	e^{(j)}_ju^{(i)}
+	\left(
+		\partial_{(i)}u_{(j)}
+	-	\eta^{(n)(m)}\gamma_{(m)(j)(i)}u_{(n)}
+	\right)
+	=
+	0
+	.
+\end{align}
+	The geodesic equation for coordinates may be written as
+\begin{subequations}
+\begin{align}
+	\frac{du_{(j)}}{d\tau}
+-	\gamma_{(k)(j)(i)}u^{(i)}u^{(k)}
+	= &
+	0
+	, \\
+	\frac{dx^i}{d\tau} - e^i_{(i)}u^{(i)} 
+	= &
+	0
+	.
+\end{align}
+\end{subequations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Newman-Penrose formalism}
+\label{sec:np_formalism}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Basic setup}
+	The Newman-Penrose formalism is a tetrad formalism with
+the following internal metric
+\begin{align}
+	\eta_{(a)(b)}
+	=
+	\begin{pmatrix}
+	0 & 1 & 0 & 0 \\
+	1 & 0 & 0 & 0 \\
+	0 & 0 & 0 & -1 \\
+	0 & 0 & -1 & 0 	
+	\end{pmatrix}
+	.
+\end{align}
+	The four basis vectors have special names
+\begin{align}
+	l^i
+	\equiv
+	e^i_{(1)}
+	, \qquad
+	n^i
+	\equiv
+	e^i_{(2)}
+	, \qquad
+	m^i
+	\equiv
+	e^i_{(3)}
+	, \qquad
+	\oline{m}^i
+	\equiv
+	e^i_{(4)}
+	.
+\end{align}
+	Using $\eta_{(a)(b)}$, the we see that
+\begin{align}
+	e^{i(1)}
+	=
+	n^i
+	, \qquad
+	e^{i(2)}
+	=
+	l^i
+	, \qquad
+	e^{i(3)}
+	=
+	-\oline{m}^i
+	, \qquad
+	e^{i(4)}
+	=
+	-m^i
+	.
+\end{align}
+	The metric in terms of the NP vectors is 
+\begin{align}
+	g_{ij}
+	=
+	n_il_j
++	n_jl_i
+-	m_i\oline{m}_j
+-	\oline{m}_im_j
+	.
+\end{align}
+	The vectors $\{n^i,l^i\}$ are null and real,
+and the vectors 
+$\{m^i,\oline{m}^i\}$ are null, complex, and complex conjugates of
+each other. We can read off the normalization conditions
+from $\eta_{(a)(b)}$:
+\begin{align}
+	l_im^i=l_i\oline{m}^i=n_im^i=n_i\oline{m}^i
+=	l_il^i=n_in^i=m_im^i=\oline{m}_i\oline{m}^i
+=	0
+	,
+\end{align}
+	and
+\begin{align}
+	l_in^i=-m_i\oline{m}^i=1
+	.
+\end{align}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Definitions:
+	directional derivatives and Ricci rotation coefficients}
+\label{sec:def_directional_derivatives_Riccci_rotation}
+	The directional derivatives have special names
+\begin{align}
+	D
+	\equiv 
+	l^i\nabla_i
+	, \qquad
+	\Delta
+	\equiv
+	n^i\nabla_i
+	, \qquad
+	\delta
+	\equiv
+	m^i\nabla_i
+	, \qquad
+	\oline{\delta}
+	\equiv
+	\oline{m}^i\nabla_i
+	,
+\end{align}
+	as do the Ricci rotation coefficients
+\begin{align}
+\begin{aligned}
+\label{eq:def_Ricci_rotation_NP}
+	&
+	\kappa
+	\equiv
+	\gamma_{(3)(1)(1)}
+	, &
+	\sigma
+	\equiv
+	\gamma_{(3)(1)(3)}
+	, \\
+	&
+	\lambda
+	\equiv
+	\gamma_{(2)(4)(4)}
+	, &
+	\nu
+	\equiv
+	\gamma_{(2)(4)(2)}
+	, \\
+	&
+	\rho
+	\equiv
+	\gamma_{(3)(1)(4)}
+	, &
+	\mu
+	\equiv
+	\gamma_{(2)(4)(3)}
+	, \\
+	&
+	\tau
+	\equiv
+	\gamma_{(3)(1)(2)}
+	, &
+	\pi
+	\equiv
+	\gamma_{(2)(4)(1)}
+	, \\
+	&
+	\epsilon
+	\equiv
+	\frac{1}{2}\left(
+		\gamma_{(2)(1)(1)}
+	+	\gamma_{(3)(4)(1)}
+	\right)
+	, &
+	\gamma
+	\equiv
+	\frac{1}{2}\left(
+		\gamma_{(2)(1)(2)}
+	+	\gamma_{(3)(4)(2)}
+	\right)
+	, \\
+	&
+	\alpha
+	\equiv
+	\frac{1}{2}\left(
+		\gamma_{(2)(1)(4)}
+	+	\gamma_{(3)(4)(4)}
+	\right)
+	, &
+	\beta
+	\equiv
+	\frac{1}{2}\left(
+		\gamma_{(2)(1)(3)}
+	+	\gamma_{(3)(4)(3)}
+	\right)
+	.
+\end{aligned}
+\end{align}
+	These definitions, combined with the antisymmetry of
+$\gamma_{(a)(b)(c)}$ in its first two indices and the $3\leftrightarrow4$
+rule with complex conjugate (
+	We can find the complex conjugates of these by 
+setting $3\to4$ and $4\to3$, as those are the only complex quantities) 
+, allows us to express all 24 Ricci rotation
+coefficients in terms of the above 12 complex Newman-Penrose scalars.
+For example we can invert the last four relationships to get
+\begin{align}
+\label{eq:definite_ricci_rot_NP_scalars}
+\begin{aligned}
+	&
+	\gamma_{(2)(1)(1)}
+	=
+	\epsilon + \oline{\epsilon}
+	, &
+	\gamma_{(3)(4)(1)}
+	=
+	\epsilon - \oline{\epsilon}
+	, \\
+	&
+	\gamma_{(2)(1)(2)}
+	=
+	\gamma + \oline{\gamma}
+	, &
+	\gamma_{(3)(4)(2)}
+	=
+	\gamma - \oline{\gamma}
+	, \\
+	&
+	\gamma_{(2)(1)(4)}
+	=
+	\alpha + \oline{\beta}
+	, &
+	\gamma_{(3)(4)(4)}
+	=
+	\alpha - \oline{\beta}
+	.
+\end{aligned}
+\end{align} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Definitions: components of Weyl and Ricci tensors}
+\label{sec:def_Weyl_Ricci_tensors}
+	We want to find the tetrad components of the curvature tensors. The
+Riemann tensor can be decomposed into the Weyl and Ricci tensors, and it
+is the components of those tensors that have special names. In four dimensions
+both tensors have 10 components, which are written as five complex scalars.
+First we list the Weyl scalars 
+\begin{align}
+\begin{aligned}
+	\Psi_0
+	\equiv
+	-C_{pqrs}l^pm^ql^rm^s
+	, \\
+	\Psi_1
+	\equiv
+	-C_{pqrs}l^pn^ql^rm^s
+	, \\
+	\Psi_2
+	\equiv
+	-C_{pqrs}l^pm^q\oline{m}^rn^s
+	, \\
+	\Psi_3
+	\equiv
+	-C_{pqrs}l^pn^q\oline{m}^rn^s
+	, \\
+	\Psi_4
+	\equiv
+	-C_{pqrs}n^p\oline{m}^qn^r\oline{m}^s
+	.
+\end{aligned}
+\end{align} 
+	Chandrasekhar \cite{Chandrasekhar_bh_book}
+describes a combinatorial procedure
+(which I implement in my Mathematica note) that allows one to
+write all the nonzero tetrad contractions of the Weyl
+tensor in terms of the above five complex Weyl scalars.
+
+	There are four real and three complex
+Ricci terms. {\bf NOTE:}
+Newman and Penrose \cite{Newman_Penrose_paper} use
+$R_{ij}=R^k{}_{ijk}$, while we use the conventions Chandrasekhar
+\cite{Chandrasekhar_bh_book}:$R_{ij}=R^k{}_{ikj}$.
+Thus, to make our NP equations
+look the same as in NP's original paper, we define the below
+terms with a global change of sign from what you
+will find in the original NP paper.
+Note also that there appears to be a global
+sign flip typo in Chandrasekhar's formulas that include the Ricci terms:
+he should define them as we do below to get the NP equations he later derives
+\begin{align}
+\begin{aligned} 
+	&
+	\Phi_{00}
+	\equiv
+	\frac{1}{2}R_{pq}l^pl^q
+	, &
+	\Phi_{22}
+	\equiv
+	\frac{1}{2}R_{pq}n^pn^q
+	, \\
+	&
+	\Phi_{02}
+	\equiv
+	\frac{1}{2}R_{pq}m^pm^q
+	, &
+	\Phi_{20}
+	\equiv
+	\frac{1}{2}R_{pq}\oline{m}^p\oline{m}^q
+	, \\
+	&
+	\Phi_{11}
+	\equiv
+	\frac{1}{4}R_{pq}\left(
+		l^pn^q
+	+	m^p\oline{m}^q
+	\right)
+	, &
+	\Phi_{01}
+	\equiv
+	\frac{1}{2}R_{pq}l^pm^q
+	, \\
+	&
+	\Phi_{10}
+	\equiv
+	\frac{1}{2}R_{pq}l^p\oline{m}^q
+	, &
+	\Phi_{12}
+	\equiv
+	\frac{1}{2}R_{pq}n^pm^q
+	, \\
+	&
+	\Phi_{21}
+	\equiv
+	\frac{1}{2}R_{pq}n^p\oline{m}^q
+	, & 
+	\Lambda
+	\equiv
+	-\frac{1}{24}R
+	.
+\end{aligned}
+\end{align} 
+	As the Ricci tensor is symmetric it is straightforward to write
+the rest of the Ricci tensor components in terms of the above NP scalars. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derived relations: commutation relations}
+\label{sec:commutation_relations}
+	We obtain relations for commuting the directional derivatives
+through the relation
+\begin{align}
+	\left[e^i_{(a)}\nabla_i,e^j_{(b)}\nabla_j\right]
+	=
+	C^{(c)}{}_{(a)(b)}e_{(c)}^k\nabla_k
+	=
+	\left(
+		\gamma_{(c)(b)(a)}
+	-	\gamma_{(c)(a)(b)}
+	\right)
+	e^{k(c)}\nabla_k
+	.
+\end{align}
+	An exercise in applying the definitions gives us	
+\begin{subequations}
+\label{eq:commutation_relations}
+\begin{align}
+\label{eq:commutation_D_Delta}
+	\left[D,\Delta\right]
+	=
+-	\left(\gamma+\oline{\gamma}\right)D
+-	\left(\epsilon+\oline{\epsilon}\right)\Delta
++	\left(\pi+\oline{\tau}\right)\delta
++	\left(\oline{\pi}+\tau\right)\oline{\delta}
+	, \\
+\label{eq:commutation_D_delta}
+	\left[D,\delta\right]
+	=
+	\left(\oline{\pi} - \beta - \oline{\alpha}
+	\right)D
+-	\kappa\Delta
++	\left(\epsilon - \oline{\epsilon}+\oline{\rho}\right)
+	\delta
++	\sigma\oline{\delta}
+	, \\
+\label{eq:commutation_Delta_delta}
+	\left[\Delta,\delta\right]
+	=
+	\oline{\nu}D
++	\left(-\tau+\oline{\alpha}+\beta\right)\Delta
++	\left(\gamma-\oline{\gamma}-\mu\right)\delta
+-	\oline{\lambda}\oline{\delta}
+	, \\
+\label{eq:commutation_delta_deltacc}
+	\left[\delta,\oline{\delta}\right]
+	=
+	\left(\mu-\oline{\mu}\right)D
++	\left(\rho-\oline{\rho}\right)\Delta
++	\left(-\alpha+\oline{\beta}\right)\delta
++	\left(\oline{\alpha}-\beta\right)\oline{\delta}
+	.
+\end{align}
+\end{subequations}
+	These are (1.303)-(1.306) in \cite{Chandrasekhar_bh_book}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derived relations: components of Riemann tensor
+(``Ricci identities'')}
+\label{sec:components_Riemann tensor}
+	Using Eq.~\eqref{eq:tetrad_components_Riemann} for the tetrad
+projections of the Riemann tensor, and the definitions
+\eqref{eq:def_Ricci_rotation_NP} for the Ricci rotation coefficients,
+we can write down the independent components of the Riemann tensor.	
+We can equate these expression to the components of the Riemann tensor
+written in terms of the NP scalars $\Psi_0$, $\Phi_{00}$, etc, using 
+Eq.~\eqref{eq:def_Weyl_tensor}.
+
+	We implement this in Mathematica and do not include the output here.
+See also \cite{Chandrasekhar_bh_book}, Chptr 1, Eq.(310), and
+\cite{Newman_Penrose_paper} (note though that
+NP use opposite signs for Ricci rotation
+coefficients than Chandrasekhar). These essentially give us transport
+equations for the Ricci rotation coefficients $\alpha$, etc. 
+
+By taking linear combinations of these
+equations (and complex conjugates of them) we can eliminate
+some of the scalars $\Phi_{00}$, etc. and get the so-call
+``eliminant relations'' (\cite{Chandrasekhar_bh_book},
+Chptr 1, Eq.(310)).
+The Ricci identities as derived in the Mathematica notebook are
+(this numbering follows \cite{Chandrasekhar_bh_book}, Eq. 310, and the
+equations listed here should exactly match those) 
+\begin{subequations}
+\label{eq:ricci_identities_np}
+\begin{align}
+	\kappa\left(-3\alpha - \oline{\beta} + \pi\right) + \rho\left(\epsilon + \oline{\epsilon} + \rho\right) + \sigma\oline{\sigma} - \oline{\kappa}\tau + \Phi_{00} 
+	- D\left(\rho\right) + \oline{\delta}\left(\kappa\right)
+	= &
+	0
+	, \\
+	\left(3\epsilon - \oline{\epsilon} + \rho + \oline{\rho}\right)\sigma - \kappa\left(\oline{\alpha} + 3\beta - \oline{\pi} + \tau\right) + \Psi_{0} 
+	- D\left(\sigma\right) + \delta\left(\kappa\right)
+	= &
+	0
+	, \\
+	-\left(\left(3\gamma + \oline{\gamma}\right)\kappa\right) + \oline{\pi}\rho + \left(\epsilon - \oline{\epsilon} + \rho\right)\tau + \sigma\left(\pi + \oline{\tau}\right) + \Phi_{01} + \Psi_{1} 
+	- D\left(\tau\right) + \Delta\left(\kappa\right)
+	= &
+	0
+	, \\
+	-\left(\oline{\beta}\epsilon\right) - \gamma\oline{\kappa} - \kappa\lambda + \pi\left(\epsilon + \rho\right) + \alpha\left(-2\epsilon + \oline{\epsilon} + \rho\right) + \beta\oline{\sigma} + \Phi_{10} 
+	- D\left(\alpha\right) + \oline{\delta}\left(\epsilon\right)
+	= &
+	0
+	, \\
+	\kappa\left(\gamma + \mu\right) + \epsilon\left(\oline{\alpha} - \oline{\pi}\right) + \beta\left(\oline{\epsilon} - \oline{\rho}\right) - \left(\alpha + \pi\right)\sigma - \Psi_{1} 
+	+ D\left(\beta\right) - \delta\left(\epsilon\right)
+	= &
+	0
+	, \\
+	2\gamma\epsilon + \oline{\gamma}\epsilon + \gamma\oline{\epsilon} + \Lambda + \kappa\nu - \pi\left(\beta + \tau\right) - \alpha\left(\oline{\pi} + \tau\right) - \beta\oline{\tau} - \Phi_{11} - \Psi_{2} 
+	+ D\left(\gamma\right) - \Delta\left(\epsilon\right)
+	= & 
+	0
+	, \\
+	3\epsilon\lambda + \oline{\kappa}\nu - \pi\left(\alpha - \oline{\beta} + \pi\right) - \lambda\left(\oline{\epsilon} + \rho\right) - \mu\oline{\sigma} - \Phi_{20} 
+	+ D\left(\lambda\right) - \oline{\delta}\left(\pi\right)
+	= &
+	0
+	, \\
+	-2\Lambda + \kappa\nu + \oline{\alpha}\pi - \pi\left(\beta + \oline{\pi}\right) + \mu\left(\epsilon + \oline{\epsilon} - \oline{\rho}\right) - \lambda\sigma - \Psi_{2} 
+	+ D\left(\mu\right) - \delta\left(\pi\right)
+	= &
+	0
+	, \\
+	\left(3\epsilon + \oline{\epsilon}\right)\nu - \gamma\pi + \oline{\gamma}\pi - \lambda\left(\oline{\pi} + \tau\right) - \mu\left(\pi + \oline{\tau}\right) - \Phi_{21} - \Psi_{3} 
+	+ D\left(\nu\right) - \Delta\left(\pi\right)
+	= &
+	0
+	, \\
+	\lambda\left(3\gamma - \oline{\gamma} + \mu + \oline{\mu}\right) - \nu\left(3\alpha + \oline{\beta} + \pi - \oline{\tau}\right) + \Psi_{4} 
+	+ \Delta\left(\lambda\right) - \oline{\delta}\left(\nu\right)
+	= &
+	0
+	, \\
+	\kappa\left(-\mu + \oline{\mu}\right) - \left(\oline{\alpha} + \beta\right)\rho + 3\alpha\sigma - \oline{\beta}\sigma + \left(-\rho + \oline{\rho}\right)\tau - \Phi_{01} + \Psi_{1} 
+	+ \delta\left(\rho\right) - \oline{\delta}\left(\sigma\right)
+	= &
+	0
+	, \\
+	-\left(\alpha\oline{\alpha}\right) + 2\alpha\beta - \beta\oline{\beta} - \Lambda + \epsilon\left(-\mu + \oline{\mu}\right) - \left(\gamma + \mu\right)\rho + \gamma\oline{\rho} + \lambda\sigma - \Phi_{11} + \Psi_{2} 
+	+ \delta\left(\alpha\right) - \oline{\delta}\left(\beta\right)
+	= &
+	0
+	, \\
+	-\left(\oline{\alpha}\lambda\right) + 3\beta\lambda - \left(\alpha + \oline{\beta}\right)\mu + \left(-\mu + \oline{\mu}\right)\pi - \nu\rho + \nu\oline{\rho} - \Phi_{21} + \Psi_{3} 
+	+ \delta\left(\lambda\right) - \oline{\delta}\left(\mu\right)
+	= &
+	0
+	, \\
+	-\left(\lambda\oline{\lambda}\right) - \mu\left(\gamma + \oline{\gamma} + \mu\right) + \oline{\nu}\pi + \nu\left(\oline{\alpha} + 3\beta - \tau\right) - \Phi_{22} 
+	+ \delta\left(\nu\right) - \Delta\left(\mu\right)
+	= &
+	0
+	, \\
+	\oline{\alpha}\gamma + 2\beta\gamma - \beta\oline{\gamma} - \alpha\oline{\lambda} - \beta\mu + \epsilon\oline{\nu} + \nu\sigma - \left(\gamma + \mu\right)\tau - \Phi_{12} 
+	+ \delta\left(\gamma\right) - \Delta\left(\beta\right)
+	= &
+	0
+	, \\
+	\kappa\oline{\nu} - \oline{\lambda}\rho + 3\gamma\sigma - \left(\oline{\gamma} + \mu\right)\sigma + \oline{\alpha}\tau - \tau\left(\beta + \tau\right) - \Phi_{02} 
+	+ \delta\left(\tau\right) - \Delta\left(\sigma\right)
+	= &
+	0
+	, \\ 
+	2\Lambda - \kappa\nu - \left(\gamma + \oline{\gamma} - \oline{\mu}\right)\rho + \lambda\sigma + \tau\left(\alpha - \oline{\beta} + \oline{\tau}\right) + \Psi_{2} 
+	+ \Delta\left(\rho\right) - \oline{\delta}\left(\tau\right)
+	= &
+	0
+	, \\
+	\alpha\left(\oline{\gamma} - \oline{\mu}\right) + \nu\left(\epsilon + \rho\right) - \lambda\left(\beta + \tau\right) + \gamma\left(\oline{\beta} - \oline{\tau}\right) - \Psi_{3} 
+	- \Delta\left(\alpha\right) + \oline{\delta}\left(\gamma\right)
+	= &
+	0
+	.
+\end{align}
+\end{subequations} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derived: Weyl scalars in terms of the Ricci rotation coefficients}
+\label{sec:Weyl_scalars_Ricci_rotation_coefficients}
+	We can think of the results in
+Sec.~\ref{sec:components_Riemann tensor} as providing definitions for
+the Weyl scalars in terms of derivatives and polynomial combinations of
+the Ricci rotation coefficients. We have 
+\begin{subequations}
+\label{eq:Weyl_scalars}
+\begin{align}
+	\Psi_0
+	= &
+	\oline{\alpha}\kappa + 3\beta\kappa - \kappa\oline{\pi} - 3\epsilon\sigma + \oline{\epsilon}\sigma - \rho\sigma - \oline{\rho}\sigma + \kappa\tau + D\left(\sigma\right) - \delta\left(\kappa\right)
+	, \\
+	\Psi_1
+	= &
+	\oline{\alpha}\epsilon + \beta\oline{\epsilon} + \gamma\kappa + \kappa\mu - \epsilon\oline{\pi} - \beta\oline{\rho} - \alpha\sigma - \pi\sigma + D\left(\beta\right) - \delta\left(\epsilon\right)
+	, \\
+	\Psi_2
+	= &
+	-2\Lambda + \epsilon\mu + \oline{\epsilon}\mu + \kappa\nu + \oline{\alpha}\pi - \beta\pi - \pi\oline{\pi} - \mu\oline{\rho} - \lambda\sigma + D\left(\mu\right) - \delta\left(\pi\right)
+	, \\
+	\Psi_3
+	= &
+	\oline{\beta}\gamma + \alpha\oline{\gamma} - \beta\lambda - \alpha\oline{\mu} + \epsilon\nu + \nu\rho - \lambda\tau - \gamma\oline{\tau} - \Delta\left(\alpha\right) + \oline{\delta}\left(\gamma\right)
+	, \\
+	\Psi_4
+	= &
+	-3\gamma\lambda + \oline{\gamma}\lambda - \lambda\mu - \lambda\oline{\mu} + 3\alpha\nu + \oline{\beta}\nu + \nu\pi - \nu\oline{\tau} - \Delta\left(\lambda\right) + \oline{\delta}\left(\nu\right)
+	.
+\end{align} 
+\end{subequations}
+	These equations are highlighted in the Mathematica note in the
+computation of the Ricci identities. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derived: Components of the Bianchi identities}
+\label{sec:components_Bianchi_identities}
+	Using Eq.~\eqref{eq:tetrad_components_Bianchi_identities} and
+the definitions for the NP scalars for the Ricci rotation coefficients,
+we can derive long expressions for the Bianchi identities.
+We can obtain shorter expressions by writing 
+the Riemann tensor in terms of the Weyl and Ricci scalars using 
+Eq.~\eqref{eq:def_Weyl_tensor}.
+The Bianchi identities then become first order differential equations for those
+scalars quantities. These are again derived in the Mathematica note. 
+The Bianchi identities written in this form are
+(c.f. Eq.~(321) in \cite{Chandrasekhar_bh_book})
+\begin{subequations}
+\begin{align}
+	4\alpha\Psi_{0} - \pi\Psi_{0} - 2\left(\epsilon + 2\rho\right)\Psi_{1} + 3\kappa\Psi_{2} + D\left(\Psi_{1}\right) - \oline{\delta}\left(\Psi_{0}\right)
+	= &
+	\mathcal{R}_a
+	, \\
+	-\left(\lambda\Psi_{0}\right) - 2\alpha\Psi_{1} + 2\pi\Psi_{1} + 3\rho\Psi_{2} - 2\kappa\Psi_{3} - D\left(\Psi_{2}\right) + \oline{\delta}\left(\Psi_{1}\right)
+	= &
+	\mathcal{R}_b
+	, \\
+	2\lambda\Psi_{1} - 3\pi\Psi_{2} + 2\epsilon\Psi_{3} - 2\rho\Psi_{3} + \kappa\Psi_{4} + D\left(\Psi_{3}\right) - \oline{\delta}\left(\Psi_{2}\right)
+	= &
+	\mathcal{R}_c
+	, \\
+	-3\lambda\Psi_{2} + 2\alpha\Psi_{3} + 4\pi\Psi_{3} - 4\epsilon\Psi_{4} + \rho\Psi_{4} - D\left(\Psi_{4}\right) + \oline{\delta}\left(\Psi_{3}\right)
+	= &
+	\mathcal{R}_d
+	, \\
+	4\gamma\Psi_{0} - \mu\Psi_{0} - 2\left(\beta + 2\tau\right)\Psi_{1} + 3\sigma\Psi_{2} + \delta\left(\Psi_{1}\right) - \Delta\left(\Psi_{0}\right)
+	= &
+	\mathcal{R}_e
+	, \\
+	\nu\Psi_{0} + 2\gamma\Psi_{1} - 2\mu\Psi_{1} - 3\tau\Psi_{2} + 2\sigma\Psi_{3} + \delta\left(\Psi_{2}\right) - \Delta\left(\Psi_{1}\right)
+	= &
+	\mathcal{R}_f
+	, \\
+	2\nu\Psi_{1} - 3\mu\Psi_{2} + 2\beta\Psi_{3} - 2\tau\Psi_{3} + \sigma\Psi_{4} + \delta\left(\Psi_{3}\right) - \Delta\left(\Psi_{2}\right)
+	= &
+	\mathcal{R}_g
+	, \\
+	3\nu\Psi_{2} - 2\gamma\Psi_{3} - 4\mu\Psi_{3} + 4\beta\Psi_{4} - \tau\Psi_{4} + \delta\left(\Psi_{4}\right) - \Delta\left(\Psi_{3}\right)
+	= &
+	\mathcal{R}_h
+	,
+\end{align}
+\end{subequations} 
+	where the $\mathcal{R}$ are Ricci scalar terms
+\begin{subequations}
+\begin{align}
+	\mathcal{R}_a
+	\equiv &
+	\left(2\left(\oline{\alpha} + \beta\right) - \oline{\pi}\right)\Phi_{00} - 2\left(\epsilon + \oline{\rho}\right)\Phi_{01} + \oline{\kappa}\Phi_{02} - 2\sigma\Phi_{10} + 2\kappa\Phi_{11} 
+	\nonumber \\ &
+	+ D\left(\Phi_{01}\right) - \delta\left(\Phi_{00}\right)
+	, \\
+	\mathcal{R}_b
+	\equiv &
+	\left(-2\left(\gamma + \oline{\gamma}\right) + \oline{\mu}\right)\Phi_{00} + 2\left(\alpha + \oline{\tau}\right)\Phi_{01} - \oline{\sigma}\Phi_{02} + 2\tau\Phi_{10} - 2\rho\Phi_{11} 
+	\nonumber \\ &
+	+ 2D\left(\Lambda\right) + \Delta\left(\Phi_{00}\right) - \oline{\delta}\left(\Phi_{01}\right)
+	, \\
+	\mathcal{R}_c
+	\equiv &
+	2\mu\Phi_{10} - 2\pi\Phi_{11} + 2\oline{\alpha}\Phi_{20} - \left(2\beta + \oline{\pi}\right)\Phi_{20} + 2\epsilon\Phi_{21} - 2\oline{\rho}\Phi_{21} + \oline{\kappa}\Phi_{22} 
+	\nonumber \\ &
+	+ D\left(\Phi_{21}\right) - \delta\left(\Phi_{20}\right) + 2\oline{\delta}\left(\Lambda\right)
+	, \\
+	\mathcal{R}_d
+	\equiv &
+	-2\nu\Phi_{10} + 2\lambda\Phi_{11} + \left(2\gamma - 2\oline{\gamma} + \oline{\mu}\right)\Phi_{20} - 2\alpha\Phi_{21} + 2\oline{\tau}\Phi_{21} - \oline{\sigma}\Phi_{22} 
+	\nonumber \\ &
+	+ \Delta\left(\Phi_{20}\right) - \oline{\delta}\left(\Phi_{21}\right)
+	, \\
+	\mathcal{R}_e
+	\equiv &
+	\oline{\lambda}\Phi_{00} + 2\left(\beta - \oline{\pi}\right)\Phi_{01} - \left(2\epsilon - 2\oline{\epsilon} + \oline{\rho}\right)\Phi_{02} - 2\sigma\Phi_{11} + 2\kappa\Phi_{12} 
+	\nonumber \\ &
+	+ D\left(\Phi_{02}\right) - \delta\left(\Phi_{01}\right)
+	, \\
+	\mathcal{R}_f
+	\equiv &
+	\oline{\nu}\Phi_{00} + 2\left(\gamma - \oline{\mu}\right)\Phi_{01} - \left(2\alpha - 2\oline{\beta} + \oline{\tau}\right)\Phi_{02} - 2\tau\Phi_{11} + 2\rho\Phi_{12} 
+	\nonumber \\ &
+	- 2\delta\left(\Lambda\right) - \Delta\left(\Phi_{01}\right) + \oline{\delta}\left(\Phi_{02}\right)
+	, \\
+	\mathcal{R}_g
+	\equiv &
+	2\mu\Phi_{11} - 2\pi\Phi_{12} + \oline{\lambda}\Phi_{20} - 2\left(\beta + \oline{\pi}\right)\Phi_{21} + \left(2\left(\epsilon + \oline{\epsilon}\right) - \oline{\rho}\right)\Phi_{22} 
+	\nonumber \\ &
+	+ D\left(\Phi_{22}\right) - \delta\left(\Phi_{21}\right) + 2\Delta\left(\Lambda\right)
+	, \\
+	\mathcal{R}_h
+	\equiv &
+	2\nu\Phi_{11} - 2\lambda\Phi_{12} + \oline{\nu}\Phi_{20} - 2\left(\gamma + \oline{\mu}\right)\Phi_{21} + \left(2\left(\alpha + \oline{\beta}\right) - \oline{\tau}\right)\Phi_{22} 
+	\nonumber \\ & 
+	- \Delta\left(\Phi_{21}\right) + \oline{\delta}\left(\Phi_{22}\right)
+	.
+\end{align}
+\end{subequations} 
+	The Ricci scalar terms are
+all zero for vacuum spacetime solutions to the Einstein equations.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Transformations of null frame}
+	There are $4\times4=16$ degrees of freedom with the choice
+of the four null vectors $\{l^i,n^i,m^i,\oline{m}^i\}$. The 10 conditions
+\begin{align}
+\begin{aligned}
+	l_il^i=n_in^i=m_im^i=\oline{m}_i\oline{m}^i
+	=l_im^i=l_i\oline{m}^i=n_im^i=n_i\oline{m}^i
+	= 0
+	, \\
+	l_in^i=-m_i\oline{m}^i=1
+	,
+\end{aligned}
+\end{align} 
+	leave us with 6 transformations, which we can identify as the
+Lorentz transformations (``rotations'')
+at any given tangent space. 
+Note that picking a null frame is independent of picking a set
+of coordinates/gauge for the manifold. When working in the NP formalism
+we have 6 choices of null frame transformations and 4 choices of gauge
+transformations.
+
+Following
+\cite{Chandrasekhar_bh_book}, we consider three classes of transformations
+that preserve the above constraints
+
+\begin{enumerate}[I]
+\item rotations which leave $l$ unchanged 
+\begin{align}
+\begin{aligned}
+	l^i & \to l^i , \\
+	n^i & \to n^i + \oline{a} m^i + a \oline{m}^i + a \oline{a} l^i  , \\
+	m^i & \to m^i + a l^i
+	.
+\end{aligned}
+\end{align}
+\item rotations which leave $n$ unchanged 
+\begin{align}
+\begin{aligned}
+	n^i & \to n^i , \\
+	l^i & \to l^i + \oline{b} m^i + b \oline{m}^i + b \oline{b} n^i  , \\
+	m^i & \to m^i + b n^i
+	.
+\end{aligned}
+\end{align}
+\item rotations which leave directions of $l$ and $n$ unchanged and rotate
+the vectors $m$ and $\oline{m}$ 
+\begin{align}
+\begin{aligned}
+	l^i & \to A^{-1} n^i , \\
+	n^i & \to A n^i , \\
+	m^i & \to e^{i\theta} m^i
+	.
+\end{aligned}
+\end{align}
+\end{enumerate}
+
+	These three classes form a basis for the 6 Lorentz transformations:
+two complex numbers $a$ and $b$, and two real numbers $A$ and $\theta$. We
+can determine how the Weyl scalars, etc. transform under the above
+transformations using their definitions. We list how the Weyl scalars
+transform as this will be important for the Petrov classification of
+spacetimes. In deriving these relations we used the fact that, due
+to the symmetries of the Weyl tensor, many components are zero (this
+can be found in the Mathematica note).
+
+	Class $I$:
+\begin{align}
+\begin{aligned}
+\label{eq:null_frame_transformations_class_one_Weyl_scalars}
+	\Psi_0 & \to \Psi_0 , \\
+	\Psi_1 & \to \Psi_1 + \oline{a} \Psi_0 , \\
+	\Psi_2 & \to \Psi_2 + 2\oline{a}\Psi_1 + (\oline{a})^2\Psi_0 , \\ 
+	\Psi_3 & \to \Psi_3 + 2\oline{a}\Psi_2 + 3(\oline{a})^2\Psi_1 + (\oline{a})^3\Psi_0 , \\
+	\Psi_4 & \to \Psi_4 + 4\oline{a}\Psi_3 + 6(\oline{a})^2\Psi_2 + 4(\oline{a})^3\Psi_1 + (\oline{a})^4\Psi_0 
+	.
+\end{aligned}
+\end{align}
+
+	Class $II$:
+\begin{align}
+\begin{aligned}
+\label{eq:null_frame_transformations_class_two_Weyl_scalars}
+	\Psi_0 & \to \Psi_0 + 4b\Psi_1 + 6b^2\Psi_2 + 4b^3\Psi_3 + b^4\Psi_4 , \\
+	\Psi_1 & \to \Psi_1 + 3b\Psi_2 + 3b^2\Psi_3 + b^3\Psi_4 , \\
+	\Psi_2 & \to \Psi_2 + 2b\Psi_3 + b^2\Psi_4 , \\ 
+	\Psi_3 & \to \Psi_3 + b\Psi_4 , \\
+	\Psi_4 & \to \Psi_4
+	.
+\end{aligned}
+\end{align}
+
+	Class $III$:
+\begin{align}
+\begin{aligned}
+\label{eq:null_frame_transformations_class_three_Weyl_scalars}
+	\Psi_0 & \to A^{-2}e^{2i\theta}\Psi_0 , \\
+	\Psi_1 & \to A^{-1}e^{i\theta}\Psi_1 , \\
+	\Psi_2 & \to \Psi_2 , \\ 
+	\Psi_3 & \to A e^{-i\theta}\Psi_3 , \\
+	\Psi_4 & \to A^2 e^{-2i\theta}\Psi_4
+	.
+\end{aligned}
+\end{align}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Invariance under swapping of null frame}
+\label{eq:invariant_NP_eqns_nlmm_switch}
+	The NP equations taken as a set
+are invariant under \cite{GHP_paper}
+\begin{align}
+	l^i\leftrightarrow n^i\qquad m^i\leftrightarrow\oline{m}^i
+	.
+\end{align}
+	Under this transformation we have
+\begin{align}
+\label{eq:nlm_switch_ders}
+	& D\leftrightarrow
+	\Delta
+	, 
+	& \delta\leftrightarrow
+	\oline{\delta}
+	,
+\end{align}
+	and
+\begin{align}
+\begin{aligned}
+\label{eq:nlm_switch_Rici_rot}
+	& \kappa
+	\leftrightarrow
+-	\nu
+	,
+	& \sigma
+	\leftrightarrow
+-	\lambda
+	, \\
+	& \rho
+	\leftrightarrow
+-	\mu	
+	, 
+	& \tau
+	\leftrightarrow 
+-	\pi	
+	, \\
+	& \epsilon
+	\leftrightarrow
+-	\gamma
+	,
+	& \alpha
+	\leftrightarrow
+-	\beta
+	,
+\end{aligned}
+\end{align}
+	and
+\begin{align}
+\begin{aligned}
+\label{eq:nlm_switch_Psi}
+	\Psi_0
+	\leftrightarrow
+	\Psi_4
+	, 
+	\qquad \Psi_1
+	\leftrightarrow
+	\Psi_3
+	,
+	\qquad \Psi_2
+	\leftrightarrow
+	\Psi_2
+	.
+\end{aligned}
+\end{align}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Spin and boost weight of the NP scalars}
+	GHP \cite{GHP_paper} first pointed out that we can classify
+the NP scalars (or algebraic combinations of them) into quantities of
+definite spin (and `boost') weight. As this is important for how we
+expand the NP scalar in terms of spin weighted spherical harmonics,
+we go over some of the main parts of their formalism here. 
+
+	We classify the spin and boost weight of a NP scalar by considering
+how it transforms under the following complex rotation
+\begin{subequations}
+\begin{align}
+	l^i\to&\xi\oline{\xi}l^i
+	,\\
+	n^i\to&\xi^{-1}\oline{\xi}^{-1}l^i
+	,\\
+	m^i\to&\xi\oline{\xi}^{-1}m^i
+	,\\
+	\oline{m}^i\to&\xi^{-1}\oline{\xi}\oline{m}^i
+	,
+\end{align}
+\end{subequations}
+	where $\xi$ is a complex number.
+A scalar that transforms as
+\begin{align}
+	\eta\to\lambda^p\oline{\lambda}^q\eta,
+\end{align}
+	has weight $\{p,q\}$, spin weight $(p-q)/2$
+and boost weight $(p+q)/2$. From this definition, we see that the
+NP scalar of definite weight are 
+
+\begin{center}
+\begin{tabular}{ c c c c }
+\hline
+ NP scalar & weight &  spin weight &  boost weight \\ 
+\hline
+$\Psi_0$ 	& $\{ 4, 0\}$ & $ 2$  & $ 2$ \\
+$\Psi_1$ 	& $\{ 2, 0\}$ & $ 1$  & $ 1$ \\
+$\Psi_2$ 	& $\{ 0, 0\}$ & $ 0$  & $ 0$ \\
+$\Psi_3$ 	& $\{-2, 0\}$ & $-1$ & $-1$ \\
+$\Psi_4$ 	& $\{-4, 0\}$ & $-2$ & $-2$ \\ 
+$\sigma$ 	& $\{ 3,-1\}$ & $ 2$ & $ 1$ \\ 
+$\kappa$ 	& $\{ 3, 1\}$ & $ 1$ & $ 2$ \\ 
+$\tau$ 		& $\{ 1,-1\}$ & $ 1$ & $ 0$ \\ 
+$\rho$ 		& $\{ 1, 1\}$ & $ 0$ & $ 1$ \\ 
+$\mu$ 		& $\{-1,-1\}$ & $ 0$ & $-1$ \\ 
+$\pi$ 		& $\{-1, 1\}$ & $-1$ & $ 0$ \\ 
+$\nu$ 		& $\{-3,-1\}$ & $-1$ & $-2$ \\ 
+$\lambda$ 	& $\{-3, 1\}$ & $-2$ & $-1$ \\ 
+\end{tabular}
+\end{center}
+
+	The NP scalars of indefinite weight are
+$\{\alpha,\beta,\gamma,\epsilon\}$, as $\nabla_i\xi\neq0$, so
+if we have e.g. $n^i\nabla_kl_i$, then the Ricci rotation coefficient
+would have terms like $\nabla_k\left(\xi\oline{\xi}\right)$.
+Note as well that the derivative
+operators $\{D,\Delta,\delta,\oline{\delta}\}$ have definite spin weight
+when considered by themselves, but we cannot think of them as having
+definite spin weight when they act of a scalar. To make them operators
+of definite spin weight, acting on a scalar of weight $\{p,q\}$ we define
+\begin{subequations}
+\label{eq:GHP_derivatives}
+\begin{align}
+	\Thorn\eta
+	\equiv&
+	\left(D-p\epsilon-q\oline{\epsilon}\right)\eta
+	,\\
+	\Thorn^{\prime}\eta
+	\equiv&
+	\left(\Delta-p\gamma-q\oline{\gamma}\right)\eta
+	,\\
+	\edth\eta
+	\equiv&
+	\left(\delta-p\beta-q\oline{\alpha}\right)\eta
+	,\\
+	\edth^{\prime}\eta
+	\equiv&
+	\left(\oline{\delta}-p\alpha-q\oline{\beta}\right)\eta
+	.
+\end{align}
+\end{subequations}
+	These operators have the definite spin and boost weight
+\begin{center}
+\begin{tabular}{ c c c c }
+\hline
+ operator & weight &  spin weight &  boost weight \\ 
+\hline
+$\Thorn$ 		& $\{ 1, 1\}$ & $ 0$ & $ 1$ \\ 
+$\Thorn^{\prime}$ 	& $\{-1,-1\}$ & $ 0$ & $-1$ \\ 
+$\edth$ 		& $\{ 1,-1\}$ & $ 1$ & $ 0$ \\ 
+$\edth^{\prime}$ 	& $\{-1, 1\}$ & $-1$ & $ 0$ 
+\end{tabular}
+\end{center}
+
+	Finally, we note that there is a physical
+interpretation for spin weight: spin 0 captures ``scalar'' information,
+spin 1 captures ``vector'' information, and spin 2 captures
+``tensor'' information.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interpretation of the NP scalars}
+	We can interpret several of the NP scalars using the 
+Raychaudhuri equations of null congruences of the $n^i$, $l^i$ null
+vectors. These interpretations prove to be extremely useful when using
+NP equations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derivatives of NP vectors}
+	First we write out
+\begin{align}
+	\nabla_ie_{(a)j}
+	=
+	e^{(b)}_ie^k_{(b)}\nabla_je_{(a)j}=\gamma_{(c)(a)(b)}e^{(b)}_ie^{(c)}_j
+	.
+\end{align}
+	From this and the NP relations, we have
+\begin{subequations}
+\label{eq:der_np_vecs}
+\begin{align}
+	\nabla_il_j
+	= &
+	-\left(l_j\oline{m}_i\left(\oline{\alpha} + \beta\right)\right) - l_jm_i\left(\alpha + \oline{\beta}\right) + l_il_j\left(\gamma + \oline{\gamma}\right) + l_jn_i\left(\epsilon + \oline{\epsilon}\right) - \oline{m}_jn_i\kappa 
+	\nonumber \\ &
+	- m_jn_i\oline{\kappa} + \oline{m}_jm_i\rho + \oline{m}_im_j\oline{\rho} + \oline{m}_i\oline{m}_j\sigma + m_im_j\oline{\sigma} - l_i\oline{m}_j\tau - l_im_j\oline{\tau}
+	, \\
+	\nabla_in_j
+	= &
+	m_in_j\alpha + \oline{m}_in_j\oline{\alpha} + \oline{m}_in_j\beta + m_in_j\oline{\beta} - l_in_j\gamma - l_in_j\oline{\gamma} - n_in_j\epsilon - n_in_j\oline{\epsilon} - m_im_j\lambda  
+	\nonumber \\ &
+	- \oline{m}_i\oline{m}_j\oline{\lambda} - \oline{m}_im_j\mu - \oline{m}_jm_i\oline{\mu} + l_im_j\nu + l_i\oline{m}_j\oline{\nu} + m_jn_i\pi + \oline{m}_jn_i\oline{\pi}
+	, \\
+	\nabla_im_j
+	= &
+	-\left(m_im_j\alpha\right) + \oline{m}_im_j\oline{\alpha} - \oline{m}_im_j\beta + m_im_j\oline{\beta} + l_im_j\gamma - l_im_j\oline{\gamma} + m_jn_i\epsilon - m_jn_i\oline{\epsilon} 
+	\nonumber \\ &
+	- n_in_j\kappa - l_j\oline{m}_i\oline{\lambda} - l_jm_i\oline{\mu} + l_il_j\oline{\nu} + l_jn_i\oline{\pi} + m_in_j\rho + \oline{m}_in_j\sigma - l_in_j\tau
+	. 
+\end{align}
+\end{subequations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Geodesics}
+	From the equations for $l$ and $n$ we have
+\begin{align}
+	l^i\nabla_il_j
+	= &
+	\left(\epsilon+\oline{\epsilon}\right)l_j
+-	\kappa \oline{m}_j
+-	\oline{\kappa} m_j
+	\nonumber \\
+	n^i\nabla_in_j
+	= &
+-	\left(\gamma+\oline{\gamma}\right)n_j
++	\nu m_j
++	\oline{\nu} \oline{m}_j
+	.
+\end{align}
+	We see for $l^i$/$n^i$ to be pregeodesic we need
+$\kappa=0$/$\nu=0$. If we want $l^i$/$n^i$ to be geodesic we
+additionally need $\mathfrak{R}\epsilon=0$/$\mathfrak{R}\gamma=0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Petrov classification}
+	From the 
+Eqs.~\eqref{eq:null_frame_transformations_class_one_Weyl_scalars},
+\eqref{eq:null_frame_transformations_class_two_Weyl_scalars},
+and \eqref{eq:null_frame_transformations_class_three_Weyl_scalars}, we see
+that at any given tangent space it may be possible to set some of the
+Weyl scalars to zero through a choice of null frame transformation. From
+the perspective of the NP formalism, 
+we can think of the  Petrov classification of spacetimes as enumerating 
+how many Weyl scalars can be sent to zero through a null
+frame transformation.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Coordinates and null tetrads for Kerr}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+These are collected equations on various tetrads and coordinates
+for the Kerr spacetimes.
+We begin with the Kinnersley tetrad, and by the end of the chapter
+we have a tetrad that is regular both at the black hole horizon and
+future null infinity. See also \cite{Ripley:2020xby}.
+The black hole mass is $M$, and the black hole spin is $a$.
+{\bf NOTE:} we use the non-standard symbol ``varpi'' $\varpi=3.14...$,
+and reserve use of $\pi$ for the Newman-Penrose scalar.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kerr in Boyer-Lindquist coordinates}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Setup}
+	The Kerr spacetime in Boyer-Lindquist coordinates is
+\begin{align}
+\label{eq:Kerr_BL_coords}
+	ds^2
+	=
+	\left(1-\frac{2Mr}{\Sigma_{BL}}\right)dt^2
++	2\left(\frac{2Mar\mathrm{sin}^2\vartheta}{\Sigma_{BL}}\right)dtd\varphi
+-	\frac{\Sigma_{BL}}{\Delta_{BL}}dr^2
+	\nonumber \\
+-	\Sigma_{BL}d\vartheta^2
+-	\mathrm{sin}^2\vartheta\left(
+		r^2+a^2+2Ma^2r\frac{\mathrm{sin}^2\vartheta}{\Sigma_{BL}}
+	\right)
+	d\varphi^2
+	,
+\end{align}
+	where
+\begin{subequations}
+\begin{align}
+	\Sigma_{BL}\equiv & r^2+a^2\mathrm{cos}^2\vartheta 
+	, \\
+	\Delta_{BL}\equiv & r^2-2Mr+a^2
+	.
+\end{align}
+\end{subequations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The tetrad}
+	The Kinnersley tetrad in Boyer-Lindquist coordinates is
+\begin{subequations}
+\label{eq:Kinnersley_tetrad_BL}
+\begin{align}
+	l_{Kin}^{i}
+	= &
+	\left(\frac{r^2+a^2}{\Delta_{BL}},1,0,\frac{a}{\Delta_{BL}}\right)
+	, \\
+	n_{Kin}^{i}
+	= &
+	\frac{1}{2\Sigma_{BL}}\left(r^2+a^2,-\Delta_{BL},0,a\right)
+	, \\
+	m_{Kin}^{i}
+	= i&
+	\frac{1}{2^{1/2}\left(r+ia\mathrm{cos}\vartheta\right)}
+	\left(
+		ia\mathrm{sin}\vartheta,0,1,\frac{i}{\mathrm{sin}\vartheta}
+	\right)
+	.
+\end{align}
+\end{subequations}
+	The event horizon is at $(\nabla r)^2=0$;
+that is at the point $\Delta_{BL}=0$. This function has two zeros, which
+define the outer and inner horizons
+\begin{subequations}
+\begin{align}
+	r_{ou} 
+	= & 
+	M \pm \left(M^2-a^2\right)^{1/2}
+	.
+\end{align}
+\end{subequations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kerr in ingoing Eddington-Finkelstein coordinates}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Setup}
+	We transform
+\begin{subequations}
+\begin{align}
+	dv 
+	\equiv & 
+	dt + dr_* - dr 
+	, \\
+	d\phi 
+	\equiv & 
+	d\varphi + \frac{a}{r^2+a^2}dr_*
+	.
+\end{align}
+\end{subequations}
+	where
+\begin{align}
+	\frac{dr_*}{dr} 
+	\equiv
+	\frac{r^2+a^2}{\Delta_{BL}}
+	.
+\end{align}
+	The Kerr metric in ingoing Eddington-Finkelstein coordinates is
+\begin{align}
+	ds^2
+	= &
+	\left(1-\frac{2Mr}{\Sigma_{BL}}\right)dv^2
+-	\frac{4Mr}{\Sigma_{BL}}\left(
+		dr
+	-	a\mathrm{sin}^2\vartheta d\phi
+	\right)
+	dv
+	\nonumber \\ &
+-	\left(1+\frac{2Mr}{\Sigma_{BL}}\right)
+	\left(
+		dr^2
+	-	2a\mathrm{sin}^2\vartheta drd\phi
+	\right)
+	\nonumber \\ &
+-	\Sigma d\vartheta^2
+-	\left(
+		a^2+r^2+2Mr\frac{a^2}{\Sigma_{BL}}\mathrm{sin}^2\vartheta
+	\right)
+	d\phi^2
+	.
+\end{align}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The tetrad}
+	The Kinnersely tetrad transforms as
+\begin{align}
+	v^i\to \frac{\partial x^i}{\partial y^j}v^j
+	,
+\end{align}
+	so that
+\begin{subequations}
+\label{eq:Kinnersley_tetrad_IEF}
+\begin{align}
+	l_{Kin}^{i}
+	= &
+	\left(
+		1+\frac{4Mr}{\Delta_{BL}},
+		1,
+		0,
+		\frac{2a}{\Delta_{BL}}
+	\right)
+	, \\
+	n_{Kin}^{i}
+	= &
+	\frac{1}{2\Sigma_{BL}}\left(
+		\Delta_{BL},
+		-\Delta_{BL},
+		0,
+		0
+	\right)
+	, \\
+	m_{Kin}^{i}
+	= &
+	\frac{1}{2^{1/2}\left(r+ia\mathrm{cos}\vartheta\right)}
+	\left(
+		ia\mathrm{sin}\vartheta,0,1,\frac{i}{\mathrm{sin}\vartheta}
+	\right)
+	.
+\end{align}
+\end{subequations}
+	This tetrad is singular at the black hole horizons.
+This coordinate singularity
+can be removed by the following tetrad transformation \cite{Teukolsky:1973ha}
+\begin{subequations}
+\begin{align}
+	l^i\to \Delta_{BL}l^i, \\
+	n^i\to \frac{1}{\Delta_{BL}}n^i
+	,
+\end{align}
+\end{subequations} 
+	but this spoils the property that $\epsilon=0$ (which holds in
+the Kinnersely tetrad). We rotate the tetrad to set $\gamma=0$, which
+is more useful for metric reconstruction in outgoing radiation gauge
+\begin{subequations}
+\begin{align}
+	l^i
+	\to &
+	\frac{\Delta_{BL}}{2\Sigma_{BL}}l^i
+	, \\
+	n^i
+	\to &
+	\frac{2\Sigma_{BL}}{\Delta_{BL}}n^i
+	, \\
+	m^i
+	\to &
+	\mathrm{exp}\left[-2i\mathrm{arctan}\left[\frac{r}{a\mathrm{sin}\vartheta}\right]\right]m^i
+	,
+\end{align}
+\end{subequations}
+	we obtain
+\begin{subequations}
+\label{eq:new_tetrad_EF}
+\begin{align}
+	l^i
+	= &
+	\left(
+		\frac{r^2+2Mr+a^2}{2\Sigma_{BL}},
+		\frac{\Delta_{BL}}{2\Sigma_{BL}},
+		0,
+		\frac{a}{2\Sigma_{BL}}
+	\right)
+	, \\
+	n^i
+	= &
+	\left(
+		1,-1,0,0
+	\right)
+	, \\
+	m^i
+	= &
+	\frac{1}{2^{1/2}\left(r-ia\mathrm{cos}\vartheta\right)}
+	\left(
+		-ia\mathrm{sin}\vartheta,0,-1,-\frac{i}{\mathrm{sin}\vartheta}
+	\right)
+	.
+\end{align}
+\end{subequations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kerr in ingoing Eddington-Finkelstein coordinates with
+hyperboloidal compactification}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Setup}
+	For further discussion of hyperboloidal compactification see, e.g.
+\cite{Zenginoglu_2008}.
+The ingoing/outgoing radial null characteristic speeds for
+Kerr in ingoing Eddington-Finkelstein coordinates are
+\begin{subequations}
+\begin{align}
+	c_+
+	= &
+	1
+-	\frac{4Mr}{2Mr+\Sigma_{BL}}
+	, \\
+	c_-
+	= &
+	-1
+	.
+\end{align}
+\end{subequations}
+	We do not need to consider angular characteristic speeds as those
+die off more quickly as we go to future null infinity/spatial infinity.
+We choose a radial compactification and time rescaling
+$R(r)$ and $T(v,r)$, respectively.
+The ingoing/outgoing radial null characteristic speeds are now
+\begin{align}
+	\tilde{c}_{\pm}
+	=
+	\frac{dR/dr}{\frac{1}{c_{\pm}}\partial_vT+\partial_rT}
+	.
+\end{align}
+	We want to choose a time function that sets
+$\tilde{c}_-|_{r=\infty}=0$ while keeping $0<\tilde{c}_+|_{r=\infty}<\infty$.
+We choose the time coordinate to be of the form
+\begin{align}
+	T(v,r) 
+	= 
+	v + h(r) 
+	, 
+\end{align}
+	and a compactification
+\footnote{We choose this compactification
+as it is straightforward to manipulate.}
+\begin{align}
+	R(r) \equiv \frac{L^2}{r}
+	,
+\end{align}
+	where $L$ is a constant.
+Series expanding about $r=\infty$, we have
+\begin{subequations}
+\begin{align}
+	\tilde{c}_+
+	= &
+	\left(
+		1+\frac{4M}{r}+\frac{8M^2}{r^2}
+	+	\mathcal{O}\left(\frac{1}{r^3}\right)
+	+	\frac{dh}{dr}
+	\right)^{-1}
+	\left(-\frac{L^2}{r^2}\right)
+	, \\
+	\tilde{c}_-
+	= &
+	\left(-1+\frac{dh}{dr}\right)^{-1}
+	\left(-\frac{L^2}{r^2}\right)	
+	.
+\end{align}
+\end{subequations}
+	We see that the choice
+\begin{align}
+	\frac{dh}{dr} = -1 - \frac{4M}{r}
+	,
+\end{align}
+	sets
+$\tilde{c}_-|_{R=0}=0$ while keeping
+$0>\tilde{c}_+|_{R=0}>-\infty$ (our choice of compactification
+flips the signs of the ingoing and outgoing characteristics, and
+$r=\infty$ is mapped to $R=0$). We can say that $R=0$ is located
+``on'' future null infinity of Kerr.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The tetrad}
+We apply the above transformations $T(v,r)$, $R(r)$,
+to Eq.~\eqref{eq:new_tetrad_EF} to obtain
+\begin{subequations}
+\label{eq:tetrad_IEF_HC}
+\begin{align}
+	l^i 
+	= &
+	\frac{R^2}{L^4+a^2R^2\mathrm{cos}^2\vartheta}\left(
+		2M\left(2M-\left(\frac{a}{L}\right)^2R\right),
+	-	\frac{1}{2}\left(L^2-2MR+\left(\frac{a}{L}\right)^2R^2\right),
+		0,
+		a
+	\right)
+	, \\
+	n^i 
+	= &
+	\left(
+		2+\frac{4MR}{L^2},\frac{R^2}{L^2},0,0
+	\right)
+	, \\
+	m^i
+	= &
+	\frac{R}{2^{1/2}\left(L^2-iaR\mathrm{cos}\vartheta\right)}
+	\left(
+		-ia\mathrm{sin}\vartheta,
+		0,
+		-1,
+		-\frac{i}{\mathrm{sin}\vartheta}
+	\right)
+	.
+\end{align}
+\end{subequations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Weyl scalars and Ricci rotation coefficients}
+	The nonzero Weyl scalar is
+\begin{align}
+	\Psi_2
+	=
+	-\frac{
+		MR^3
+	}{
+		\left(L^2 - iaR\mathrm{cos}\left(\vartheta\right)\right)^3
+	}
+	.
+\end{align}
+	and the nonzero Ricci rotation coefficients are
+\begin{subequations}
+\label{eq:NP_IEF_HC}.
+\begin{align}
+	\rho
+	= &
+	-\frac{R \left(a^2 R^2+L^4-2 L^2 M R\right)}{2 \left(L^2-i a R \cos (\vartheta )\right)^2 \left(L^2+i a R \cos (\vartheta )\right)}
+	, \\
+	\mu
+	= &
+	\frac{R}{-L^2+i a R \cos (\vartheta )}
+	, \\
+	\tau
+	= &
+	\frac{i a R^2 \sin (\vartheta )}{\sqrt{2} \left(L^2-i a R \cos (\vartheta )\right)^2}
+	, \\
+	\pi
+	= &
+	-\frac{i a R^2 \sin (\vartheta )}{\sqrt{2} \left(a^2 R^2 \cos ^2(\vartheta )+L^4\right)}
+	, \\
+	\epsilon
+	= &
+	\frac{R^2 \left(a^2 (-R)-i a \cos (\vartheta ) \left(L^2-M R\right)+L^2 M\right)}{2 \left(L^2-i a R \cos (\vartheta )\right)^2 \left(L^2+i a R \cos (\vartheta )\right)}
+	, \\
+	\alpha
+	= &
+	\frac{R \cot (\vartheta )}{\sqrt{2} \left(2 L^2+2 i a R \cos (\vartheta )\right)}
+	, \\
+	\beta
+	= &
+	\frac{R \left(-L^2 \cot (\vartheta )+i a R \sin (\vartheta ) \left(\csc ^2(\vartheta )+1\right)\right)}{2 \sqrt{2} \left(L^2-i a R \cos (\vartheta )\right)^2}
+	.
+\end{align}
+\end{subequations}
+	These are all regular on the black hole horizon and future null
+infinity ($R=0$). Some of the rotation coefficients are singular
+at the poles $\vartheta=0,\varpi$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{jripley_notes_bib}
+\bibliographystyle{alpha}
+
+\end{document}
+
