@@ -28,7 +28,7 @@ url: "https://JLRipley314.github.io"
 github_username: JLRipley314 
 
 # Build settings
-theme: ai-folio 
+theme: minima 
 plugins:
   - jekyll-feed
 
