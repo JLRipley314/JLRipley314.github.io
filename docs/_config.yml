@@ -24,11 +24,11 @@ description: >- # this means to ignore newlines until "baseurl:"
   Postdoctoral researcher in physics, University of Illinois, Urbana-Champaign.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://JLRipley314.github.io" 
-twitter_username: jekyllrb
-github_username:  jekyll
+# twitter_username: jekyllrb
+github_username: JLRipley314 
 
 # Build settings
-theme: minima
+theme: ai-folio 
 plugins:
   - jekyll-feed
 
