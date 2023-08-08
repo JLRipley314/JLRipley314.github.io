@@ -5,11 +5,7 @@
 layout: home
 ---
 
-<img 	src="jripley_portrait.jpg" 
-	alt="jripley_portrait"
-	width="120"
-	height="168"
->
+![](ripley_portrait.jpg)
 
 
 I am currently a postdoctoral research associate at the [Department of Physics](https://physics.illinois.edu) at the
