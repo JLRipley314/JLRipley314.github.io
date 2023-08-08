@@ -9,6 +9,11 @@ I am currently a postdoctoral research associate at the [Department of Physics](
 [University of Illinois, Urbana-Champaign](https://illinois.edu/)
 
 From 2020-2022 I was a postdoctoral research associate at the [Department of Applied Math and Theoretical Physics](https://www.damtp.cam.ac.uk/)
-at the University of Cambridge. 
+at the University of Cambridge.
 
 My [CV](cv/cv_jripley.pdf) (pdf format).
+
+## Research interests
+
+Broadly speaking my research has been in theoretical gravitational physics and gravitational wave astrophysics. 
+I have done work in numerical relativity, black hole ringdown, modified gravity, neutron star physics, and relativistic fluids. 
