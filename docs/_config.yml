@@ -7,8 +7,8 @@ url: "https://JLRipley314.github.io"
 github_username: JLRipley314 
 
 # Build settings
-# theme: minima 
-remote_theme: ai-folio
+theme: minimal-mistakes-jekyll 
+#remote_theme: ai-folio
 plugins:
   - jekyll-feed
 
