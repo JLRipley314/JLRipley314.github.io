@@ -1,0 +1,516 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GHP derivatives in math mode 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% to make overbar (for complex conjugate) easier to read from a distance
+\newcommand*\oline[1]{%
+   \vbox{%
+     \hrule height 1pt%                  % Line above with certain width
+     \kern0.25ex%                          % Distance between line and content
+     \hbox{%
+       \ifmmode#1\else\ensuremath{#1}\fi%  % The content, typeset in dependence of mode
+     }
+   }
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{empheq}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand{\justin}[1]{{\textbf{#1}} }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{mathalfa,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{slashed}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{braket}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\balpha}{{\bm \alpha}}
+\newcommand{\bbeta}{{\bm \beta}}
+\newcommand{\beeta}{{\bm \eta}}
+\newcommand{\bgamma}{{\bm \gamma}}
+\newcommand{\bGamma}{{\bm \Gamma}}
+\newcommand{\bdelta}{{\bm \delta}}
+\newcommand{\bxi}{{\bm \xi}}
+\newcommand{\bXi}{{\bm \Xi}}
+\newcommand{\bchi}{{\bm \chi}}
+\newcommand{\btheta}{{\bm \theta}}
+\newcommand{\bTheta}{{\bm \Theta}}
+\newcommand{\blambda}{{\bm \lambda}}
+\newcommand{\bLambda}{{\bm \Lambda}}
+\newcommand{\bmu}{{\bm \mu}}
+\newcommand{\bsigma}{{\bm \sigma}}
+\newcommand{\bSigma}{{\bm \Sigma}}
+\newcommand{\bphi}{{\bm \phi}}
+\newcommand{\bPhi}{{\bm \Phi}}
+\newcommand{\bpsi}{{\bm \psi}}
+\newcommand{\bPsi}{{\bm \Psi}}
+\newcommand{\bpi}{{\bm \pi}}
+\newcommand{\bPi}{{\bm \Pi}}
+
+\newcommand{\ba}{{\bm a}}
+\newcommand{\bb}{{\bm b}}
+\newcommand{\bc}{{\bm c}}
+\newcommand{\bd}{{\bm d}}
+\newcommand{\be}{{\bm e}}
+\newcommand{\bg}{{\bm g}}
+\newcommand{\bi}{{\bm i}}
+\newcommand{\bj}{{\bm j}}
+\newcommand{\bk}{{\bm k}}
+\newcommand{\bn}{{\bm n}}
+\newcommand{\bs}{{\bm s}}
+\newcommand{\bt}{{\bm t}}
+\newcommand{\bu}{{\bm u}}
+\newcommand{\bv}{{\bm v}}
+\newcommand{\bw}{{\bm w}}
+\newcommand{\bx}{{\bm x}}
+\newcommand{\by}{{\bm y}}
+\newcommand{\bz}{{\bm z}}
+\newcommand{\bA}{{\bm A}}
+\newcommand{\bB}{{\bm B}}
+\newcommand{\bC}{{\bm C}}
+\newcommand{\bD}{{\bm D}}
+\newcommand{\bE}{{\bm E}}
+\newcommand{\bF}{{\bm F}}
+\newcommand{\bG}{{\bm G}}
+\newcommand{\bH}{{\bm H}}
+\newcommand{\bI}{{\bm I}}
+\newcommand{\bJ}{{\bm J}}
+\newcommand{\bN}{{\bm N}}
+\newcommand{\bS}{{\bm S}}
+\newcommand{\bT}{{\bm T}}
+\newcommand{\bU}{{\bm U}}
+\newcommand{\bV}{{\bm V}}
+\newcommand{\bW}{{\bm W}}
+\newcommand{\bX}{{\bm X}}
+\newcommand{\bY}{{\bm Y}}
+\newcommand{\bZ}{{\bm Z}}
+
+\newcommand{\bZero}{{\bm 0}}
+\newcommand{\bOne}{{\bm 1}}
+\newcommand{\bTwo}{{\bm 2}}
+\newcommand{\bThree}{{\bm 3}}
+\newcommand{\bFour}{{\bm 4}}
+\newcommand{\bFive}{{\bm 5}}
+\newcommand{\bSix}{{\bm 6}}
+\newcommand{\bSeven}{{\bm 7}}
+\newcommand{\bEight}{{\bm 8}}
+\newcommand{\bNine}{{\bm 9}}
+
+
+\allowdisplaybreaks
+
+\begin{document}
+
+\title{
+{Notes on electromagnetism}\\
+}
+\author{Justin L. Ripley 
+   \\ \small{lloydripley[at]gmail[dot]com}
+   }
+\date{\today}
+
+\maketitle
+
+\abstract{There are many excellent books on electromagnetism, but many of them are very long.
+Here I'm just collecting some notes on topics I find interesting, and would like to look up quickly.}
+%==============================================================================
+%\allowdisplaybreaks
+%\tableofcontents
+%==============================================================================
+\chapter{Equations of motion}
+
+%==============================================================================
+\section{The Maxwell equations}
+
+The ``microscopic'' form of the Maxwell equations are
+\begin{subequations}
+\label{eq:microscopic-Maxwell}
+\begin{align}
+\label{eq:microscopic-Maxwell-divE}
+    \nabla \cdot \bE
+    =&
+    \frac{\rho}{\epsilon_0}
+    ,\\
+    \nabla \cdot \bB
+\label{eq:microscopic-Maxwell-divB}
+    =&
+    0
+    ,\\
+\label{eq:microscopic-Maxwell-crossE}
+    \nabla \times {\bE} 
+    =&
+    -
+    \frac{\partial \bB}{\partial t}
+    ,\\
+\label{eq:microscopic-Maxwell-crossB}
+    \nabla \times \bB
+    =&
+    \mu_0\left(\bJ + \epsilon_0\frac{\partial \bE}{\partial t}\right)
+    .
+\end{align}
+\end{subequations}
+Here $\bE$ is the \textbf{electic field}, $\bB$ is the \textbf{magnetic field}, $\epsilon_0$ is the \textbf{vacuum permitivity} and $\mu_0$ is the \textbf{vacuum permeability}.
+
+The ``macroscopic'' form of the Maxwell equations are often useful to use when studying the macroscopic electrical properties of materials.
+They are
+\begin{subequations}
+\label{eq:macroscopic-Maxwell}
+\begin{align}
+    \nabla \cdot \bD
+    =&
+    \rho_f
+    ,\\
+    \nabla \cdot \bB
+    =&
+    0
+    ,\\
+    \nabla \times {\bE} 
+    =&
+    -
+    \frac{\partial \bB}{\partial t}
+    ,\\
+    \nabla \times \bH
+    =&
+    \bJ_f + \frac{\partial \bD}{\partial t}
+    .
+\end{align}
+\end{subequations}
+Here $\bD$ is the \textbf{electric displacement} (or \textbf{displacement field}), $\bH$ is the \textbf{magnetizing field}, $\rho_f$ is the \textbf{free charge}, and $\bJ_f$ is the \textbf{free current}.
+The displacement and magnetizing fields are related to the electric and magnetic fields by
+\begin{align}
+    \bD
+    \equiv
+    \epsilon \bE
+    ,\qquad
+    \bH
+    \equiv
+    \frac{1}{\mu} \bB
+    .
+\end{align}
+where $\epsilon$ and $\mu$ are the permitivity and permeability of the material.
+In vacuum, we have $\epsilon=\epsilon_0$ and $\mu=\mu_0$.
+
+%==============================================================================
+\section{The Lorenz force law}
+
+The \textbf{Lorenz force} is the force experienced by an electric point particle of charge $q$ moving at velocity $\bv$.
+\begin{align}
+    \label{eq:lorenz-force-point}
+    \bF
+    =
+    q\left(\bE + \bv \times \bB\right)
+    .
+\end{align}
+For a continuous charge distribution, we can write the difference force to be 
+\begin{align}
+    \label{eq:lorenz-force-continuous}
+    {\bm f}
+    =
+    \rho \bE
+    +
+    \bJ \times \bB
+    .
+\end{align}
+Here we have defined the current for a single species of charge carrier
+\begin{align}
+    \label{eq:relation-current-charge-density}
+    \bJ
+    \equiv \rho \bv
+    .
+\end{align}
+Adding in Newton's laws of motion, we have
+\begin{align}
+    \label{eq:Newtons-law-charge-carriers}
+    \rho_m \frac{\partial \bv}{\partial t}
+    =
+    \rho \bE
+    +
+    \bJ \times \bB
+    ,
+\end{align}
+where $\rho_m$ is the mass density of the charge carriers.
+
+%==============================================================================
+\section{Charge conservation}
+
+Taking the divergence of \eqref{eq:microscopic-Maxwell-crossB}, and using \eqref{eq:microscopic-Maxwell-divE} to simplify, gives us 
+\begin{align}
+    0
+    =&
+    \nabla\cdot\bJ
+    +
+    \epsilon_0\frac{\partial}{\partial t}\nabla\cdot \bE
+    \nonumber \\
+    =&
+    \nabla\cdot\bJ
+    +
+    \frac{\partial\rho}{\partial t}
+    .
+\end{align}
+That is, the Maxwell equations imply the \textbf{conservation of charge} equation
+\begin{align}
+    \label{eq:conservation-of-charge}
+    \frac{\partial\rho}{\partial t}
+    +
+    \nabla\cdot\bJ
+    =
+    0
+    .
+\end{align}
+Another way of thinking about charge conservation is that the Maxwell equations constrain the relationship between $\rho$ and $\bJ$. 
+
+%==============================================================================
+\section{Initial value problem}
+
+We consider the \textbf{initial value problem} for the Maxwell equations.
+That is, we determine what variables we can set as free initial data on an initial time slice, and which variables must be solved as via a set of constraint equations. 
+
+First, we notice that \eqref{eq:microscopic-Maxwell-crossE} and \eqref{eq:microscopic-Maxwell-crossB} can be thought of as evolution equations for the magnetic and electric fields, \eqref{eq:conservation-of-charge}, \eqref{eq:Newtons-law-charge-carriers} can be thought of as an evolution equation for the electric charge density (along with the closure relation \eqref{eq:relation-current-charge-density}).
+Assuming we can specify $\bJ$ though, the Maxwell equations seem over-constraining due to the presence of \eqref{eq:microscopic-Maxwell-divE} and \eqref{eq:microscopic-Maxwell-divE}, which must also be satisfied.
+In fact, if \eqref{eq:microscopic-Maxwell-divE} and \eqref{eq:microscopic-Maxwell-divB} are satisfied on the initial data surface, then \eqref{eq:microscopic-Maxwell-crossE} and \eqref{eq:microscopic-Maxwell-crossB} preserve those solution properties later in time. 
+More precisely, we define the following \textbf{constraint equations}
+\begin{subequations}
+\label{eq:constraint-equations}
+\begin{align}
+    \mathcal{C}_E
+    \equiv&
+    \nabla\cdot \bE - \frac{\rho}{\epsilon_0}
+    ,\\
+    \mathcal{C}_B
+    \equiv&
+    \nabla\cdot\bB
+    .
+\end{align}
+\end{subequations}
+If \eqref{eq:microscopic-Maxwell-divE} and \eqref{eq:microscopic-Maxwell-divB} are satisfied, then $\mathcal{C}_E=0$ and $\mathcal{C}_B=0$, respectively.
+From the Maxwell equations, we can derive evolution equations for $\mathcal{C}_E$ and $\mathcal{C}_B$. 
+\begin{align}
+    \frac{\partial\mathcal{C}_E}{\partial t}
+    =&
+    \nabla\cdot\frac{\partial\bE}{\partial t}
+    -
+    \frac{1}{\epsilon_0}\frac{\partial \rho}{\partial t}
+    \nonumber\\
+    =&
+    \nabla\cdot\left(\frac{1}{\mu_0\epsilon_0}\nabla\times\bB - \frac{1}{\epsilon_0}\bJ\right)  
+    -
+    \frac{1}{\epsilon_0}\frac{\partial \rho}{\partial t}
+    \nonumber\\
+    =&
+    -
+    \frac{1}{\epsilon_0}\left(
+        \nabla\cdot\bJ
+        +
+        \frac{\partial \rho}{\partial t}
+    \right)
+    \nonumber\\
+    =&
+    0
+    .\\
+    \frac{\partial\mathcal{C}_B}{\partial t}
+    =&
+    \nabla\cdot\frac{\partial\bB}{\partial t}
+    \nonumber\\
+    =&
+    \nabla\cdot\left(-\nabla\times\bE\right)
+    \nonumber\\
+    =&
+    0
+    .
+\end{align}
+We see that the evolution equations propogate the constraints--if we solve \eqref{eq:microscopic-Maxwell-divE} and \eqref{eq:microscopic-Maxwell-divB} on the initial time slice, then the evolution equations \eqref{eq:microscopic-Maxwell-crossE}, \eqref{eq:microscopic-Maxwell-crossB}, and \eqref{eq:conservation-of-charge} preserve those conditions later in time.
+
+In sum, the initial value problem can be specified as follows.
+\begin{enumerate}
+    \item Specify $\rho$ and $\bJ$ on the initial time slice. Also, specify 4 degrees of freedom from the fields $\bE, \bB$.
+    \item Solve \eqref{eq:microscopic-Maxwell-divE} and \eqref{eq:microscopic-Maxwell-divB} on the initial time slice for the remaining two degrees of freedom for $\bE$, $\bB$.
+    \item Evolve in time $(\rho,\bJ,\bE,\bB)$ using \eqref{eq:microscopic-Maxwell-crossE}, \eqref{eq:microscopic-Maxwell-crossB}, \eqref{eq:conservation-of-charge}, and \eqref{eq:Newtons-law-charge-carriers}. 
+        The current $\bJ$ can be related to \eqref{eq:Newtons-law-charge-carriers} via e.g. \eqref{eq:relation-current-charge-density} if we assume there is only one species of charge carrier.
+
+\end{enumerate}
+This discussion ignores some important practical concerns, especially when solving the Maxwell equations numerically:
+\begin{enumerate}
+    \item Which 4 degrees of freedom do we specify in $\bE$, $\bB$ on the initial data surface--and hence which other two degrees of freedom do we solve for?
+    \item While $\mathcal{C}_E$ and $\mathcal{C}_B$ are preserved by the equations of motion when we solve them \emph{exactly}, what if we only have an approximate (numerical) solution to the evolution equations?
+        How do we prevent $\mathcal{C}_E$ and $\mathcal{C}_B$ from getting too large (``drift away from the constraint surface'')?
+\end{enumerate}
+
+%==============================================================================
+\chapter{Electromagnetic potentials}
+
+The Maxwell equations imply that we can write the electric and magenetic fields as
+\begin{align}
+    \bE
+    =&
+    -
+    \nabla\phi
+    -
+    \frac{\partial\bA}{\partial t}
+    ,\\
+    \bB
+    =&
+    \nabla\times\bA
+    .
+\end{align}
+The vector $\bA$ is called the \textbf{vector potential} and we'll sometimes call $\phi$ the \textbf{scalar potential}. 
+Together they are called the \textbf{electromagentic potentials}.
+The electromagnetic potentials are required to quantize electromagnetism (quantum electrodynamics), and when coupling electromagnetic fields other fields (such as the gravitational field in general relativity).
+The electromagnetic potentials display the following \textbf{gauge symmetry}--that is under the following transformations the electric and magnetic fields remain unchanged
+\begin{align}
+    \bA
+    \to&
+    \bA
+    +
+    \nabla\psi
+    ,\\
+    \phi
+    \to&
+    \phi
+    -
+    \nabla\psi
+    ,
+\end{align}
+for an arbitrary scalar field $\psi$.
+Making a definite choice of the field $\psi$ is called \textbf{fixing a gauge}.
+
+%==============================================================================
+\chapter{Circuit theory}
+
+Here we derive the basic laws of circuit theory from the Maxwell equations.
+
+%==============================================================================
+\chapter{Antennas}
+
+%==============================================================================
+\appendix
+%==============================================================================
+\chapter{Index/vector notation}
+
+We generally denote the metric (coordinates) by $g_{ij}$.
+We use $\nabla$ to denote the metric-compatible (covariant) derivative with respect to the coordinate metric $g_{ij}$.
+We use $\partial_i$ to denote the partial derivative.
+For example, for a vector $V^i$ we have
+\begin{align}
+    \nabla_iV^j
+    =
+    \partial_iV^j
+    +
+    \Gamma^j_{ik}V^k
+    ,
+\end{align}
+where $\Gamma^k_{ji}$ is the Christoffel symbol.
+Notice we also make use of Einstein summation notation (repeated indices indicate a sum over that index).
+
+We sometimes make use of vector notation instead of index notation.
+By ``vector notation'' we mean using \textbf{bold font} for vectors, tensors etc.
+By ``index notation'' we mean explicitely listing the indices of vectors, tensors, etc.
+For example, in vector notation a vector could be $\bV$, while in index notation it would be $V^i$.
+The divergence and curl can alternatively be written as
+\begin{align}
+    \nabla\cdot\bV
+    =
+    \nabla_iV^i
+    ,\qquad
+    \left[\nabla\times \bV\right]^i
+    =
+    \epsilon^{ijk}\nabla_kV_k
+    ,
+\end{align}
+where $\epsilon^{ijk}$ is the Levi-Cevita \emph{tensor}.
+The Levi-Cevita \emph{symbol} is a totally antisymmetric quantity, and obeys
+\begin{align}
+    \tilde{\epsilon}_{ijk} = 1
+    .
+\end{align}
+The Levi-Cevita tensor is defined to be
+\begin{align}
+    \epsilon_{ijk} \equiv \sqrt{\det g} \; \tilde{\epsilon}_{ijk}
+    .
+\end{align}
+The determinant of an $n\times n$ matrix $M_{ij}$ is defined to be
+\begin{align}
+    \det g
+    \equiv
+    \tilde{\epsilon}_{i_1\cdots i_n}M_{1i_1}\cdots M_{ni_n}
+    .
+\end{align}
+This implies that
+\begin{align}
+    \epsilon^{ijk}
+    =
+    \frac{1}{\sqrt{\det g}} \tilde{\epsilon}_{ijk}
+    .
+\end{align}
+
+Throughout these notes we will assume that spacetime is \textbf{flat}--that is the Riemann tensor is always zero.
+The most relevant consequence of this assumption (which holds well for the vast majority of practical applications of the Maxwell equations) is that the covariant derivatives of any tensor comment, for example
+\begin{align}
+    \left[\nabla_i,\nabla_j\right]V^k
+    =
+    0
+    .
+\end{align}
+In particular, we have
+\begin{align}
+    \nabla\times\left(\nabla \cdot \bT\right) 
+    =
+    \nabla\cdot\left(\nabla \times \bT\right)
+    =
+    0
+    ,
+\end{align}
+for any tensor/scalar $\bT$.
+This would \emph{not} be true in general in a curved space! 
+
+%==============================================================================
+\chapter{Physical constants/units}
+
+\section{Physical constants}
+\begin{enumerate}
+    \item Speed of light $c\approx 3.0 \times 10^8 m/s$
+    \item Vacuum permitivity $\epsilon_0\approx 8.9 \times 10^{-12} F m^{-1}$
+    \item Vacuum permeability $\mu_0\approx 1.3\times 10^{-6} N A^{-2}$
+    \item Elementary charge $e\approx 1.6\times 10^{-19}C$
+\end{enumerate}
+
+There is the all-important relation
+\begin{align}
+    c^2
+    =
+    \frac{1}{\epsilon_0\mu_0}
+    .
+\end{align}
+
+\section{Units}
+\begin{enumerate}
+    \item $m$: meter. 
+    \item $s$: second. 
+    \item $N$: Newton.
+        Equal to 
+        \begin{align}
+            \mathrm{N}
+            =
+            \mathrm{kg} \times \mathrm{m} \times \mathrm{s}^{-2}
+            .
+        \end{align}
+    \item $A$: Ampere. Equal to one coulomb per second ($C/s$).
+    \item $F$: Farad (measure of capacitance). Equal to one coulomb per volt ($C/V$).
+        In SI units
+        \begin{align}
+            \mathrm{F} = \mathrm{s}^4\times \mathrm{A}^2 \times \mathrm{kg}^{-1} \times \mathrm{m}^{-2}
+            .
+        \end{align}
+\end{enumerate}
+%==============================================================================
+%\bibliography{jripley_notes_bib}
+%\bibliographystyle{alpha}
+%==============================================================================
+\end{document}

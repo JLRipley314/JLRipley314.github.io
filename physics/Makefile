@@ -3,14 +3,21 @@ all:
 
 npf=newman_penrose_formalism
 np:
-	latex    $(npf).tex
+	pdflatex $(npf).tex
 	bibtex   $(npf)
-	latex    $(npf).tex
+	pdflatex $(npf).tex
 	pdflatex $(npf).tex
 
 sph=spherical_perturbations
 sp:
-	latex    $(sph).tex
-	bibtex   $(sph)
-	latex    $(sph).tex
 	pdflatex $(sph).tex
+	bibtex   $(sph)
+	pdflatex $(sph).tex
+	pdflatex $(sph).tex
+
+ele=electromagnetism
+el:
+	pdflatex $(ele).tex
+	bibtex   $(ele)
+	pdflatex $(ele).tex
+	pdflatex $(ele).tex
