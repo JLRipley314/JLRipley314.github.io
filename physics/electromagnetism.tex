@@ -270,7 +270,7 @@ Another way of thinking about charge conservation is that the Maxwell equations 
 %==============================================================================
 \section{Initial value problem}
 
-We consider the \textbf{initial value problem} for the Maxwell equations.
+We consider the \textbf{initial value problem} for the microscopic Maxwell equations (for a review of concepts, see for example \cite{kreiss1989initial}).
 That is, we determine what variables we can set as free initial data on an initial time slice, and which variables must be solved as via a set of constraint equations. 
 
 First, we notice that \eqref{eq:microscopic-Maxwell-crossE} and \eqref{eq:microscopic-Maxwell-crossB} can be thought of as evolution equations for the magnetic and electric fields, \eqref{eq:conservation-of-charge}, \eqref{eq:Newtons-law-charge-carriers} can be thought of as an evolution equation for the electric charge density (along with the closure relation \eqref{eq:relation-current-charge-density}).
@@ -342,6 +342,29 @@ This discussion ignores some important practical concerns, especially when solvi
     \item While $\mathcal{C}_E$ and $\mathcal{C}_B$ are preserved by the equations of motion when we solve them \emph{exactly}, what if we only have an approximate (numerical) solution to the evolution equations?
         How do we prevent $\mathcal{C}_E$ and $\mathcal{C}_B$ from getting too large (``drift away from the constraint surface'')?
 \end{enumerate}
+
+Finally, we consider the speed at which the electric and magnetic fields propagate.
+The principal part of \eqref{eq:microscopic-Maxwell-crossE}, \eqref{eq:microscopic-Maxwell-crossB} are
+\begin{align}
+    \frac{\partial}{\partial t}\begin{pmatrix} E^i \\ B^i \end{pmatrix}
+    =
+    \begin{pmatrix}
+        0 & 1/\left(\mu_0\epsilon_0\right)
+        \\
+        - 1 & 0
+    \end{pmatrix}
+    \epsilon^{ijk}\nabla_k
+    \begin{pmatrix} E_j \\ B_j \end{pmatrix}
+        .
+\end{align}
+The characteristic speeds are
+\begin{align}
+    c^2
+    =
+    \frac{1}{\mu_0\epsilon_0}
+    .
+\end{align}
+That is, $1/\left(\mu_0\epsilon_0\right)$ describes the speed of propagating electromagnetic waves (light).
 
 %==============================================================================
 \chapter{Electromagnetic potentials}
@@ -510,7 +533,7 @@ There is the all-important relation
         \end{align}
 \end{enumerate}
 %==============================================================================
-%\bibliography{jripley_notes_bib}
-%\bibliographystyle{alpha}
+\bibliography{jripley_notes_bib}
+\bibliographystyle{alpha}
 %==============================================================================
 \end{document}
